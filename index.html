@@ -116,21 +116,13 @@
         </button>
       </div>
       <div id="toolsDropdown" class="top-bar-btn-group">
-        <button id="shareBtn" class="topbar-btn share-btn" onclick="openShareModal()" title="Ders planınızı paylaşın, görsel/JSON indirin veya transkript/yedek aktarın">
-          📤 Paylaş &amp; Aktar
+        <button type="button" id="desktopToolsBtn" class="topbar-btn desktop-tools-btn" onclick="openDesktopToolsModal()" title="Araçlar &amp; İşlemler Kataloğu">
+          🎛️ <span id="desktopToolsBtnLabel">Araçlar</span>
         </button>
-        <button id="guideBtn" class="topbar-btn guide-btn" onclick="openWelcomeModal()" title="Uygulama Rehberi ve Hızlı Başlangıç">
-          ❓ Rehber
-        </button>
-        <button id="feedbackBtn" class="topbar-btn feedback-btn" onclick="openFeedbackModal()" title="Hata Bildir veya Öneri Paylaş">
-          💬 Hata / Öneri
-        </button>
-        <a href="https://kreosus.com/bountracker" target="_blank" rel="noopener noreferrer" id="supportBtn" class="topbar-btn support-btn" onclick="handleSupportClick(event)" title="Projeye Destek Ol">☕ Destek Ol</a>
         <button id="langToggleBtn" class="topbar-btn lang-btn" onclick="toggleLanguage()" title="Dil Değiştir / Switch Language">
           🌐 <span id="langToggleLabel">TR | EN</span>
         </button>
         <button type="button" id="themeToggleBtn" class="topbar-btn theme-toggle-btn" onclick="toggleTheme()" aria-label="Temayı Değiştir" title="Temayı Değiştir">🌙</button>
-        <button id="resetBtn" class="reset-btn" onclick="resetCurrentDept()" title="Bölüm planını sıfırla">Sıfırla</button>
       </div>
       <input type="file" id="jsonFileInput" accept=".json,application/json" style="display: none;" onchange="importDataFromJSON(event)">
     </div>
@@ -171,6 +163,9 @@
       </div>
 
       <div id="course-pool" class="sidebar-scroll-pool">
+        <div id="customCourseBtnRow" class="custom-course-btn-row">
+          <button type="button" id="addCustomCourseBtn" class="add-custom-course-btn" onclick="addCustomCourse()" title="Havuza yeni ekstra/özel ders kartı ekle">➕ Ekstra Ders Ekle</button>
+        </div>
         <div id="poolActionBar" class="sidebar-segmented-bar pool-action-bar">
           <button type="button" id="prereqTreeBtn" class="sidebar-seg-btn prereq-tree-btn" onclick="openPrereqTreeModal()" title="Derslerin önkoşul ağacını ve kilit zincirlerini görüntüleyin">
             🕸️ Önkoşul Ağacı
@@ -190,7 +185,10 @@
             <div class="dash-row dash-row-top">
               <div class="dash-item">
                 <span class="dash-label">GPA</span>
-                <span id="gpa-display" class="dash-val">0.00</span>
+                <div class="dash-gpa-line">
+                  <span id="gpa-display" class="dash-val">0.00</span>
+                  <button type="button" id="whatIfBtn" class="whatif-trigger-btn" onclick="openWhatIfModal()" title="Hedef GNO &amp; Repeat Simülatörü">🎯 Hedef GNO</button>
+                </div>
               </div>
               <div class="dash-item" style="text-align: right;">
                 <span id="labelRemainingTotal" class="dash-label">Kalan / Toplam</span>
@@ -343,7 +341,7 @@
           <div class="share-col">
             <div id="shareExportSectionTitle" class="share-section-title">📤 Dışa Aktar &amp; Paylaş</div>
             <div class="share-options-grid">
-              <button type="button" class="share-option-card" onclick="exportPlanAsPng()">
+              <button type="button" class="share-option-card" onclick="closeShareModal(); openPngExportModal()">
                 <div class="share-option-icon">🖼️</div>
                 <div class="share-option-content">
                   <strong id="sharePngBtn">Görsel Olarak İndir (PNG)</strong>
@@ -389,6 +387,232 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="shareCancelBtn" class="btn-cancel-issue" onclick="closeShareModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pngExportModal" class="modal-backdrop" onclick="handlePngExportBackdropClick(event)">
+    <div class="modal-dialog png-export-dialog" role="dialog" aria-modal="true" aria-labelledby="pngExportModalTitle">
+      <div class="modal-header">
+        <h3 id="pngExportModalTitle">🖼️ Görsel Dışa Aktar (PNG)</h3>
+        <button type="button" class="modal-close-btn" onclick="closePngExportModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body png-export-body">
+        <div class="png-opt-group">
+          <div id="pngThemeLabel" class="png-opt-label">Tema Seçimi</div>
+          <div class="png-seg-row" role="radiogroup" aria-labelledby="pngThemeLabel">
+            <button type="button" class="png-seg-btn" id="pngThemeLightBtn" data-png-theme="light" onclick="setPngExportTheme('light')">☀️ Açık Tema</button>
+            <button type="button" class="png-seg-btn" id="pngThemeDarkBtn" data-png-theme="dark" onclick="setPngExportTheme('dark')">🌙 Koyu Tema</button>
+          </div>
+        </div>
+        <div class="png-opt-group">
+          <div id="pngLayoutLabel" class="png-opt-label">Yerleşim Yönü</div>
+          <div class="png-seg-row" role="radiogroup" aria-labelledby="pngLayoutLabel">
+            <button type="button" class="png-seg-btn active" id="pngLayoutHorizBtn" data-png-layout="horizontal" onclick="setPngExportLayout('horizontal')">↔️ Yatay (Geniş)</button>
+            <button type="button" class="png-seg-btn" id="pngLayoutVertBtn" data-png-layout="vertical" onclick="setPngExportLayout('vertical')">↕️ Dikey (Story)</button>
+          </div>
+        </div>
+        <label class="png-toggle-row" for="pngShowGradesCheck">
+          <input type="checkbox" id="pngShowGradesCheck" checked>
+          <span id="pngShowGradesLabel">Harf Notları &amp; GPA Bilgisini Göster</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="pngExportCancelBtn" class="btn-cancel-issue" onclick="closePngExportModal()">Vazgeç</button>
+        <button type="button" id="pngExportConfirmBtn" class="btn-submit-issue" onclick="confirmPngExport()">📥 PNG Olarak İndir</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="desktopToolsModal" class="modal-backdrop desktop-tools-backdrop" onclick="handleDesktopToolsBackdropClick(event)">
+    <div class="modal-dialog desktop-tools-dialog" role="dialog" aria-modal="true" aria-labelledby="desktopToolsModalTitle">
+      <div class="modal-header">
+        <h3 id="desktopToolsModalTitle">🎛️ Araçlar &amp; İşlemler Kataloğu</h3>
+        <button type="button" class="modal-close-btn" onclick="closeDesktopToolsModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body dt-modal-body">
+        <div class="dt-cat-section">
+          <div id="dtSecAnalysis" class="dt-cat-title">📊 Akademik Analiz &amp; Planlama</div>
+          <div class="dt-cards-grid">
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openWhatIfModal()">
+              <span class="dt-card-icon">🎯</span>
+              <span class="dt-card-text">
+                <strong id="dtWhatIfLabel">Hedef GNO &amp; Repeat Simülatörü</strong>
+                <span id="dtWhatIfDesc">Kalan derslerle hedef ortalamayı hesapla veya ders tekrarı simüle et</span>
+              </span>
+            </button>
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openDiscoveryModal()">
+              <span class="dt-card-icon">🧭</span>
+              <span class="dt-card-text">
+                <strong id="dtDiscoveryLabel">Bana En Yakın ÇAP / Yandal</strong>
+                <span id="dtDiscoveryDesc">Mevcut derslerinle en çok örtüşen programları keşfet</span>
+              </span>
+            </button>
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openPrereqTreeModal()">
+              <span class="dt-card-icon">🕸️</span>
+              <span class="dt-card-text">
+                <strong id="dtPrereqLabel">Önkoşul Ağacı</strong>
+                <span id="dtPrereqDesc">Derslerin önkoşul ve kilit zincirlerini görselleştir</span>
+              </span>
+            </button>
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openAutoFillModal()">
+              <span class="dt-card-icon">⚡</span>
+              <span class="dt-card-text">
+                <strong id="dtAutoFillLabel">Otomatik Doldur</strong>
+                <span id="dtAutoFillDesc">Kalan dersleri önkoşul sırasına göre dönemlere dağıt</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dt-cat-section">
+          <div id="dtSecData" class="dt-cat-title">📥 Veri &amp; Paylaşım</div>
+          <div class="dt-cards-grid">
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openTranscriptModal()">
+              <span class="dt-card-icon">📥</span>
+              <span class="dt-card-text">
+                <strong id="dtTranscriptLabel">Transkript Yükle</strong>
+                <span id="dtTranscriptDesc">ÖBİKAS / transkript dosyanı içeri aktar</span>
+              </span>
+            </button>
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openPngExportModal()">
+              <span class="dt-card-icon">🖼️</span>
+              <span class="dt-card-text">
+                <strong id="dtPngLabel">Görsel Olarak İndir</strong>
+                <span id="dtPngDesc">Planını tema ve yön seçerek PNG kaydet</span>
+              </span>
+            </button>
+            <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); copyShareLink()">
+              <span class="dt-card-icon">🔗</span>
+              <span class="dt-card-text">
+                <strong id="dtLinkLabel">Plan Linkini Paylaş</strong>
+                <span id="dtLinkDesc">4 yıllık planını tek linkle kopyala</span>
+              </span>
+            </button>
+            <button type="button" id="shareBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); openShareModal()">
+              <span class="dt-card-icon">💾</span>
+              <span class="dt-card-text">
+                <strong id="dtShareLabel">JSON Yedekle / Yükle</strong>
+                <span id="dtShareDesc">Tüm planını JSON dosyası olarak dışa aktar veya geri yükle</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dt-cat-section">
+          <div id="dtSecManage" class="dt-cat-title">⚙️ Yönetim &amp; Destek</div>
+          <div class="dt-cards-grid">
+            <button type="button" id="guideBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); openWelcomeModal()">
+              <span class="dt-card-icon">❓</span>
+              <span class="dt-card-text">
+                <strong id="dtGuideLabel">Rehber</strong>
+                <span id="dtGuideDesc">Uygulama rehberi ve hızlı başlangıç ipuçları</span>
+              </span>
+            </button>
+            <button type="button" id="feedbackBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); openFeedbackModal()">
+              <span class="dt-card-icon">💬</span>
+              <span class="dt-card-text">
+                <strong id="dtFeedbackLabel">Hata / Öneri</strong>
+                <span id="dtFeedbackDesc">Hata bildir veya yeni özellik önerisi paylaş</span>
+              </span>
+            </button>
+            <a href="https://kreosus.com/bountracker" target="_blank" rel="noopener noreferrer" id="supportBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); handleSupportClick(event)">
+              <span class="dt-card-icon">☕</span>
+              <span class="dt-card-text">
+                <strong id="dtSupportLabel">Destek Ol</strong>
+                <span id="dtSupportDesc">Boğaziçi Tracker'ın gelişimine katkıda bulun</span>
+              </span>
+            </a>
+            <button type="button" id="resetBtn" class="dt-tool-card dt-tool-danger" onclick="closeDesktopToolsModal(); resetCurrentDept()">
+              <span class="dt-card-icon">🗑️</span>
+              <span class="dt-card-text">
+                <strong id="dtResetLabel">Planı Sıfırla</strong>
+                <span id="dtResetDesc">Tüm seçimleri ve dönemleri başlangıç haline döndür</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="whatIfModal" class="modal-backdrop" onclick="handleWhatIfBackdropClick(event)">
+    <div class="modal-dialog whatif-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="whatIfModalTitle">
+      <div class="modal-header">
+        <h3 id="whatIfModalTitle">🎯 Hedef GNO &amp; Repeat Simülatörü</h3>
+        <button type="button" class="modal-close-btn" onclick="closeWhatIfModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body whatif-modal-body">
+        <div class="whatif-tabs" role="tablist">
+          <button type="button" id="whatIfTabTargetBtn" class="whatif-tab-btn active" onclick="switchWhatIfTab('target')">🎯 Tersine Hedef GNO</button>
+          <button type="button" id="whatIfTabRepeatBtn" class="whatif-tab-btn" onclick="switchWhatIfTab('repeat')">🔄 Ders Tekrarı (Repeat)</button>
+        </div>
+
+        <div id="whatIfTargetPane" class="whatif-pane active">
+          <div class="whatif-summary-grid" id="whatIfCurrentStats"></div>
+          <div class="whatif-target-controls">
+            <label id="whatIfTargetInputLabel" for="whatIfTargetInput">Hedeflediğin GNO:</label>
+            <div class="whatif-quick-row">
+              <button type="button" class="whatif-preset-btn" onclick="setWhatIfTarget(2.00)">2.00 Mezuniyet</button>
+              <button type="button" class="whatif-preset-btn" onclick="setWhatIfTarget(3.00)">3.00 Onur / ÇAP</button>
+              <button type="button" class="whatif-preset-btn" onclick="setWhatIfTarget(3.50)">3.50 Yüksek Onur</button>
+              <input type="number" id="whatIfTargetInput" class="whatif-target-input" min="0" max="4" step="0.01" value="3.00" oninput="renderWhatIfTargetResult()">
+            </div>
+          </div>
+          <div id="whatIfTargetResult" class="whatif-result-box"></div>
+        </div>
+
+        <div id="whatIfRepeatPane" class="whatif-pane">
+          <div class="whatif-repeat-banner" id="whatIfRepeatBanner"></div>
+          <div id="whatIfRepeatList" class="whatif-repeat-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="whatIfResetBtn" class="btn-cancel-issue" onclick="resetWhatIfRepeat()">↺ Sıfırla</button>
+        <button type="button" id="whatIfCloseBtn" class="btn-submit-issue" onclick="closeWhatIfModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="discoveryModal" class="modal-backdrop" onclick="handleDiscoveryBackdropClick(event)">
+    <div class="modal-dialog discovery-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="discoveryModalTitle">
+      <div class="modal-header">
+        <h3 id="discoveryModalTitle">🧭 Bana En Yakın ÇAP / Yandal Programları</h3>
+        <button type="button" class="modal-close-btn" onclick="closeDiscoveryModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body discovery-modal-body">
+        <div id="discoveryIntro" class="discovery-intro-box"></div>
+        <div id="discoveryFilterRow" class="discovery-filter-row">
+          <button type="button" class="whatif-preset-btn active" data-disc-filter="all" onclick="setDiscoveryFilter('all')">Tümü</button>
+          <button type="button" class="whatif-preset-btn" data-disc-filter="dm" onclick="setDiscoveryFilter('dm')">ÇAP</button>
+          <button type="button" class="whatif-preset-btn" data-disc-filter="minor" onclick="setDiscoveryFilter('minor')">Yandal</button>
+        </div>
+        <div id="discoveryList" class="discovery-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="discoveryCloseBtn" class="btn-cancel-issue" onclick="closeDiscoveryModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="electiveCatalogModal" class="modal-backdrop" onclick="handleElectiveCatalogBackdropClick(event)">
+    <div class="modal-dialog ec-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="ecModalTitle">
+      <div class="modal-header">
+        <h3 id="ecModalTitle">📚 Seçmeli Ders Kataloğu</h3>
+        <button type="button" class="modal-close-btn" onclick="closeElectiveCatalogModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body ec-modal-body">
+        <div id="ecSelectedBox" class="ec-selected-box is-hidden"></div>
+        <div id="ecProgressBanner" class="ec-progress-banner is-hidden"></div>
+        <div id="ecWarningBanner" class="ec-warning-banner is-hidden"></div>
+        <div class="ec-toolbar">
+          <input type="text" id="ecSearchInput" class="ec-search-input" placeholder="Ders kodu, adı veya açıklama ara..." oninput="renderElectiveCatalogList()">
+          <div id="ecCategoryTabs" class="ec-category-tabs"></div>
+        </div>
+        <div id="ecCourseList" class="ec-course-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="ecCloseBtn" class="btn-cancel-issue" onclick="closeElectiveCatalogModal()">Kapat</button>
       </div>
     </div>
   </div>
@@ -554,6 +778,11 @@
               <span class="cat-title" id="catDmTitle">ÇAP Ekle / Yönet</span>
               <span class="cat-sub" id="catDmSub">Çift anadal seç</span>
             </button>
+            <button type="button" id="catalogDiscoveryCard" class="catalog-card cat-card-blue" onclick="closeMobileCatalog(); openDiscoveryModal()">
+              <span class="cat-icon">🧭</span>
+              <span class="cat-title" id="catDiscoveryTitle">En Yakın ÇAP / Yandal</span>
+              <span class="cat-sub" id="catDiscoverySub">Derslerine göre keşfet</span>
+            </button>
           </div>
         </div>
 
@@ -564,6 +793,11 @@
               <span class="cat-icon">🕸️</span>
               <span class="cat-title" id="catPrereqTitle">Önkoşul Ağacı</span>
               <span class="cat-sub" id="catPrereqSub">Kilit zincirlerini gör</span>
+            </button>
+            <button type="button" id="catalogWhatIfCard" class="catalog-card cat-card-amber" onclick="closeMobileCatalog(); openWhatIfModal()">
+              <span class="cat-icon">🎯</span>
+              <span class="cat-title" id="catWhatIfTitle">Hedef GNO &amp; Repeat</span>
+              <span class="cat-sub" id="catWhatIfSub">What-If simülatörü</span>
             </button>
             <button type="button" id="catalogAutoFillCard" class="catalog-card cat-card-teal" onclick="closeMobileCatalog(); openAutoFillModal()">
               <span class="cat-icon">⚡</span>
@@ -586,7 +820,7 @@
               <span class="cat-title" id="catTranscriptTitle">Transkript Aktar (PDF)</span>
               <span class="cat-sub" id="catTranscriptSub">e-Devlet / BUIS yükle</span>
             </button>
-            <button type="button" id="catalogPngCard" class="catalog-card" onclick="closeMobileCatalog(); exportPlanAsPng()">
+            <button type="button" id="catalogPngCard" class="catalog-card" onclick="closeMobileCatalog(); openPngExportModal()">
               <span class="cat-icon">🖼️</span>
               <span class="cat-title" id="catPngTitle">Görsel İndir (PNG)</span>
               <span class="cat-sub" id="catPngSub">Planı resim kaydet</span>

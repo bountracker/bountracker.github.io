@@ -12,6 +12,29 @@ const GRADE_POINTS = {
   'CC': 2.0, 'DC': 1.5, 'DD': 1.0, 'F': 0.0, 'P': null, 'EX': null
 };
 
+const LETTER_GRADED_PA_CODES = new Set([
+  'PA368', 'PA369', 'PA393', 'PA395', 'PA396',
+  'PA451', 'PA452', 'PA453', 'PA454', 'PA467', 'PA468', 'PA469'
+]);
+
+function isPassFailCourse(inst, course) {
+  const rawCode = (inst && inst.catalogCourse && inst.catalogCourse.code)
+    || (inst && inst.customText)
+    || (course && course.code)
+    || '';
+  const norm = String(rawCode).trim().toUpperCase().replace(/\s+/g, '');
+  if (!norm) return false;
+  if (/^PE\d+/.test(norm)) return true;
+  if (/^PA\d+/.test(norm)) {
+    if (LETTER_GRADED_PA_CODES.has(norm)) return false;
+    const catEntry = (typeof ELECTIVE_CATALOG_BY_CODE !== 'undefined') ? ELECTIVE_CATALOG_BY_CODE[norm] : null;
+    const desc = (catEntry && catEntry.description) || (inst && inst.catalogCourse && inst.catalogCourse.description) || '';
+    if (/letter-graded/i.test(desc)) return false;
+    return true;
+  }
+  return false;
+}
+
 const savedLang = localStorage.getItem('boun_lang');
 let currentLang = (savedLang === 'tr' || savedLang === 'en')
   ? savedLang
@@ -681,13 +704,39 @@ function applyStaticTranslations() {
 
   setText('appSubtitle', t('appSubtitle'));
   setText('deptLabel', t('deptLabel'));
-  setText('feedbackBtn', t('feedbackBtn'));
+  const isEn = currentLang === 'en';
+  setText('desktopToolsBtnLabel', isEn ? 'Tools' : 'Araçlar');
+  setText('desktopToolsModalTitle', isEn ? '🎛️ Tools & Actions Catalog' : '🎛️ Araçlar & İşlemler Kataloğu');
+  setText('dtSecAnalysis', isEn ? '📊 Academic Analysis & Planning' : '📊 Akademik Analiz & Planlama');
+  setText('dtSecData', isEn ? '📥 Data & Sharing' : '📥 Veri & Paylaşım');
+  setText('dtSecManage', isEn ? '⚙️ Management & Support' : '⚙️ Yönetim & Destek');
+  setText('dtWhatIfLabel', isEn ? 'Target GPA & Repeat Simulator' : 'Hedef GNO & Repeat Simülatörü');
+  setText('dtWhatIfDesc', isEn ? 'Calculate target GPA with remaining credits or simulate course repeats' : 'Kalan derslerle hedef ortalamayı hesapla veya ders tekrarı simüle et');
+  setText('dtDiscoveryLabel', isEn ? 'Closest Double Major / Minor' : 'Bana En Yakın ÇAP / Yandal');
+  setText('dtDiscoveryDesc', isEn ? 'Discover programs with the highest overlap with your courses' : 'Mevcut derslerinle en çok örtüşen programları keşfet');
+  setText('dtPrereqLabel', isEn ? 'Prerequisite Tree' : 'Önkoşul Ağacı');
+  setText('dtPrereqDesc', isEn ? 'Visualize course prerequisites and unlock chains' : 'Derslerin önkoşul ve kilit zincirlerini görselleştir');
+  setText('dtAutoFillLabel', isEn ? 'Auto-Fill Plan' : 'Otomatik Doldur');
+  setText('dtAutoFillDesc', isEn ? 'Distribute remaining courses by prerequisite order' : 'Kalan dersleri önkoşul sırasına göre dönemlere dağıt');
+  setText('dtTranscriptLabel', isEn ? 'Upload Transcript' : 'Transkript Yükle');
+  setText('dtTranscriptDesc', isEn ? 'Import your ÖBİKAS / transcript PDF file' : 'ÖBİKAS / transkript dosyanı içeri aktar');
+  setText('dtPngLabel', isEn ? 'Download as Image' : 'Görsel Olarak İndir');
+  setText('dtPngDesc', isEn ? 'Save your plan as PNG with theme & layout options' : 'Planını tema ve yön seçerek PNG kaydet');
+  setText('dtLinkLabel', isEn ? 'Share Plan Link' : 'Plan Linkini Paylaş');
+  setText('dtLinkDesc', isEn ? 'Copy your 4-year plan as a single shareable link' : '4 yıllık planını tek linkle kopyala');
+  setText('dtShareLabel', isEn ? 'JSON Backup / Import' : 'JSON Yedekle / Yükle');
+  setText('dtShareDesc', isEn ? 'Export or restore your full plan as a JSON file' : 'Tüm planını JSON dosyası olarak dışa aktar veya geri yükle');
+  setText('dtGuideLabel', isEn ? 'Guide' : 'Rehber');
+  setText('dtGuideDesc', isEn ? 'View quick start guide and tips' : 'Uygulama rehberi ve hızlı başlangıç ipuçları');
+  setText('dtFeedbackLabel', isEn ? 'Report / Feedback' : 'Hata / Öneri');
+  setText('dtFeedbackDesc', isEn ? 'Report an issue or suggest a new feature' : 'Hata bildir veya yeni özellik önerisi paylaş');
+  setText('dtSupportLabel', isEn ? 'Support Us' : 'Destek Ol');
+  setText('dtSupportDesc', isEn ? 'Support the development of Boğaziçi Tracker' : 'Boğaziçi Tracker\'ın gelişimine katkıda bulun');
+  setText('dtResetLabel', isEn ? 'Reset Plan' : 'Planı Sıfırla');
+  setText('dtResetDesc', isEn ? 'Restore all selections and semesters to initial state' : 'Tüm seçimleri ve dönemleri başlangıç haline döndür');
   setAttr('feedbackBtn', 'title', t('feedbackBtnTitle'));
-  setText('shareBtn', t('shareBtn'));
   setAttr('shareBtn', 'title', t('shareBtnTitle'));
-  setText('supportBtn', t('supportBtn'));
   setAttr('supportBtn', 'title', t('supportBtnTitle'));
-  setText('resetBtn', t('resetBtn'));
   setAttr('resetBtn', 'title', t('resetBtnTitle'));
 
   const langHtml = currentLang === 'tr'
@@ -806,6 +855,8 @@ function applyStaticTranslations() {
   setText('welcomeFeedbackBtn', t('welcomeFeedbackBtn'));
   setText('welcomeStartBtn', t('welcomeStartBtn'));
 
+  setText('addCustomCourseBtn', currentLang === 'en' ? '➕ Add Extra Course' : '➕ Ekstra Ders Ekle');
+  setAttr('addCustomCourseBtn', 'title', currentLang === 'en' ? 'Add a new extra/custom course card to the pool' : 'Havuza yeni ekstra/özel ders kartı ekle');
   setText('prereqTreeBtn', t('prereqTreeBtn'));
   setAttr('prereqTreeBtn', 'title', t('prereqTreeBtnTitle'));
   updateAutoFillButtonLabel();
@@ -1134,7 +1185,40 @@ function isRepeatInstance(inst, instances) {
   return sortedSame[0].instanceId !== inst.instanceId;
 }
 
+function refreshAllPrereqWarnings() {
+  const state = getDeptState(currentDept);
+  const instances = state.instances || [];
+  instances.forEach(inst => {
+    const card = document.getElementById(`inst-${inst.instanceId}`);
+    if (!card) return;
+    const course = getCourseForInstance(inst);
+    if (!course) return;
+
+    const effectivePrereq = resolveDynamicPrereqForInstance(inst, course);
+    const missing = !inst.passed ? getMissingPrereqsForInstance(inst, effectivePrereq, instances) : [];
+
+    card.classList.toggle('prereq-missing', missing.length > 0);
+    let badgeEl = card.querySelector('.course-prereq-missing-badge');
+    if (missing.length > 0) {
+      if (!badgeEl) {
+        badgeEl = document.createElement('div');
+        badgeEl.className = 'course-prereq-missing-badge';
+        const controlsEl = card.querySelector('.course-controls');
+        if (controlsEl) {
+          card.insertBefore(badgeEl, controlsEl);
+        } else {
+          card.appendChild(badgeEl);
+        }
+      }
+      badgeEl.textContent = `⚠️ ${t('missingPrereqLabel')}: ${missing.join(', ')}`;
+    } else if (badgeEl) {
+      badgeEl.remove();
+    }
+  });
+}
+
 function refreshRepeatBadges() {
+  refreshAllPrereqWarnings();
   const state = getDeptState(currentDept);
   const instances = state.instances || [];
   instances.forEach(inst => {
@@ -1324,8 +1408,12 @@ function getPrereqFromMaps(code) {
 }
 
 function resolveDynamicPrereqForInstance(inst, course) {
-  const basePrereq = course && course.prereq ? course.prereq : '';
-  if (!course || !course.isElective || !inst || !inst.customText) return basePrereq;
+  if (!course) return '';
+  if (course.isCustom) {
+    return course.prereq || getPrereqFromMaps(course.code) || '';
+  }
+  const basePrereq = course.prereq ? course.prereq : '';
+  if (!course.isElective || !inst || !inst.customText) return basePrereq;
   const assignedCode = extractAssignedElectiveCode(inst.customText);
   if (!assignedCode) return basePrereq;
   const assignedPrereq = getPrereqFromMaps(assignedCode);
@@ -1397,11 +1485,12 @@ function getDmTargetKey(deptKey) {
 
 async function loadCurriculum() {
   try {
-    const [currResp, minorsResp, dmResp, preqResp] = await Promise.all([
+    const [currResp, minorsResp, dmResp, preqResp, electivesResp] = await Promise.all([
       fetch('./data/curriculum.json'),
       fetch('./data/minors.json'),
       fetch('./data/dm_curriculum.json').catch(() => ({ ok: false })),
-      fetch('./data/preq.json').catch(() => ({ ok: false }))
+      fetch('./data/preq.json').catch(() => ({ ok: false })),
+      fetch('./data/bogazici_electives_all.json').catch(() => ({ ok: false }))
     ]);
 
     if (!currResp.ok) throw new Error(`HTTP Hata: ${currResp.status}`);
@@ -1414,6 +1503,15 @@ async function loadCurriculum() {
         initPreqJsonMap(preqList);
       } catch (pErr) {
         console.warn("preq.json okunamadı:", pErr);
+      }
+    }
+
+    if (electivesResp && electivesResp.ok) {
+      try {
+        const rawElectives = await electivesResp.json();
+        initElectivesCatalog(rawElectives);
+      } catch (eErr) {
+        console.warn("bogazici_electives_all.json okunamadı:", eErr);
       }
     }
 
@@ -1771,11 +1869,17 @@ function getDeptState(deptKey) {
   if (!Array.isArray(globalState[deptKey].erasmusSemesters)) {
     globalState[deptKey].erasmusSemesters = [];
   }
+  if (!Array.isArray(globalState[deptKey].customCourses)) {
+    globalState[deptKey].customCourses = [];
+  }
   return globalState[deptKey];
 }
 
 function findCourseById(courseId) {
   if (!courseId) return null;
+  const customList = getDeptState(currentDept).customCourses || [];
+  const customCourse = customList.find(c => c.id === courseId);
+  if (customCourse) return customCourse;
   const dmCourses = getActiveDmCourseList();
   if (dmCourses.length > 0) {
     const dmCourse = dmCourses.find(c => c.id === courseId);
@@ -1797,7 +1901,22 @@ function getCourseForInstance(inst) {
   if (!inst) return null;
   if (inst.minorCourse) return inst.minorCourse;
   if (inst.dmCourse) return inst.dmCourse;
-  return findCourseById(inst.courseId);
+  const baseCourse = findCourseById(inst.courseId) || inst.customCourse || null;
+  if (inst.catalogCourse) {
+    return {
+      ...(baseCourse || {}),
+      id: inst.courseId,
+      code: inst.catalogCourse.code,
+      name: inst.catalogCourse.name,
+      crd: Number(inst.catalogCourse.crd) || 0,
+      prereq: inst.catalogCourse.prereq || (baseCourse ? baseCourse.prereq : '') || '',
+      isElective: true,
+      isSplitChild: !!inst.splitGroupId,
+      slotCode: baseCourse ? baseCourse.code : '',
+      slotName: baseCourse ? baseCourse.name : ''
+    };
+  }
+  return baseCourse;
 }
 
 function saveGlobalState() {
@@ -1959,15 +2078,36 @@ function calculateAverages() {
   const passedCourseCodes = new Set();
   let completedCreditsTotal = 0;
 
+  const splitGroupsStatus = {};
+  sortedInstances.forEach(inst => {
+    if (inst.splitSlotCourseId) {
+      if (!splitGroupsStatus[inst.splitSlotCourseId]) splitGroupsStatus[inst.splitSlotCourseId] = [];
+      splitGroupsStatus[inst.splitSlotCourseId].push(inst);
+    }
+  });
+
   sortedInstances.forEach(inst => {
     if (inst.passed) {
-      passedCourseIds.add(inst.courseId);
+      if (inst.splitSlotCourseId) {
+        const siblings = splitGroupsStatus[inst.splitSlotCourseId] || [];
+        const allSiblingsPassed = siblings.length >= 2 && siblings.every(s => s.passed === true && s.grade !== 'F');
+        if (allSiblingsPassed) {
+          passedCourseIds.add(inst.splitSlotCourseId);
+        }
+      } else {
+        passedCourseIds.add(inst.courseId);
+      }
       const course = getCourseForInstance(inst);
       if (course) {
         if (course.code) passedCourseCodes.add(course.code.replace(/\s+/g, '').toUpperCase());
         const isErasmusTerm = erasmusSet.has(inst.semId);
+        const isPF = isPassFailCourse(inst, course);
+        const rawGrade = inst.grade || (isPF ? 'P' : 'AA');
+        const resolvedGrade = (isErasmusTerm || rawGrade === 'EX')
+          ? 'EX'
+          : (isPF && !['P', 'F'].includes(rawGrade) ? 'P' : rawGrade);
         latestPassedByCourse[inst.courseId] = {
-          grade: (isErasmusTerm || inst.grade === 'EX') ? 'EX' : (inst.grade || 'AA'),
+          grade: resolvedGrade,
           crd: Number(course.crd) || 0
         };
       }
@@ -2037,8 +2177,12 @@ function updateSidebarPool() {
 
   const pool = document.getElementById('course-pool');
   const poolActionBar = document.getElementById('poolActionBar');
+  const customBtnRow = document.getElementById('customCourseBtnRow');
   if (poolActionBar && poolActionBar.parentNode === pool) {
     poolActionBar.remove();
+  }
+  if (customBtnRow && customBtnRow.parentNode === pool) {
+    customBtnRow.remove();
   }
   if (dashCardWrapper && dashCardWrapper.parentNode === pool) {
     dashCardWrapper.remove();
@@ -2046,6 +2190,112 @@ function updateSidebarPool() {
   pool.innerHTML = '';
   if (poolActionBar) {
     pool.appendChild(poolActionBar);
+  }
+  if (customBtnRow) {
+    pool.appendChild(customBtnRow);
+  }
+
+  const customCourses = state.customCourses || [];
+  if (customCourses.length > 0) {
+    const customGroup = document.createElement('div');
+    customGroup.className = 'pool-sem-group pool-custom-group';
+    const customHeader = document.createElement('div');
+    customHeader.className = 'pool-sem-header';
+    const customGroupTitle = currentLang === 'en' ? '✨ Custom / Extra Courses' : '✨ Özel / Ekstra Dersler';
+    customHeader.innerHTML = `
+      <span>${escapeHTML(customGroupTitle)}</span>
+      <span>${customCourses.length} ${escapeHTML(t('courseUnit'))}</span>
+    `;
+    customGroup.appendChild(customHeader);
+
+    customCourses.forEach(course => {
+      const placedInst = state.instances.find(inst => inst.courseId === course.id);
+      const isPlaced = !!placedInst;
+      const isPassed = !!(placedInst && placedInst.passed);
+
+      const poolCard = document.createElement('div');
+      const stateClass = isPlaced ? (isPassed ? 'status-passed' : 'status-failed') : '';
+      poolCard.className = `course-card custom-course-card ${stateClass}`.trim();
+      poolCard.draggable = !isMobileDevice();
+      poolCard.dataset.courseId = course.id;
+      poolCard.dataset.customPoolId = course.id;
+
+      const safePrereq = course.prereq ? escapeHTML(translatePrereq(course.prereq)) : '';
+      let badgeHtml = `<span class="status-badge pending">${escapeHTML(t('notTaken'))}</span>`;
+      if (isPlaced) {
+        if (isPassed) {
+          const gradeStr = placedInst.grade ? ` (${escapeHTML(placedInst.grade)})` : '';
+          badgeHtml = `<span class="status-badge locked">${escapeHTML(currentLang === 'en' ? '✓ Passed' : '✓ Verildi')}${gradeStr}</span>`;
+        } else {
+          badgeHtml = `<span class="status-badge failed">${escapeHTML(currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi')}</span>`;
+        }
+      }
+
+      poolCard.innerHTML = `
+        <div class="custom-course-edit-row">
+          <input type="text"
+                 class="custom-course-input code-input"
+                 draggable="false"
+                 value="${escapeHTML(course.code)}"
+                 placeholder="${escapeHTML(currentLang === 'en' ? 'Course Code (e.g. PE 101)' : 'Ders Kodu (örn. PE 101)')}"
+                 aria-label="${escapeHTML(currentLang === 'en' ? 'Course Code' : 'Ders Kodu')}"
+                 onmousedown="event.stopPropagation()"
+                 onclick="event.stopPropagation()"
+                 oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'code', this.value)" onchange="updateCustomCourseField('${escapeHTML(course.id)}', 'code', this.value)">
+          <label class="custom-course-crd-wrap" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">
+            <input type="number"
+                   class="custom-course-crd-input"
+                   draggable="false"
+                   step="0.5"
+                   min="0"
+                   max="30"
+                   value="${course.crd}"
+                   aria-label="${escapeHTML(currentLang === 'en' ? 'Credits' : 'Kredi')}"
+                   title="${escapeHTML(currentLang === 'en' ? 'Credits' : 'Kredi')}"
+                   oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'crd', this.value)">
+            <span>Cr</span>
+          </label>
+          <button type="button"
+                  class="custom-course-delete-btn"
+                  onclick="deleteCustomCourse('${escapeHTML(course.id)}', event)"
+                  title="${currentLang === 'en' ? 'Delete custom course' : 'Özel dersi sil'}">✕</button>
+        </div>
+        <div class="custom-course-edit-row">
+          <input type="text"
+                 class="custom-course-input name-input"
+                 draggable="false"
+                 value="${escapeHTML(course.name)}"
+                 placeholder="${currentLang === 'en' ? 'Course Name' : 'Ders Adı'}"
+                 aria-label="${currentLang === 'en' ? 'Course Name' : 'Ders Adı'}"
+                 onmousedown="event.stopPropagation()"
+                 onclick="event.stopPropagation()"
+                 oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'name', this.value)">
+        </div>
+        <div class="course-prereq" style="${safePrereq ? '' : 'display:none;'}">${safePrereq}</div>
+        <div class="course-controls" style="margin-top: 4px;">
+          ${badgeHtml}
+          <button type="button" class="mobile-term-pick-btn" onclick="openTermPickerModal('${escapeHTML(course.id)}'); event.stopPropagation();">
+            ${escapeHTML(t('addToTermBtn'))}
+          </button>
+        </div>
+      `;
+
+      if (isPlaced) {
+        poolCard.style.cursor = 'pointer';
+        poolCard.addEventListener('click', (e) => {
+          if (e.target && e.target.closest('input, select, button, label, a')) return;
+          toggleInstancePassed(placedInst.instanceId, !placedInst.passed);
+        });
+      }
+
+      if (!isMobileDevice()) {
+        poolCard.addEventListener('dragstart', handlePoolDragStart);
+        poolCard.addEventListener('dragend', handleDragEnd);
+      }
+      customGroup.appendChild(poolCard);
+    });
+
+    pool.appendChild(customGroup);
   }
 
   const groups = {
@@ -2092,10 +2342,61 @@ function updateSidebarPool() {
     groupContainer.appendChild(groupHeader);
 
     groupCourses.forEach(course => {
+      const splitChildren = state.instances
+        .filter(inst => inst.splitSlotCourseId === course.id && inst.catalogCourse)
+        .sort((a, b) => (a.splitIndex || 1) - (b.splitIndex || 1));
+
+      if (splitChildren.length >= 1) {
+        const allSplitPassed = splitChildren.length >= 2 && splitChildren.every(ch => ch.passed === true && ch.grade !== 'F');
+        const splitCard = document.createElement('div');
+        splitCard.className = `course-card pool-split-card ${allSplitPassed ? 'status-passed pool-locked' : 'status-failed'}`;
+
+        const halves = [0, 1].map(idx => {
+          const ch = splitChildren[idx];
+          if (!ch) {
+            const firstInstId = splitChildren[0] ? splitChildren[0].instanceId : '';
+            return `
+              <div class="split-half status-failed"
+                   onclick="openElectiveCatalogModal('${escapeHTML(firstInstId)}'); event.stopPropagation();">
+                <div class="split-half-code">+ ${currentLang === 'en' ? 'Select 2nd' : '2. Dersi Seç'}</div>
+                <div class="split-half-meta">${currentLang === 'en' ? '1 course missing' : '1 ders eksik'}</div>
+              </div>
+            `;
+          }
+          const stCls = ch.passed ? 'status-passed' : 'status-failed';
+          const stTxt = ch.passed ? `✓ ${escapeHTML(ch.grade || (isPassFailCourse(ch, ch.catalogCourse) ? 'P' : 'AA'))}` : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi');
+          const displayCode = (ch.customText && ch.customText.trim()) ? ch.customText.trim() : (ch.catalogCourse.code || '');
+          return `
+            <div class="split-half ${stCls}"
+                 onclick="toggleInstancePassed('${escapeHTML(ch.instanceId)}', ${!ch.passed}); event.stopPropagation();"
+                 title="${escapeHTML(displayCode)} — ${escapeHTML(ch.catalogCourse.name)}">
+              <div class="split-half-code" data-split-code-inst-id="${escapeHTML(ch.instanceId)}">${escapeHTML(displayCode)}</div>
+              <div class="split-half-meta">${ch.catalogCourse.crd} Cr • ${escapeHTML(stTxt)}</div>
+            </div>
+          `;
+        }).join('');
+
+        const overallLabel = allSplitPassed
+          ? (currentLang === 'en' ? '✓ Passed (2/2)' : '✓ Verildi (2/2)')
+          : (currentLang === 'en' ? '✕ Incomplete' : '✕ Verilmedi');
+
+        splitCard.innerHTML = `
+          <div class="pool-split-header">
+            <span>${escapeHTML(course.code)}</span>
+            <span class="split-slot-badge">${escapeHTML(overallLabel)}</span>
+          </div>
+          <div class="pool-split-halves">${halves}</div>
+        `;
+        groupContainer.appendChild(splitCard);
+        return;
+      }
+
       const normCourseCode = course.code ? course.code.replace(/\s+/g, '').toUpperCase() : '';
       const courseInstances = state.instances.filter(inst => {
         if (inst.courseId === course.id) return true;
+        if (inst.isCustom || (inst.courseId && String(inst.courseId).startsWith('custom'))) return false;
         const instCourse = getCourseForInstance(inst);
+        if (instCourse && instCourse.isCustom) return false;
         if (instCourse && instCourse.code && normCourseCode) {
           return instCourse.code.replace(/\s+/g, '').toUpperCase() === normCourseCode;
         }
@@ -2142,7 +2443,42 @@ function updateSidebarPool() {
           </div>
           <span class="course-credits">${course.crd} Cr</span>
         </div>
-        <div class="course-name">${safeName}</div>
+        ${course.isCustom ? `
+      <div class="custom-course-edit-row" style="margin-top:4px;">
+        <input type="text"
+               class="custom-course-input"
+               draggable="false"
+               value="${safeCode}"
+               placeholder="${escapeHTML(currentLang === 'en' ? 'Course Code (e.g. PE 101)' : 'Ders Kodu (örn. PE 101)')}"
+               onmousedown="event.stopPropagation()"
+               onclick="event.stopPropagation()"
+               oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'code', this.value)" onchange="updateCustomCourseField('${escapeHTML(course.id)}', 'code', this.value)">
+        <label class="custom-course-crd-wrap" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">
+          <input type="number"
+                 class="custom-course-crd-input"
+                 draggable="false"
+                 step="0.5"
+                 min="0"
+                 max="30"
+                 value="${course.crd}"
+                 oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'crd', this.value)">
+          <span>Cr</span>
+        </label>
+      </div>
+      <div class="custom-course-edit-row">
+        <input type="text"
+               class="custom-course-input name-input"
+               draggable="false"
+               value="${safeName}"
+               placeholder="${currentLang === 'en' ? 'Course Name' : 'Ders Adı'}"
+               onmousedown="event.stopPropagation()"
+               onclick="event.stopPropagation()"
+               oninput="updateCustomCourseField('${escapeHTML(course.id)}', 'name', this.value)">
+      </div>
+    ` : `<div class="course-name">${safeName}</div>`}
+        ${(course.isElective && courseInstances.length > 0 && courseInstances[0] && courseInstances[0].customText) ? `
+          <div class="course-prereq" data-pool-code-inst-id="${escapeHTML(courseInstances[0].instanceId)}" style="font-weight:700; color: var(--info-color);">${escapeHTML(courseInstances[0].customText)}</div>
+        ` : ''}
         ${safePrereq ? `<div class="course-prereq">${safePrereq}</div>` : ''}
         ${poolCourseUrl ? `
           <div class="course-desc-link-wrap">
@@ -2191,8 +2527,19 @@ function handleMobileAddCourse(courseId, targetSem, selectEl) {
 
   const isMinor = !!course.isMinor;
   const isDm = !!course.isDoubleMajor;
+  const isCustom = !!course.isCustom;
+
+  if (isCustom) {
+    const prevInst = state.instances.find(i => i.courseId === course.id);
+    if (prevInst) {
+      const oldCard = document.getElementById(`inst-${prevInst.instanceId}`);
+      if (oldCard) oldCard.remove();
+      state.instances = state.instances.filter(i => i.courseId !== course.id);
+    }
+  }
+
   const newInst = {
-    instanceId: 'inst_' + (isMinor ? 'user_minor_' : (isDm ? 'user_dm_' : '')) + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+    instanceId: 'inst_' + (isMinor ? 'user_minor_' : (isDm ? 'user_dm_' : (isCustom ? 'custom_' : ''))) + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
     courseId: courseId,
     semId: targetSem,
     passed: false,
@@ -2201,16 +2548,31 @@ function handleMobileAddCourse(courseId, targetSem, selectEl) {
     isMinor: isMinor,
     minorCourse: isMinor ? course : undefined,
     isDoubleMajor: isDm,
-    dmCourse: isDm ? course : undefined
+    dmCourse: isDm ? course : undefined,
+    isCustom: isCustom,
+    customCourse: isCustom ? course : undefined
   };
 
-  state.instances.push(newInst);
+  if (isCustom) {
+    state.instances.unshift(newInst);
+  } else {
+    state.instances.push(newInst);
+  }
   saveGlobalState();
 
   const card = createSemesterCourseCard(newInst, course);
   const targetBox = document.querySelector(`[data-sem-id="${targetSem}"]`);
   if (targetBox) {
-    targetBox.appendChild(card);
+    if (isCustom) {
+      const firstCard = targetBox.querySelector('.course-card');
+      if (firstCard) {
+        targetBox.insertBefore(card, firstCard);
+      } else {
+        targetBox.appendChild(card);
+      }
+    } else {
+      targetBox.appendChild(card);
+    }
   }
 
   if (selectEl) selectEl.value = "";
@@ -2324,9 +2686,18 @@ function createSemesterCourseCard(inst, course) {
   card.draggable = !isPassed && !isMobile;
   card.dataset.instanceId = inst.instanceId;
 
-  const currentGrade = inst.grade || 'AA';
+  const isPF = isPassFailCourse(inst, course);
+  let currentGrade = inst.grade || (isPF ? 'P' : 'AA');
+  if (isPF && !['P', 'F', 'EX'].includes(currentGrade)) {
+    currentGrade = 'P';
+    inst.grade = 'P';
+  }
+  const allowedGrades = isPF ? ['P', 'F'] : Object.keys(GRADE_POINTS);
+  if (isPF && currentGrade === 'EX' && !allowedGrades.includes('EX')) {
+    allowedGrades.push('EX');
+  }
 
-  const gradeOptions = Object.keys(GRADE_POINTS).map(g => {
+  const gradeOptions = allowedGrades.map(g => {
     const valText = GRADE_POINTS[g] !== null ? `(${GRADE_POINTS[g].toFixed(1)})` : (g === 'EX' ? '(Transfer)' : '(Pass)');
     return `<option value="${g}" ${currentGrade === g ? 'selected' : ''}>${g} ${valText}</option>`;
   }).join('');
@@ -2393,6 +2764,13 @@ function createSemesterCourseCard(inst, course) {
              placeholder="${escapeHTML(t('electiveInputPlaceholder'))}"
              value="${safeCustomText}"
              oninput="handleInstanceInput('${inst.instanceId}', this.value)">
+      ${getElectiveCatalogCategories(findCourseById(inst.splitSlotCourseId || inst.courseId) || course) ? `
+        <button type="button"
+                class="elective-catalog-btn"
+                onclick="openElectiveCatalogModal('${escapeHTML(inst.instanceId)}'); event.stopPropagation();">
+          📚 ${escapeHTML(currentLang === 'en' ? 'Choose from Catalog' : 'Katalogdan Seç')}
+        </button>
+      ` : ''}
     ` : ''}
 
     <div class="course-controls">
@@ -2401,7 +2779,9 @@ function createSemesterCourseCard(inst, course) {
         ${escapeHTML(t('passedCheck'))}
       </label>
       <span class="status-badge ${isPassed ? 'locked' : 'failed'}">
-        ${escapeHTML(isPassed ? t('completedBadge') : t('failedStatus'))}
+        ${escapeHTML(course.isCustom
+          ? (isPassed ? (currentLang === 'en' ? '✓ Passed' : '✓ Verildi') : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi'))
+          : (isPassed ? t('completedBadge') : t('failedStatus')))}
       </span>
     </div>
   `;
@@ -2409,6 +2789,14 @@ function createSemesterCourseCard(inst, course) {
   if (!isPassed && !isMobile) {
     card.addEventListener('dragstart', handleInstanceDragStart);
     card.addEventListener('dragend', handleDragEnd);
+  }
+
+  if (course.isCustom) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      if (e.target && e.target.closest('input, select, button, label, a')) return;
+      toggleInstancePassed(inst.instanceId, !inst.passed);
+    });
   }
 
   return card;
@@ -2513,33 +2901,61 @@ function handleDrop(e) {
 
     const isMinor = !!course.isMinor;
     const isDm = !!course.isDoubleMajor;
+    const isCustom = !!course.isCustom;
+
+    let preservedPassed = false;
+    let preservedGrade = 'AA';
+    if (isCustom) {
+      const prevInst = state.instances.find(i => i.courseId === draggedId);
+      if (prevInst) {
+        preservedPassed = !!prevInst.passed;
+        preservedGrade = prevInst.grade || 'AA';
+        const oldCard = document.getElementById(`inst-${prevInst.instanceId}`);
+        if (oldCard) oldCard.remove();
+        state.instances = state.instances.filter(i => i.courseId !== draggedId);
+      }
+    }
+
     const newInst = {
-      instanceId: 'inst_' + (isMinor ? 'user_minor_' : (isDm ? 'user_dm_' : '')) + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+      instanceId: 'inst_' + (isMinor ? 'user_minor_' : (isDm ? 'user_dm_' : (isCustom ? 'custom_' : ''))) + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
       courseId: draggedId,
       semId: semId,
-      passed: false,
-      grade: 'AA',
+      passed: preservedPassed,
+      grade: preservedGrade,
       customText: '',
       isMinor: isMinor,
       minorCourse: isMinor ? course : undefined,
       isDoubleMajor: isDm,
-      dmCourse: isDm ? course : undefined
+      dmCourse: isDm ? course : undefined,
+      isCustom: isCustom,
+      customCourse: isCustom ? course : undefined
     };
 
-    const targetIndex = afterElement
-      ? state.instances.findIndex(i => i.instanceId === afterElement.dataset.instanceId)
-      : state.instances.length;
-
-    if (targetIndex > -1 && targetIndex < state.instances.length) {
-      state.instances.splice(targetIndex, 0, newInst);
+    if (isCustom) {
+      state.instances.unshift(newInst);
     } else {
-      state.instances.push(newInst);
+      const targetIndex = afterElement
+        ? state.instances.findIndex(i => i.instanceId === afterElement.dataset.instanceId)
+        : state.instances.length;
+
+      if (targetIndex > -1 && targetIndex < state.instances.length) {
+        state.instances.splice(targetIndex, 0, newInst);
+      } else {
+        state.instances.push(newInst);
+      }
     }
 
     saveGlobalState();
 
     const card = createSemesterCourseCard(newInst, course);
-    if (afterElement) {
+    if (isCustom) {
+      const firstCard = this.querySelector('.course-card');
+      if (firstCard) {
+        this.insertBefore(card, firstCard);
+      } else {
+        this.appendChild(card);
+      }
+    } else if (afterElement) {
       this.insertBefore(card, afterElement);
     } else {
       this.appendChild(card);
@@ -2588,8 +3004,15 @@ function toggleInstancePassed(instanceId, isChecked) {
   const inst = state.instances.find(i => i.instanceId === instanceId);
   if (inst) {
     inst.passed = isChecked;
-    if (isChecked && !inst.grade) {
-      inst.grade = 'AA';
+    const courseForGrade = getCourseForInstance(inst);
+    if (isChecked) {
+      if (isPassFailCourse(inst, courseForGrade)) {
+        if (!inst.grade || !['P', 'F', 'EX'].includes(inst.grade) || inst.grade === 'F') {
+          inst.grade = 'P';
+        }
+      } else if (!inst.grade || inst.grade === 'F') {
+        inst.grade = 'AA';
+      }
     }
     saveGlobalState();
 
@@ -2609,6 +3032,7 @@ function handleGradeChange(instanceId, newGrade) {
   if (inst) {
     inst.grade = newGrade;
     saveGlobalState();
+    refreshRepeatBadges();
     updateSidebarPool();
   }
 }
@@ -2633,6 +3057,20 @@ function handleInstanceInput(instanceId, text) {
   const inst = state.instances.find(i => i.instanceId === instanceId);
   if (inst) {
     inst.customText = text;
+    const trimmed = String(text || '').trim();
+    if (inst.splitSlotCourseId && inst.catalogCourse) {
+      inst.catalogCourse.code = trimmed;
+    }
+    const poolSplitStatic = document.querySelector(`[data-split-code-inst-id="${CSS.escape(instanceId)}"]`);
+    if (poolSplitStatic) {
+      const fallbackCourse = findCourseById(inst.splitSlotCourseId || inst.courseId);
+      poolSplitStatic.textContent = trimmed || (fallbackCourse ? fallbackCourse.code : '');
+    }
+    const poolSingleStatic = document.querySelector(`[data-pool-code-inst-id="${CSS.escape(instanceId)}"]`);
+    if (poolSingleStatic) {
+      poolSingleStatic.textContent = trimmed;
+      poolSingleStatic.style.display = trimmed ? '' : 'none';
+    }
     saveGlobalState();
 
     const card = document.getElementById(`inst-${instanceId}`);
@@ -2690,6 +3128,7 @@ function handleInstanceInput(instanceId, text) {
         }
       }
     }
+    refreshAllPrereqWarnings();
   }
 }
 
@@ -2930,6 +3369,7 @@ function copyShareLink() {
       dept: currentDept,
       minor: state.selectedMinorId || null,
       dm: state.selectedDmId || null,
+      customCourses: state.customCourses || [],
       plan: state.instances || []
     };
 
@@ -2956,7 +3396,83 @@ function copyShareLink() {
   }
 }
 
-function createShareExportBoard() {
+let pngExportState = {
+  theme: 'light',
+  layout: 'horizontal'
+};
+
+function setPngExportTheme(theme) {
+  pngExportState.theme = theme === 'dark' ? 'dark' : 'light';
+  const lightBtn = document.getElementById('pngThemeLightBtn');
+  const darkBtn = document.getElementById('pngThemeDarkBtn');
+  if (lightBtn) lightBtn.classList.toggle('active', pngExportState.theme === 'light');
+  if (darkBtn) darkBtn.classList.toggle('active', pngExportState.theme === 'dark');
+}
+
+function setPngExportLayout(layout) {
+  pngExportState.layout = layout === 'vertical' ? 'vertical' : 'horizontal';
+  const horizBtn = document.getElementById('pngLayoutHorizBtn');
+  const vertBtn = document.getElementById('pngLayoutVertBtn');
+  if (horizBtn) horizBtn.classList.toggle('active', pngExportState.layout === 'horizontal');
+  if (vertBtn) vertBtn.classList.toggle('active', pngExportState.layout === 'vertical');
+}
+
+function openPngExportModal() {
+  const modal = document.getElementById('pngExportModal');
+  if (!modal) {
+    exportPlanAsPng();
+    return;
+  }
+
+  const activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  setPngExportTheme(activeTheme);
+  setPngExportLayout(pngExportState.layout || 'horizontal');
+
+  const isEn = currentLang === 'en';
+  const setText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  };
+  setText('pngExportModalTitle', isEn ? '🖼️ Export as Image (PNG)' : '🖼️ Görsel Dışa Aktar (PNG)');
+  setText('pngThemeLabel', isEn ? 'Theme' : 'Tema Seçimi');
+  setText('pngThemeLightBtn', isEn ? '☀️ Light Theme' : '☀️ Açık Tema');
+  setText('pngThemeDarkBtn', isEn ? '🌙 Dark Theme' : '🌙 Koyu Tema');
+  setText('pngLayoutLabel', isEn ? 'Layout Orientation' : 'Yerleşim Yönü');
+  setText('pngLayoutHorizBtn', isEn ? '↔️ Horizontal (Wide)' : '↔️ Yatay (Geniş)');
+  setText('pngLayoutVertBtn', isEn ? '↕️ Vertical (Story)' : '↕️ Dikey (Story)');
+  setText('pngShowGradesLabel', isEn ? 'Show Letter Grades & GPA' : 'Harf Notları & GPA Bilgisini Göster');
+  setText('pngExportCancelBtn', isEn ? 'Cancel' : 'Vazgeç');
+  setText('pngExportConfirmBtn', isEn ? '📥 Download as PNG' : '📥 PNG Olarak İndir');
+
+  modal.classList.add('open');
+}
+
+function closePngExportModal() {
+  const modal = document.getElementById('pngExportModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function handlePngExportBackdropClick(event) {
+  if (event.target && event.target.id === 'pngExportModal') {
+    closePngExportModal();
+  }
+}
+
+function confirmPngExport() {
+  const showGradesEl = document.getElementById('pngShowGradesCheck');
+  const showGrades = showGradesEl ? showGradesEl.checked : true;
+  closePngExportModal();
+  exportPlanAsPng({
+    theme: pngExportState.theme,
+    layout: pngExportState.layout,
+    showGrades
+  });
+}
+
+function createShareExportBoard(options = {}) {
+  const theme = options.theme === 'dark' ? 'dark' : 'light';
+  const layout = options.layout === 'vertical' ? 'vertical' : 'horizontal';
+  const showGrades = options.showGrades !== false;
   const state = getDeptState(currentDept);
   const deptName = getLocalizedDeptName(currentDept);
 
@@ -3016,8 +3532,9 @@ function createShareExportBoard() {
   });
 
   const board = document.createElement('div');
-  board.className = 'share-export-board';
+  board.className = `share-export-board export-theme-${theme} export-layout-${layout}`;
   board.id = 'shareExportBoard';
+  board.setAttribute('data-theme', theme);
 
   let semsGridHtml = '';
   nonEmptys.forEach(semId => {
@@ -3044,9 +3561,13 @@ function createShareExportBoard() {
         codeDisplay = `${escapeHTML(inst.customText.trim())} <span class="export-sub-code">(${escapeHTML(course.code || '')})</span>`;
       }
 
-      const effectiveGrade = isErasmus ? 'EX' : (inst.grade || 'AA');
+      const isPF = isPassFailCourse(inst, course);
+      const rawGrade = inst.grade || (isPF ? 'P' : 'AA');
+      const effectiveGrade = isErasmus ? 'EX' : (isPF && !['P', 'F', 'EX'].includes(rawGrade) ? 'P' : rawGrade);
       const gradeBadge = isPassed
-        ? `<span class="export-course-grade">${escapeHTML(effectiveGrade)}</span>`
+        ? (showGrades
+          ? `<span class="export-course-grade">${escapeHTML(effectiveGrade)}</span>`
+          : `<span class="export-course-grade">✓</span>`)
         : `<span class="export-course-status">⏳ ${escapeHTML(t('plannedStatus'))}</span>`;
 
       coursesHtml += `
@@ -3076,7 +3597,7 @@ function createShareExportBoard() {
           </div>
           <div class="export-sem-badges">
             <span class="export-crd-badge">${semStat.scheduledCredits} Cr</span>
-            <span class="export-spa-badge ${spaStr !== '-' ? 'active' : ''}">SPA: ${spaStr}</span>
+            ${showGrades ? `<span class="export-spa-badge ${spaStr !== '-' ? 'active' : ''}">SPA: ${spaStr}</span>` : ''}
           </div>
         </div>
         <div class="export-sem-courses">
@@ -3097,10 +3618,11 @@ function createShareExportBoard() {
         </div>
       </div>
       <div class="export-header-right">
+        ${showGrades ? `
         <div class="export-stat-card gpa-card">
           <div class="export-stat-label">GPA / GNO</div>
           <div class="export-stat-val gpa">${gpa}</div>
-        </div>
+        </div>` : ''}
         <div class="export-stat-card">
           <div class="export-stat-label">${escapeHTML(t('completed'))}</div>
           <div class="export-stat-val">${escapeHTML(completedText)}</div>
@@ -3123,13 +3645,20 @@ function createShareExportBoard() {
   return board;
 }
 
-async function exportPlanAsPng() {
+async function exportPlanAsPng(options = {}) {
   if (typeof html2canvas === 'undefined') {
     alert("html2canvas kütüphanesi henüz yüklenmedi.");
     return;
   }
 
-  const board = createShareExportBoard();
+  const activeTheme = options.theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  const resolvedOptions = {
+    theme: activeTheme,
+    layout: options.layout || 'horizontal',
+    showGrades: options.showGrades !== false
+  };
+
+  const board = createShareExportBoard(resolvedOptions);
   if (!board) {
     showToast(t('shareEmptyPlan'));
     return;
@@ -3146,7 +3675,7 @@ async function exportPlanAsPng() {
     const canvas = await html2canvas(board, {
       scale: 2,
       useCORS: true,
-      backgroundColor: '#f8fafc',
+      backgroundColor: resolvedOptions.theme === 'dark' ? '#0b1120' : '#f8fafc',
       logging: false
     });
 
@@ -3231,7 +3760,8 @@ function loadSharedPlanFromHash() {
     globalState[targetDept] = {
       instances: incomingInstances,
       selectedMinorId: payload.minor || null,
-      selectedDmId: payload.dm || null
+      selectedDmId: payload.dm || null,
+      customCourses: Array.isArray(payload.customCourses) ? payload.customCourses : []
     };
 
     updateSandboxBannerUI();
@@ -4967,6 +5497,8 @@ function openMobileCatalog() {
   if (sheet) {
     sheet.style.transition = '';
     sheet.style.transform = '';
+    sheet.style.height = '';
+    sheet.style.maxHeight = '';
   }
   updateAutoFillButtonLabel();
   updateUndoAutoFillButtonState();
@@ -4992,56 +5524,90 @@ function closeMobileCatalog() {
   if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
 }
 
-(function initMobileCatalogSwipe() {
-  let startY = 0;
-  let currentDeltaY = 0;
-  let isSwiping = false;
+(function initMobileDraggableBottomSheets() {
+  const bindDraggableSheet = (modalId, sheetSelector, handleSelector, headerSelector, closeFn) => {
+    const modal = document.getElementById(modalId);
+    const sheet = modal ? modal.querySelector(sheetSelector) : null;
+    if (!modal || !sheet) return;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('mobileCatalogModal');
-    const sheet = modal ? modal.querySelector('.catalog-sheet') : null;
-    if (!sheet) return;
-    const bodyEl = sheet.querySelector('.catalog-body');
+    const handleEl = sheet.querySelector(handleSelector);
+    const headerEl = sheet.querySelector(headerSelector);
+    const dragZones = [handleEl, headerEl].filter(Boolean);
+    if (dragZones.length === 0) return;
 
-    sheet.addEventListener('touchstart', (e) => {
+    let isDragging = false;
+    let startY = 0;
+    let lastY = 0;
+    let startTime = 0;
+    let startHeight = 0;
+
+    const onTouchStart = (e) => {
       if (!modal.classList.contains('open') || e.touches.length !== 1) return;
-      const touchingBodyScrolled = bodyEl && bodyEl.contains(e.target) && bodyEl.scrollTop > 0;
-      if (touchingBodyScrolled) {
-        isSwiping = false;
-        return;
-      }
+      if (e.target && e.target.closest('button, a, input, select')) return;
+
+      isDragging = true;
       startY = e.touches[0].clientY;
-      currentDeltaY = 0;
-      isSwiping = true;
-    }, { passive: true });
-
-    sheet.addEventListener('touchmove', (e) => {
-      if (!isSwiping || e.touches.length !== 1) return;
-      const deltaY = e.touches[0].clientY - startY;
-      if (deltaY > 0) {
-        currentDeltaY = deltaY;
-        sheet.style.transition = 'none';
-        sheet.style.transform = `translateY(${deltaY}px)`;
-        if (e.cancelable) e.preventDefault();
-      } else {
-        currentDeltaY = 0;
-      }
-    }, { passive: false });
-
-    const finishSwipe = () => {
-      if (!isSwiping) return;
-      isSwiping = false;
-      sheet.style.transition = '';
-      if (currentDeltaY > 70) {
-        closeMobileCatalog();
-      } else {
-        sheet.style.transform = '';
-      }
-      currentDeltaY = 0;
+      lastY = startY;
+      startTime = Date.now();
+      startHeight = sheet.getBoundingClientRect().height;
+      sheet.style.transition = 'none';
+      sheet.style.maxHeight = '88vh';
     };
 
-    sheet.addEventListener('touchend', finishSwipe, { passive: true });
-    sheet.addEventListener('touchcancel', finishSwipe, { passive: true });
+    const onTouchMove = (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const clientY = e.touches[0].clientY;
+      lastY = clientY;
+      const deltaY = clientY - startY;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const minH = Math.round(vh * 0.14);
+      const maxH = Math.round(vh * 0.88);
+      const nextH = Math.max(minH, Math.min(maxH, Math.round(startHeight - deltaY)));
+
+      sheet.style.height = `${nextH}px`;
+      if (e.cancelable) e.preventDefault();
+    };
+
+    const onTouchEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const currentH = sheet.getBoundingClientRect().height;
+      const dy = lastY - startY;
+      const dt = Date.now() - startTime;
+      const isFastDown = dy > 55 && dt < 260;
+
+      sheet.style.transition = 'height 0.2s ease, transform 0.2s ease';
+
+      if (currentH < vh * 0.22 || isFastDown) {
+        sheet.style.height = '0px';
+        setTimeout(() => {
+          closeFn();
+          sheet.style.height = '';
+          sheet.style.maxHeight = '';
+          sheet.style.transition = '';
+        }, 190);
+      } else {
+        setTimeout(() => {
+          if (modal.classList.contains('open')) {
+            sheet.style.transition = '';
+          }
+        }, 210);
+      }
+    };
+
+    dragZones.forEach(zone => {
+      zone.addEventListener('touchstart', onTouchStart, { passive: true });
+      zone.addEventListener('touchmove', onTouchMove, { passive: false });
+      zone.addEventListener('touchend', onTouchEnd, { passive: true });
+      zone.addEventListener('touchcancel', onTouchEnd, { passive: true });
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    bindDraggableSheet('mobileCatalogModal', '.catalog-sheet', '.bottom-sheet-handle', '.catalog-header', closeMobileCatalog);
+    bindDraggableSheet('termPickerModal', '.bottom-sheet-dialog', '.bottom-sheet-handle', '.bottom-sheet-header', closeTermPickerModal);
   });
 })();
 
@@ -5296,7 +5862,9 @@ function renderPrereqTree() {
   if (!colsContainer) return;
 
   const state = getDeptState(currentDept);
-  const allCourses = getActiveCurriculumCourses();
+  const treeState = getDeptState(currentDept);
+  const customTreeCourses = (treeState.instances || []).filter(i => i.isCustom && i.customCourse).map(i => i.customCourse);
+  const allCourses = [...getActiveCurriculumCourses(), ...customTreeCourses];
 
   const codeToCourses = {};
   const nodesById = {};
@@ -5370,6 +5938,16 @@ function renderPrereqTree() {
 
   prereqTreeGraphData = { nodesById, prereqsOf, unlocksOf, edges };
 
+  const passedCodesSet = new Set();
+  (state.instances || []).forEach(inst => {
+    if (inst.passed === true && inst.grade !== 'F') {
+      const c = getCourseForInstance(inst);
+      if (c && c.code) passedCodesSet.add(normalizeCourseCodeStr(c.code));
+      const assigned = extractAssignedElectiveCode(inst.customText);
+      if (assigned) passedCodesSet.add(assigned);
+    }
+  });
+
   const semGroups = {};
   const semKeysOrder = ['0.1', '0.2', '0.3 (Yaz)', '1.1', '1.2', '1.3 (Yaz)', '2.1', '2.2', '2.3 (Yaz)', '3.1', '3.2', '3.3 (Yaz)', '4.1', '4.2', '4.3 (Yaz)', 'other'];
   semKeysOrder.forEach(k => { semGroups[k] = []; });
@@ -5397,20 +5975,30 @@ function renderPrereqTree() {
       const normCode = normalizeCourseCodeStr(course.code);
       const courseInstances = (state.instances || []).filter(inst => {
         if (inst.courseId === course.id) return true;
+        if (!course.isCustom && (inst.isCustom || (inst.courseId && String(inst.courseId).startsWith('custom')))) return false;
         const instCourse = getCourseForInstance(inst);
+        if (!course.isCustom && instCourse && instCourse.isCustom) return false;
         return instCourse && instCourse.code && normCode && normalizeCourseCodeStr(instCourse.code) === normCode;
       });
 
       const hasPassed = courseInstances.some(inst => inst.passed === true && inst.grade !== 'F');
       const isPlaced = !hasPassed && courseInstances.length > 0;
 
+      const assignedInfo = assignedByCourseId[course.id];
       const statusClass = hasPassed ? 'pt-node-passed' : (isPlaced ? 'pt-node-planned' : 'pt-node-pending');
+      let lockStateClass = '';
+      if (!hasPassed) {
+        const effPrereq = assignedInfo
+          ? resolveDynamicPrereqForInstance(assignedInfo.inst, course)
+          : (course.prereq || getPrereqFromMaps(course.code));
+        const andGroups = parsePrereqAndOrGroups(effPrereq);
+        const isUnlocked = andGroups.every(orGroup => orGroup.some(reqCode => passedCodesSet.has(reqCode)));
+        lockStateClass = isUnlocked ? 'pt-node-unlocked' : 'pt-node-locked';
+      }
 
       const nodeEl = document.createElement('div');
-      nodeEl.className = `pt-node ${statusClass}`;
+      nodeEl.className = `pt-node ${statusClass}${lockStateClass ? ' ' + lockStateClass : ''}`;
       nodeEl.dataset.nodeId = course.id;
-
-      const assignedInfo = assignedByCourseId[course.id];
       const displayNodeName = assignedInfo ? `${course.name} — ${assignedInfo.customText}` : course.name;
       nodeEl.innerHTML = `
         <div class="pt-node-top">
@@ -6101,3 +6689,1494 @@ function undoAutoFillCourses() {
 updatePinButtonUI();
 applyDashCardPosition();
 loadCurriculum();
+
+
+(function initPrereqTreeDragToPan() {
+  const wrap = document.getElementById('prereqTreeCanvasWrap');
+  if (!wrap || wrap.dataset.panInit) return;
+  wrap.dataset.panInit = '1';
+
+  let isMouseDown = false;
+  let hasDragged = false;
+  let suppressNextClick = false;
+  let startX = 0;
+  let startY = 0;
+  let startScrollLeft = 0;
+  let startScrollTop = 0;
+
+  const isDesktop = () => window.matchMedia('(min-width: 769px)').matches;
+
+  const stopPan = () => {
+    if (!isMouseDown) return;
+    isMouseDown = false;
+    wrap.classList.remove('is-panning');
+    if (hasDragged) {
+      suppressNextClick = true;
+      setTimeout(() => {
+        suppressNextClick = false;
+      }, 0);
+    }
+    hasDragged = false;
+  };
+
+  wrap.addEventListener('mousedown', (e) => {
+    if (!isDesktop() || e.button !== 0) return;
+    if (e.target && e.target.closest('button, a, input, select, textarea')) return;
+
+    isMouseDown = true;
+    hasDragged = false;
+    startX = e.clientX;
+    startY = e.clientY;
+    startScrollLeft = wrap.scrollLeft;
+    startScrollTop = wrap.scrollTop;
+  });
+
+  wrap.addEventListener('mousemove', (e) => {
+    if (!isMouseDown) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if (!hasDragged && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+      hasDragged = true;
+      wrap.classList.add('is-panning');
+    }
+
+    if (hasDragged) {
+      e.preventDefault();
+      wrap.scrollLeft = startScrollLeft - dx;
+      wrap.scrollTop = startScrollTop - dy;
+    }
+  });
+
+  wrap.addEventListener('mouseup', stopPan);
+  wrap.addEventListener('mouseleave', stopPan);
+
+  wrap.addEventListener('click', (e) => {
+    if (suppressNextClick) {
+      e.preventDefault();
+      e.stopPropagation();
+      suppressNextClick = false;
+    }
+  }, true);
+})();
+
+
+// =========================================================
+// What-If GPA & Repeat Simülatörü
+// =========================================================
+let whatIfActiveTab = 'target';
+let whatIfRepeatOverrides = {};
+
+function computeWhatIfBaseline() {
+  const state = getDeptState(currentDept);
+  const erasmusSet = new Set(state.erasmusSemesters || []);
+  const sortedInstances = [...(state.instances || [])].sort((a, b) => compareSemesters(a.semId, b.semId));
+
+  const latestPassedByCourse = {};
+  const latestInstanceByCourse = {};
+
+  sortedInstances.forEach(inst => {
+    const course = getCourseForInstance(inst);
+    if (!course) return;
+    const isErasmusTerm = erasmusSet.has(inst.semId);
+    const effectiveGrade = (isErasmusTerm || inst.grade === 'EX') ? 'EX' : (inst.grade || '');
+    latestInstanceByCourse[inst.courseId] = {
+      courseId: inst.courseId,
+      code: (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || ''),
+      name: course.name || '',
+      crd: Number(course.crd) || 0,
+      passed: !!inst.passed,
+      grade: effectiveGrade
+    };
+    if (inst.passed) {
+      latestPassedByCourse[inst.courseId] = {
+        grade: effectiveGrade || 'AA',
+        crd: Number(course.crd) || 0,
+        code: (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || ''),
+        name: course.name || ''
+      };
+    }
+  });
+
+  let cumPoints = 0;
+  let cumCredits = 0;
+  Object.keys(latestPassedByCourse).forEach(cId => {
+    const item = latestPassedByCourse[cId];
+    if (item.grade !== 'P' && item.grade !== 'EX' && GRADE_POINTS[item.grade] !== null && GRADE_POINTS[item.grade] !== undefined) {
+      cumPoints += GRADE_POINTS[item.grade] * item.crd;
+      cumCredits += item.crd;
+    }
+  });
+
+  // Plandaki henüz geçilmemiş / not girilmemiş kalan dersler
+  const remainingCourses = [];
+  const seenRemainingIds = new Set();
+  Object.values(latestInstanceByCourse).forEach(item => {
+    if (!item.passed && !latestPassedByCourse[item.courseId] && item.crd > 0) {
+      remainingCourses.push({ courseId: item.courseId, code: item.code, name: item.name, crd: item.crd });
+      seenRemainingIds.add(item.courseId);
+    }
+  });
+
+  // Eğer planda henüz notsuz/planlanan ders yoksa müfredattaki alınmamış zorunlu derslerden oku
+  if (remainingCourses.length === 0) {
+    getActiveCurriculumCourses().forEach(c => {
+      const crd = Number(c.crd) || 0;
+      if (crd > 0 && !latestPassedByCourse[c.id] && !seenRemainingIds.has(c.id)) {
+        remainingCourses.push({ courseId: c.id, code: c.code || '', name: c.name || '', crd });
+        seenRemainingIds.add(c.id);
+      }
+    });
+  }
+
+  // Repeat edilebilir dersler (CC, DC, DD veya F)
+  const repeatableCourses = [];
+  const repeatGrades = new Set(['CC', 'DC', 'DD', 'F']);
+  Object.values(latestInstanceByCourse).forEach(item => {
+    const g = item.passed ? (latestPassedByCourse[item.courseId]?.grade || item.grade) : item.grade;
+    if (item.crd > 0 && repeatGrades.has(g)) {
+      repeatableCourses.push({
+        courseId: item.courseId,
+        code: item.code,
+        name: item.name,
+        crd: item.crd,
+        oldGrade: g,
+        inCurrentGpa: !!latestPassedByCourse[item.courseId] && GRADE_POINTS[g] !== null && GRADE_POINTS[g] !== undefined
+      });
+    }
+  });
+
+  const remainingCredits = remainingCourses.reduce((sum, c) => sum + c.crd, 0);
+  return {
+    cumPoints,
+    cumCredits,
+    currentGpa: cumCredits > 0 ? (cumPoints / cumCredits) : 0,
+    remainingCourses,
+    remainingCredits,
+    repeatableCourses
+  };
+}
+
+function computeRepeatAdjustedBaseline(baseline) {
+  let simPoints = baseline.cumPoints;
+  let simCredits = baseline.cumCredits;
+  let reducedRemainingCredits = 0;
+
+  baseline.repeatableCourses.forEach(rc => {
+    const targetGrade = whatIfRepeatOverrides[rc.courseId];
+    if (!targetGrade || GRADE_POINTS[targetGrade] === undefined || GRADE_POINTS[targetGrade] === null) return;
+    const newPts = GRADE_POINTS[targetGrade];
+    if (rc.inCurrentGpa) {
+      const oldPts = GRADE_POINTS[rc.oldGrade] || 0;
+      simPoints += (newPts - oldPts) * rc.crd;
+    } else {
+      simPoints += newPts * rc.crd;
+      simCredits += rc.crd;
+      reducedRemainingCredits += rc.crd;
+    }
+  });
+
+  const simGpa = simCredits > 0 ? (simPoints / simCredits) : 0;
+  return {
+    simPoints,
+    simCredits,
+    simGpa,
+    reducedRemainingCredits
+  };
+}
+
+function buildBalancedGradePlan(courses, requiredPoints) {
+  const gradeScale = [
+    { g: 'DD', p: 1.0 },
+    { g: 'DC', p: 1.5 },
+    { g: 'CC', p: 2.0 },
+    { g: 'CB', p: 2.5 },
+    { g: 'BB', p: 3.0 },
+    { g: 'BA', p: 3.5 },
+    { g: 'AA', p: 4.0 }
+  ];
+
+  const totalCrd = courses.reduce((s, c) => s + c.crd, 0);
+  if (totalCrd <= 0) return null;
+
+  const avgNeeded = requiredPoints / totalCrd;
+  let startIdx = 0;
+  for (let i = 0; i < gradeScale.length; i++) {
+    if (gradeScale[i].p <= avgNeeded) startIdx = i;
+  }
+
+  const assignments = courses.map(c => ({ crd: c.crd, idx: startIdx }));
+  let currentPts = assignments.reduce((s, a) => s + a.crd * gradeScale[a.idx].p, 0);
+
+  // En düşük nottan başlayarak dengeli biçimde birer kademe yükselt
+  let safety = 0;
+  while (currentPts + 1e-6 < requiredPoints && safety < 500) {
+    safety++;
+    let minIdx = 99;
+    let pick = -1;
+    for (let i = 0; i < assignments.length; i++) {
+      if (assignments[i].idx < gradeScale.length - 1 && assignments[i].idx < minIdx) {
+        minIdx = assignments[i].idx;
+        pick = i;
+      }
+    }
+    if (pick === -1) break;
+    assignments[pick].idx += 1;
+    currentPts = assignments.reduce((s, a) => s + a.crd * gradeScale[a.idx].p, 0);
+  }
+
+  const counts = {};
+  assignments.forEach(a => {
+    const g = gradeScale[a.idx].g;
+    counts[g] = (counts[g] || 0) + 1;
+  });
+
+  return { counts, achievedPoints: currentPts, totalCrd };
+}
+
+function openWhatIfModal() {
+  const modal = document.getElementById('whatIfModal');
+  if (!modal) return;
+  updateWhatIfLocalizedLabels();
+  switchWhatIfTab(whatIfActiveTab || 'target');
+  renderWhatIfTargetResult();
+  renderWhatIfRepeatList();
+  modal.classList.add('open');
+}
+
+function closeWhatIfModal() {
+  const modal = document.getElementById('whatIfModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function handleWhatIfBackdropClick(event) {
+  if (event.target && event.target.id === 'whatIfModal') {
+    closeWhatIfModal();
+  }
+}
+
+function updateWhatIfLocalizedLabels() {
+  const isEn = currentLang === 'en';
+  const setText = (id, txt) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = txt;
+  };
+  setText('whatIfModalTitle', isEn ? '🎯 Target GPA & Repeat Simulator' : '🎯 Hedef GNO & Repeat Simülatörü');
+  setText('whatIfTabTargetBtn', isEn ? '🎯 Reverse Target GPA' : '🎯 Tersine Hedef GNO');
+  setText('whatIfTabRepeatBtn', isEn ? '🔄 Course Repeat' : '🔄 Ders Tekrarı (Repeat)');
+  setText('whatIfTargetInputLabel', isEn ? 'Target Cumulative GPA:' : 'Hedeflediğin GNO:');
+  setText('whatIfResetBtn', isEn ? '↺ Reset' : '↺ Sıfırla');
+  setText('whatIfCloseBtn', isEn ? 'Close' : 'Kapat');
+}
+
+function switchWhatIfTab(tab) {
+  whatIfActiveTab = tab === 'repeat' ? 'repeat' : 'target';
+  const targetBtn = document.getElementById('whatIfTabTargetBtn');
+  const repeatBtn = document.getElementById('whatIfTabRepeatBtn');
+  const targetPane = document.getElementById('whatIfTargetPane');
+  const repeatPane = document.getElementById('whatIfRepeatPane');
+
+  if (targetBtn) targetBtn.classList.toggle('active', whatIfActiveTab === 'target');
+  if (repeatBtn) repeatBtn.classList.toggle('active', whatIfActiveTab === 'repeat');
+  if (targetPane) targetPane.classList.toggle('active', whatIfActiveTab === 'target');
+  if (repeatPane) repeatPane.classList.toggle('active', whatIfActiveTab === 'repeat');
+}
+
+function setWhatIfTarget(val) {
+  const input = document.getElementById('whatIfTargetInput');
+  if (input) input.value = Number(val).toFixed(2);
+  renderWhatIfTargetResult();
+}
+
+function renderWhatIfTargetResult() {
+  const statsEl = document.getElementById('whatIfCurrentStats');
+  const resultEl = document.getElementById('whatIfTargetResult');
+  const inputEl = document.getElementById('whatIfTargetInput');
+  if (!statsEl || !resultEl || !inputEl) return;
+
+  const isEn = currentLang === 'en';
+  const baseline = computeWhatIfBaseline();
+  const sim = computeRepeatAdjustedBaseline(baseline);
+  const effectiveRemainingCourses = baseline.remainingCourses.filter(c => !(whatIfRepeatOverrides[c.courseId] && c.code));
+  const remCredits = Math.max(0, baseline.remainingCredits - sim.reducedRemainingCredits);
+  const activeGpa = sim.simGpa;
+
+  statsEl.innerHTML = `
+    <div class="whatif-stat-box">
+      <span class="whatif-stat-label">${isEn ? 'Current GPA' : 'Mevcut GNO'}</span>
+      <span class="whatif-stat-val">${activeGpa.toFixed(2)}</span>
+    </div>
+    <div class="whatif-stat-box">
+      <span class="whatif-stat-label">${isEn ? 'GPA Credits' : 'Tamamlanan Kredi'}</span>
+      <span class="whatif-stat-val">${sim.simCredits} Cr</span>
+    </div>
+    <div class="whatif-stat-box">
+      <span class="whatif-stat-label">${isEn ? 'Remaining Planned' : 'Kalan Kredi'}</span>
+      <span class="whatif-stat-val">${remCredits} Cr (${effectiveRemainingCourses.length})</span>
+    </div>
+  `;
+
+  let targetGpa = parseFloat(inputEl.value);
+  if (isNaN(targetGpa)) targetGpa = 3.0;
+  targetGpa = Math.max(0, Math.min(4.0, targetGpa));
+
+  resultEl.className = 'whatif-result-box';
+
+  if (remCredits <= 0) {
+    resultEl.classList.add('warn');
+    resultEl.innerHTML = isEn
+      ? 'No ungraded/planned remaining courses found. Add upcoming courses to your plan or use the <strong>Course Repeat</strong> tab.'
+      : 'Planında henüz notu girilmemiş veya planlanan kalan ders bulunamadı. Dönemlere ders ekleyebilir veya <strong>Ders Tekrarı (Repeat)</strong> sekmesini kullanabilirsin.';
+    return;
+  }
+
+  const totalCreditsAfter = sim.simCredits + remCredits;
+  const requiredPoints = targetGpa * totalCreditsAfter - sim.simPoints;
+  const requiredAvg = requiredPoints / remCredits;
+
+  if (requiredAvg > 4.0) {
+    resultEl.classList.add('warn');
+    resultEl.innerHTML = `
+      <div>${isEn
+        ? `Target GPA <strong>${targetGpa.toFixed(2)}</strong> requires an average of <strong>${requiredAvg.toFixed(2)}</strong> over your remaining ${remCredits} credits (> 4.00).`
+        : `<strong>${targetGpa.toFixed(2)}</strong> hedefi için kalan ${remCredits} kredide <strong>${requiredAvg.toFixed(2)}</strong> ortalama gerekiyor (4.00 üzeri).`}</div>
+      <div style="margin-top:6px;">${isEn
+        ? 'With current remaining credits this target is unreachable; try repeating older courses in the <strong>Course Repeat</strong> tab.'
+        : 'Mevcut kalan krediyle bu hedefe ulaşılamıyor; <strong>Ders Tekrarı (Repeat)</strong> sekmesinden eski dersleri tekrar etmeyi deneyin.'}</div>
+      <button type="button" class="whatif-preset-btn" style="margin-top:10px;" onclick="switchWhatIfTab('repeat')">🔄 ${isEn ? 'Open Repeat Simulator' : 'Repeat Simülasyonuna Git'}</button>
+    `;
+    return;
+  }
+
+  if (requiredAvg <= 0) {
+    resultEl.classList.add('success');
+    resultEl.innerHTML = isEn
+      ? `Your current GPA (<strong>${activeGpa.toFixed(2)}</strong>) already secures <strong>${targetGpa.toFixed(2)}</strong> easily with passing grades.`
+      : `Mevcut GNO'n (<strong>${activeGpa.toFixed(2)}</strong>) ile kalan dersleri geçmen hedef <strong>${targetGpa.toFixed(2)}</strong> için şimdiden fazlasıyla yeterli!`;
+    return;
+  }
+
+  const plan = buildBalancedGradePlan(effectiveRemainingCourses, requiredPoints);
+  const chipsHtml = plan ? Object.keys(plan.counts).map(g => {
+    const cnt = plan.counts[g];
+    return `<span class="whatif-grade-chip">${cnt}× ${g}</span>`;
+  }).join('') : '';
+
+  const projectedGpa = plan ? ((sim.simPoints + plan.achievedPoints) / totalCreditsAfter).toFixed(2) : targetGpa.toFixed(2);
+  const summaryPhrase = plan
+    ? Object.keys(plan.counts).map(g => isEn ? `${plan.counts[g]} ${g}` : `${plan.counts[g]}'inden ${g}`).join(', ')
+    : '';
+
+  resultEl.classList.add('success');
+  resultEl.innerHTML = `
+    <div>${isEn
+      ? `Minimum average needed in remaining <strong>${remCredits} credits</strong>: <strong>${requiredAvg.toFixed(2)}</strong>`
+      : `Kalan <strong>${remCredits} kredide</strong> gereken minimum ortalama: <strong>${requiredAvg.toFixed(2)}</strong>`}</div>
+    ${plan ? `<div style="margin-top:6px;">${isEn
+      ? `Realistic mix across ${effectiveRemainingCourses.length} courses: <strong>${summaryPhrase}</strong> → Projected GPA: <strong>${projectedGpa}</strong>`
+      : `Kalan ${effectiveRemainingCourses.length} ders için dengeli dağılım: <strong>${summaryPhrase}</strong> alırsan GNO'n <strong>${projectedGpa}</strong> oluyor.`}</div>` : ''}
+    <div class="whatif-grade-chips">${chipsHtml}</div>
+  `;
+}
+
+function handleWhatIfRepeatChange(courseId, newGrade) {
+  if (!newGrade) {
+    delete whatIfRepeatOverrides[courseId];
+  } else {
+    whatIfRepeatOverrides[courseId] = newGrade;
+  }
+  renderWhatIfRepeatList();
+  renderWhatIfTargetResult();
+}
+
+function resetWhatIfRepeat() {
+  whatIfRepeatOverrides = {};
+  renderWhatIfRepeatList();
+  renderWhatIfTargetResult();
+}
+
+function renderWhatIfRepeatList() {
+  const bannerEl = document.getElementById('whatIfRepeatBanner');
+  const listEl = document.getElementById('whatIfRepeatList');
+  if (!bannerEl || !listEl) return;
+
+  const isEn = currentLang === 'en';
+  const baseline = computeWhatIfBaseline();
+  const sim = computeRepeatAdjustedBaseline(baseline);
+  const diff = sim.simGpa - baseline.currentGpa;
+  const diffStr = diff > 0.0001 ? `+${diff.toFixed(2)}` : diff.toFixed(2);
+
+  bannerEl.innerHTML = `
+    <div>
+      <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">${isEn ? 'Simulated GPA Change' : 'Simüle Edilen GNO Değişimi'}</div>
+      <div style="font-size:1.1rem; font-weight:800; color:var(--text-primary);">
+        ${baseline.currentGpa.toFixed(2)} → <span style="color:${diff > 0.001 ? '#10b981' : 'inherit'};">${sim.simGpa.toFixed(2)}</span>
+        <span style="font-size:0.85rem; color:${diff > 0.001 ? '#10b981' : 'var(--text-muted)'};">(${diffStr})</span>
+      </div>
+    </div>
+    <div style="font-size:0.75rem; color:var(--text-muted);">${isEn ? 'Isolated simulation — does not alter your plan' : 'İzole simülasyon — gerçek planını değiştirmez'}</div>
+  `;
+
+  if (baseline.repeatableCourses.length === 0) {
+    listEl.innerHTML = `<div class="whatif-result-box">${isEn
+      ? 'No courses with CC, DC, DD, or F grades found in your plan.'
+      : 'Planında veya transkriptinde harf notu CC, DC, DD veya F olan ders bulunamadı.'}</div>`;
+    return;
+  }
+
+  listEl.innerHTML = '';
+  baseline.repeatableCourses.forEach(rc => {
+    const selected = whatIfRepeatOverrides[rc.courseId] || '';
+    const row = document.createElement('div');
+    row.className = 'whatif-repeat-row';
+    row.innerHTML = `
+      <div class="whatif-repeat-info">
+        <span class="whatif-repeat-code">${escapeHTML(rc.code)} (${rc.crd} Cr)</span>
+        <span class="whatif-repeat-sub">${escapeHTML(rc.name)}</span>
+      </div>
+      <div class="whatif-repeat-controls">
+        <span class="whatif-old-grade">${escapeHTML(rc.oldGrade)}</span>
+        <span>→</span>
+        <select class="whatif-repeat-select" aria-label="Hedef Not" onchange="handleWhatIfRepeatChange('${escapeHTML(rc.courseId)}', this.value)">
+          <option value="" ${selected === '' ? 'selected' : ''}>${isEn ? 'No Repeat' : 'Tekrar Yok'}</option>
+          <option value="AA" ${selected === 'AA' ? 'selected' : ''}>AA (4.0)</option>
+          <option value="BA" ${selected === 'BA' ? 'selected' : ''}>BA (3.5)</option>
+          <option value="BB" ${selected === 'BB' ? 'selected' : ''}>BB (3.0)</option>
+        </select>
+      </div>
+    `;
+    listEl.appendChild(row);
+  });
+}
+
+// =========================================================
+// ÇAP / Yandal "En Yakın Program" Keşif Motoru
+// =========================================================
+let discoveryFilter = 'all';
+
+function computeClosestPrograms() {
+  const state = getDeptState(currentDept);
+  const userCodes = new Set();
+  (state.instances || []).forEach(inst => {
+    const c = getCourseForInstance(inst);
+    if (c && c.code) {
+      userCodes.add(c.code.replace(/\s+/g, '').toUpperCase());
+    }
+    const assigned = extractAssignedElectiveCode(inst.customText);
+    if (assigned) userCodes.add(assigned);
+  });
+
+  const results = [];
+
+  // 1. Yandal Programları (minorsData)
+  if (minorsData && typeof minorsData === 'object') {
+    Object.keys(minorsData).forEach(minorKey => {
+      if (minorKey === currentDept || minorKey.startsWith(`${currentDept}_`)) return;
+      const minorCourses = getMinorCourseList(minorKey);
+      if (!minorCourses || minorCourses.length === 0) return;
+
+      let matchedCount = 0;
+      minorCourses.forEach(mc => {
+        if (!mc.isElective && mc.code) {
+          const norm = mc.code.replace(/\s+/g, '').toUpperCase();
+          if (userCodes.has(norm)) matchedCount++;
+        }
+      });
+
+      const totalCount = minorCourses.length;
+      const remainingCount = Math.max(0, totalCount - matchedCount);
+      const pct = totalCount > 0 ? Math.round((matchedCount / totalCount) * 100) : 0;
+
+      results.push({
+        type: 'minor',
+        key: minorKey,
+        name: getLocalizedMinorName(minorKey),
+        matchedCount,
+        remainingCount,
+        totalCount,
+        pct
+      });
+    });
+  }
+
+  // 2. ÇAP Programları (dmData)
+  if (dmData && typeof dmData === 'object') {
+    const dmKeys = Object.keys(dmData);
+    const matchingMajorKeys = dmKeys.filter(k => dmData[k]?.majorKey === currentDept && dmData[k]?.doubleMajorKey !== currentDept);
+    const keysToScan = matchingMajorKeys.length > 0
+      ? matchingMajorKeys
+      : dmKeys.filter(k => dmData[k]?.doubleMajorKey && dmData[k]?.doubleMajorKey !== currentDept);
+
+    const seenTargets = new Set();
+    keysToScan.forEach(dmKey => {
+      const prog = dmData[dmKey];
+      if (!prog || !Array.isArray(prog.courses) || prog.courses.length === 0) return;
+      if (matchingMajorKeys.length === 0) {
+        if (seenTargets.has(prog.doubleMajorKey)) return;
+        seenTargets.add(prog.doubleMajorKey);
+      }
+
+      let matchedCount = 0;
+      prog.courses.forEach(c => {
+        if (c && c.code && !c.isElective) {
+          const norm = c.code.replace(/\s+/g, '').toUpperCase();
+          if (userCodes.has(norm)) matchedCount++;
+        }
+      });
+
+      const totalCount = prog.courses.length;
+      const remainingCount = Math.max(0, totalCount - matchedCount);
+      const pct = totalCount > 0 ? Math.round((matchedCount / totalCount) * 100) : 0;
+
+      results.push({
+        type: 'dm',
+        key: dmKey,
+        name: getDmLocalizedName(prog),
+        matchedCount,
+        remainingCount,
+        totalCount,
+        pct
+      });
+    });
+  }
+
+  results.sort((a, b) => {
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    if (a.remainingCount !== b.remainingCount) return a.remainingCount - b.remainingCount;
+    return b.matchedCount - a.matchedCount;
+  });
+
+  return results;
+}
+
+function openDiscoveryModal() {
+  const modal = document.getElementById('discoveryModal');
+  if (!modal) return;
+  const isEn = currentLang === 'en';
+  const titleEl = document.getElementById('discoveryModalTitle');
+  const introEl = document.getElementById('discoveryIntro');
+  const closeBtn = document.getElementById('discoveryCloseBtn');
+  if (titleEl) titleEl.textContent = isEn ? '🧭 Closest Double Major / Minor Programs' : '🧭 Bana En Yakın ÇAP / Yandal Programları';
+  if (introEl) {
+    introEl.textContent = isEn
+      ? 'Programs are ranked by how many courses in your current plan already match their curriculum.'
+      : 'Mevcut planındaki dersler tüm ÇAP ve Yandal müfredatlarıyla eşleştirilerek tamamlanma oranına göre sıralandı.';
+  }
+  if (closeBtn) closeBtn.textContent = isEn ? 'Close' : 'Kapat';
+
+  setDiscoveryFilter(discoveryFilter || 'all');
+  modal.classList.add('open');
+}
+
+function closeDiscoveryModal() {
+  const modal = document.getElementById('discoveryModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function handleDiscoveryBackdropClick(event) {
+  if (event.target && event.target.id === 'discoveryModal') {
+    closeDiscoveryModal();
+  }
+}
+
+function setDiscoveryFilter(filter) {
+  discoveryFilter = filter || 'all';
+  document.querySelectorAll('#discoveryFilterRow [data-disc-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.discFilter === discoveryFilter);
+  });
+  renderDiscoveryList();
+}
+
+function applyDiscoveredProgram(type, key) {
+  if (type === 'minor') {
+    applyMinor(key);
+  } else if (type === 'dm') {
+    applyDm(key);
+  }
+  closeDiscoveryModal();
+}
+
+function renderDiscoveryList() {
+  const listEl = document.getElementById('discoveryList');
+  if (!listEl) return;
+
+  const isEn = currentLang === 'en';
+  const all = computeClosestPrograms().filter(item => discoveryFilter === 'all' || item.type === discoveryFilter);
+
+  if (all.length === 0) {
+    listEl.innerHTML = `<div class="whatif-result-box">${isEn
+      ? 'No matching Double Major or Minor programs found for this department.'
+      : 'Bu bölüm için eşleşen ÇAP veya Yandal programı bulunamadı.'}</div>`;
+    return;
+  }
+
+  listEl.innerHTML = '';
+  all.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'discovery-card';
+    const typeLabel = item.type === 'dm' ? (isEn ? 'Double Major' : 'ÇAP') : (isEn ? 'Minor' : 'Yandal');
+    const summaryText = isEn
+      ? `${item.matchedCount} of your courses count — ${item.remainingCount} extra courses left`
+      : `Aldığın ${item.matchedCount} ders sayılıyor — ekstra ${item.remainingCount} ders kaldı`;
+    const pctText = isEn ? `${item.pct}% Completed` : `%${item.pct} Tamamlandı`;
+    const btnText = isEn ? 'Apply This Program' : 'Bu Programı Uygula';
+
+    card.innerHTML = `
+      <div class="discovery-card-top">
+        <div class="discovery-card-title-wrap">
+          <span class="discovery-type-badge ${item.type}">${escapeHTML(typeLabel)}</span>
+          <span class="discovery-card-title">${escapeHTML(item.name)}</span>
+        </div>
+        <span class="discovery-pct-badge">${escapeHTML(pctText)}</span>
+      </div>
+      <div class="discovery-progress-track">
+        <div class="discovery-progress-fill" style="width: ${item.pct}%;"></div>
+      </div>
+      <div class="discovery-card-bottom">
+        <span class="discovery-card-summary">${escapeHTML(summaryText)}</span>
+        <button type="button" class="discovery-apply-btn" onclick="applyDiscoveredProgram('${item.type}', '${escapeHTML(item.key)}')">${escapeHTML(btnText)}</button>
+      </div>
+    `;
+    listEl.appendChild(card);
+  });
+}
+
+
+// =========================================================
+// Ekstra / Özel Ders Ekleme & Düzenleme Yardımcıları
+// =========================================================
+function addCustomCourse() {
+  const state = getDeptState(currentDept);
+  if (!Array.isArray(state.customCourses)) state.customCourses = [];
+  const newCourse = {
+    id: `custom-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    code: 'EKSTRA 101',
+    name: currentLang === 'en' ? 'Custom Course' : 'Özel Ders',
+    crd: 3,
+    isCustom: true,
+    isElective: false,
+    wasAutoFilled: false
+  };
+  state.customCourses.unshift(newCourse);
+  saveGlobalState();
+  updateSidebarPool();
+
+  const poolEl = document.getElementById('course-pool');
+  if (poolEl) poolEl.scrollTop = 0;
+}
+
+function lookupCourseMetadataByCode(rawCode) {
+  if (!rawCode || typeof rawCode !== 'string') return null;
+  const spaced = rawCode.trim().toUpperCase().replace(/\s+/g, ' ');
+  const compact = spaced.replace(/\s+/g, '');
+  if (!compact || compact.length < 3) return null;
+
+  let englishCandidate = null;
+  let fallbackCandidate = null;
+
+  // 1. Öncelik: İngilizce ders adlarını içeren ÇAP ve Yandal veri kaynakları
+  if (dmData && typeof dmData === 'object') {
+    for (const dmKey of Object.keys(dmData)) {
+      const list = dmData[dmKey]?.courses || [];
+      const found = list.find(c => c && c.code && c.code.replace(/\s+/g, '').toUpperCase() === compact);
+      if (found) {
+        englishCandidate = found;
+        break;
+      }
+    }
+  }
+
+  if (!englishCandidate && minorsData && typeof minorsData === 'object') {
+    for (const mKey of Object.keys(minorsData)) {
+      const list = minorsData[mKey]?.compulsoryCourses || [];
+      const found = list.find(c => c && c.code && c.code.replace(/\s+/g, '').toUpperCase() === compact);
+      if (found) {
+        englishCandidate = found;
+        break;
+      }
+    }
+  }
+
+  // 2. Bölüm müfredatları (name_en / englishName / title varsa öncelikli, yoksa fallback)
+  if (departmentsData && typeof departmentsData === 'object') {
+    for (const dKey of Object.keys(departmentsData)) {
+      const list = departmentsData[dKey]?.courses || [];
+      const found = list.find(c => c && c.code && c.code.replace(/\s+/g, '').toUpperCase() === compact);
+      if (found) {
+        fallbackCandidate = found;
+        break;
+      }
+    }
+  }
+
+  const matchedCourse = englishCandidate || fallbackCandidate;
+  const resolvedName = (englishCandidate && (englishCandidate.name_en || englishCandidate.englishName || englishCandidate.title || englishCandidate.name))
+    || (fallbackCandidate && (fallbackCandidate.name_en || fallbackCandidate.englishName || fallbackCandidate.title || fallbackCandidate.name))
+    || null;
+
+  const resolvedCrdSource = englishCandidate || fallbackCandidate;
+  const resolvedCrd = (resolvedCrdSource && resolvedCrdSource.crd !== undefined && resolvedCrdSource.crd !== null && !isNaN(Number(resolvedCrdSource.crd)))
+    ? Number(resolvedCrdSource.crd)
+    : null;
+
+  const mapPrereq = getPrereqFromMaps(spaced);
+  const prereqStr = (fallbackCandidate && fallbackCandidate.prereq)
+    || (englishCandidate && englishCandidate.prereq)
+    || mapPrereq
+    || '';
+
+  if (!matchedCourse && !prereqStr) return null;
+
+  return {
+    code: (matchedCourse && matchedCourse.code) ? matchedCourse.code : spaced,
+    name: resolvedName,
+    crd: resolvedCrd,
+    prereq: prereqStr
+  };
+}
+
+function updateCustomCourseField(courseId, field, value) {
+  const state = getDeptState(currentDept);
+  const poolCourse = (state.customCourses || []).find(c => c.id === courseId);
+  const placedInst = !poolCourse
+    ? (state.instances || []).find(inst => inst.courseId === courseId && inst.customCourse)
+    : null;
+  const course = poolCourse || (placedInst ? placedInst.customCourse : null);
+  if (!course) return;
+
+  let codeChanged = false;
+  let autoMeta = null;
+
+  if (field === 'code') {
+    codeChanged = true;
+    course.code = String(value || '').slice(0, 28) || 'EKSTRA 101';
+    autoMeta = lookupCourseMetadataByCode(value);
+
+    if (autoMeta) {
+      course.name = autoMeta.name || (currentLang === 'en' ? 'Custom Course' : 'Özel Ders');
+      course.crd = autoMeta.crd !== null ? autoMeta.crd : 3;
+      course.prereq = autoMeta.prereq || '';
+      course.wasAutoFilled = true;
+    } else if (course.wasAutoFilled) {
+      course.name = currentLang === 'en' ? 'Custom Course' : 'Özel Ders';
+      course.crd = 3;
+      course.prereq = '';
+      course.wasAutoFilled = false;
+    } else {
+      course.prereq = '';
+    }
+  } else if (field === 'name') {
+    course.name = String(value || '').slice(0, 80) || (currentLang === 'en' ? 'Custom Course' : 'Özel Ders');
+    course.wasAutoFilled = false;
+  } else if (field === 'crd') {
+    const parsed = parseFloat(String(value).replace(',', '.'));
+    course.crd = (!isNaN(parsed) && parsed >= 0) ? Math.round(parsed * 10) / 10 : 0;
+    course.wasAutoFilled = false;
+  }
+
+  // Havuzdaki kartın alanlarını (odak kaybetmeden) senkronize et
+  const poolCardEl = document.querySelector(`[data-custom-pool-id="${courseId}"]`);
+  if (poolCardEl) {
+    const codeInput = poolCardEl.querySelector('.code-input');
+    if (codeInput && document.activeElement !== codeInput) codeInput.value = course.code;
+    const nameInput = poolCardEl.querySelector('.name-input');
+    if (nameInput && document.activeElement !== nameInput) nameInput.value = course.name;
+    const crdInput = poolCardEl.querySelector('.custom-course-crd-input');
+    if (crdInput && document.activeElement !== crdInput) crdInput.value = course.crd;
+    if (codeChanged) {
+      const prereqEl = poolCardEl.querySelector('.course-prereq');
+      if (prereqEl) {
+        const translated = course.prereq ? translatePrereq(course.prereq) : '';
+        prereqEl.textContent = translated;
+        prereqEl.style.display = translated ? '' : 'none';
+      }
+    }
+  }
+
+  // Dönemlere yerleştirilmiş örneklerin DOM ve önkoşul durumunu güncelle
+  (state.instances || []).forEach(inst => {
+    if (inst.courseId === courseId) {
+      inst.isCustom = true;
+      inst.customCourse = { ...course };
+      const cardEl = document.getElementById(`inst-${inst.instanceId}`);
+      if (cardEl) {
+        const titleEl = cardEl.querySelector('.course-title');
+        if (titleEl && codeChanged) titleEl.textContent = course.code;
+        const crdEl = cardEl.querySelector('.course-credits');
+        if (crdEl) crdEl.textContent = `${course.crd} Cr`;
+        if (codeChanged) {
+          const nameInput = cardEl.querySelector('.name-input');
+          if (nameInput) nameInput.value = course.name;
+          const crdInput = cardEl.querySelector('.custom-course-crd-input');
+          if (crdInput) crdInput.value = course.crd;
+
+          let prereqEl = cardEl.querySelector('.course-prereq');
+          const translated = course.prereq ? translatePrereq(course.prereq) : '';
+          if (translated) {
+            if (!prereqEl) {
+              prereqEl = document.createElement('div');
+              prereqEl.className = 'course-prereq';
+              const controlsEl = cardEl.querySelector('.course-controls');
+              if (controlsEl) cardEl.insertBefore(prereqEl, controlsEl);
+            }
+            prereqEl.textContent = translated;
+            prereqEl.style.display = '';
+          } else if (prereqEl) {
+            prereqEl.textContent = '';
+            prereqEl.style.display = 'none';
+          }
+        }
+      }
+    }
+  });
+
+  saveGlobalState();
+  refreshAllPrereqWarnings();
+  updateDashboard();
+}
+
+function deleteCustomCourse(courseId, event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const state = getDeptState(currentDept);
+  state.customCourses = (state.customCourses || []).filter(c => c.id !== courseId);
+  state.instances = (state.instances || []).filter(inst => inst.courseId !== courseId && inst.templateId !== courseId);
+  saveGlobalState();
+  initUI();
+}
+
+
+// =========================================================
+// Masaüstü Merkezi Araçlar & İşlemler Kataloğu Modalı
+// =========================================================
+function openDesktopToolsModal() {
+  const modal = document.getElementById('desktopToolsModal');
+  if (!modal) return;
+  modal.classList.add('open');
+}
+
+function closeDesktopToolsModal() {
+  const modal = document.getElementById('desktopToolsModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function handleDesktopToolsBackdropClick(event) {
+  if (event.target && event.target.id === 'desktopToolsModal') {
+    closeDesktopToolsModal();
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeDesktopToolsModal();
+  }
+});
+
+
+// =========================================================
+// Boğaziçi Seçmeli Ders Kataloğu & PA/PE Eşdeğerlik Sistemi
+// =========================================================
+let electivesCatalogData = [];
+const ELECTIVE_CATALOG_BY_CODE = {};
+let ecModalState = {
+  instanceId: null,
+  slotCourseId: null,
+  allowedCategories: ['HSS', 'MLE', 'PA', 'PE'],
+  activeCategory: 'ALL',
+  pendingFirstPick: null,
+  persistedFirstInstId: null
+};
+
+function initElectivesCatalog(list) {
+  electivesCatalogData = Array.isArray(list) ? list : [];
+  Object.keys(ELECTIVE_CATALOG_BY_CODE).forEach(k => delete ELECTIVE_CATALOG_BY_CODE[k]);
+  electivesCatalogData.forEach(item => {
+    if (!item || !item.code) return;
+    const norm = String(item.code).trim().toUpperCase().replace(/\s+/g, '');
+    ELECTIVE_CATALOG_BY_CODE[norm] = item;
+  });
+}
+
+function getElectiveCatalogCategories(course) {
+  if (!course || !course.isElective) return null;
+  const txt = `${course.code || ''} ${course.name || ''}`.toLowerCase();
+
+  if (/unrestr|serbest\s*seçmeli|free\s*elective/i.test(txt)) {
+    return ['HSS', 'MLE', 'PA', 'PE'];
+  }
+
+  if (/\bhss\b|\bmle\b|humanities\s+and\s+social/i.test(txt)) {
+    return ['HSS', 'MLE'];
+  }
+
+  return null;
+}
+
+function countTwoCreditPaCourses(state) {
+  let count = 0;
+  (state.instances || []).forEach(inst => {
+    if (inst.catalogCourse && inst.catalogCourse.category === 'PA' && Number(inst.catalogCourse.crd) === 2) {
+      count++;
+      return;
+    }
+    const assignedCode = extractAssignedElectiveCode(inst.customText);
+    if (assignedCode && ELECTIVE_CATALOG_BY_CODE[assignedCode]) {
+      const catItem = ELECTIVE_CATALOG_BY_CODE[assignedCode];
+      if (catItem.category === 'PA' && Number(catItem.credits) === 2) {
+        count++;
+      }
+    }
+  });
+  return count;
+}
+
+function formatCatalogItemPrereq(item) {
+  if (!item) return '';
+  if (item.prerequisites && String(item.prerequisites).trim().toLowerCase() !== 'none') {
+    return formatRawPreqJsonEntry(item.code, [item.prerequisites]);
+  }
+  return getPrereqFromMaps(item.code) || '';
+}
+
+function getLocalizedCatalogDescription(item) {
+  if (!item || !item.description) return '';
+  if (currentLang === 'en') return item.description;
+  const catTr = {
+    HSS: 'İnsan ve Toplum Bilimleri',
+    MLE: 'Modern Diller',
+    PA: 'Güzel Sanatlar / Uygulamalı Sanat',
+    PE: 'Beden Eğitimi'
+  }[item.category] || item.category;
+  return `[${catTr} • ${item.credits} Kr / ${item.ects || item.credits} AKTS] ${item.description}`;
+}
+
+function getSlotSelectedInstances(state, slotCourseId, fallbackInstId) {
+  const splitMatches = (state.instances || []).filter(i => i.splitSlotCourseId === slotCourseId && i.catalogCourse);
+  if (splitMatches.length > 0) return splitMatches;
+  const single = (state.instances || []).find(i => i.instanceId === fallbackInstId);
+  if (single && (single.catalogCourse || (single.customText && single.customText.trim()))) {
+    return [single];
+  }
+  return [];
+}
+
+function handleSplitHalfInput(instanceId, val) {
+  const state = getDeptState(currentDept);
+  const inst = (state.instances || []).find(i => i.instanceId === instanceId);
+  if (!inst) return;
+  const trimmed = String(val || '').trim();
+  inst.customText = val;
+  if (inst.catalogCourse) {
+    inst.catalogCourse.code = trimmed;
+  }
+  saveGlobalState();
+  const semCard = document.getElementById(`inst-${instanceId}`);
+  if (semCard) {
+    const inp = semCard.querySelector('.custom-input');
+    if (inp && document.activeElement !== inp) inp.value = val;
+    const titleEl = semCard.querySelector('.course-title');
+    if (titleEl) {
+      const fallbackCourse = findCourseById(inst.splitSlotCourseId || inst.courseId);
+      titleEl.textContent = trimmed || (fallbackCourse ? fallbackCourse.code : '');
+    }
+  }
+  updateDashboard();
+}
+
+function handleEmptySplitSecondInput(slotCourseId, val) {
+  const trimmed = String(val || '').trim();
+  if (!trimmed) return;
+  const state = getDeptState(currentDept);
+  const first = (state.instances || []).find(i => i.splitSlotCourseId === slotCourseId && i.catalogCourse);
+  if (!first) return;
+  const norm = trimmed.toUpperCase().replace(/\s+/g, '');
+  const catItem = ELECTIVE_CATALOG_BY_CODE[norm];
+  const isPF = isPassFailCourse({ customText: trimmed, catalogCourse: catItem }, null);
+  const splitGroupId = first.splitGroupId || `split_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+  first.splitGroupId = splitGroupId;
+  first.splitIndex = 1;
+  const inst2 = {
+    instanceId: `inst_split2_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+    courseId: `${slotCourseId}_split2_${Date.now()}`,
+    semId: first.semId,
+    passed: false,
+    grade: isPF ? 'P' : 'AA',
+    customText: catItem ? catItem.code : trimmed,
+    splitGroupId,
+    splitSlotCourseId: slotCourseId,
+    splitIndex: 2,
+    catalogCourse: {
+      code: catItem ? catItem.code : trimmed,
+      name: catItem ? catItem.name : trimmed,
+      crd: catItem ? (Number(catItem.credits) || 0) : (Number(first.catalogCourse.crd) || 1),
+      ects: catItem ? (Number(catItem.ects) || 0) : 0,
+      category: catItem ? catItem.category : (first.catalogCourse.category || 'PA'),
+      prereq: catItem ? formatCatalogItemPrereq(catItem) : ''
+    }
+  };
+  const idx = state.instances.findIndex(i => i.instanceId === first.instanceId);
+  if (idx > -1) state.instances.splice(idx + 1, 0, inst2);
+  else state.instances.push(inst2);
+  saveGlobalState();
+  initUI();
+}
+
+function openElectiveCatalogModal(instanceId) {
+  const modal = document.getElementById('electiveCatalogModal');
+  if (!modal) return;
+  const state = getDeptState(currentDept);
+  const inst = (state.instances || []).find(i => i.instanceId === instanceId);
+  if (!inst) return;
+
+  const slotCourseId = inst.splitSlotCourseId || inst.courseId;
+  const baseCourse = findCourseById(slotCourseId) || getCourseForInstance(inst);
+  const allowed = getElectiveCatalogCategories(baseCourse);
+  if (!allowed || allowed.length === 0) return;
+
+  const currentSelections = getSlotSelectedInstances(state, slotCourseId, instanceId);
+  let pendingFirst = null;
+  let persistedFirstId = null;
+
+  // Eğer split slotta yalnızca 1 ders kalmışsa otomatik olarak 2. dersi tamamlama moduna gir
+  if (currentSelections.length === 1 && currentSelections[0].splitSlotCourseId) {
+    const rem = currentSelections[0];
+    pendingFirst = {
+      code: rem.catalogCourse.code,
+      name: rem.catalogCourse.name,
+      credits: Number(rem.catalogCourse.crd) || 0,
+      ects: Number(rem.catalogCourse.ects) || 0,
+      category: rem.catalogCourse.category,
+      prerequisites: rem.catalogCourse.prereq || ''
+    };
+    persistedFirstId = rem.instanceId;
+  }
+
+  ecModalState = {
+    instanceId,
+    slotCourseId,
+    allowedCategories: allowed,
+    activeCategory: 'ALL',
+    pendingFirstPick: pendingFirst,
+    persistedFirstInstId: persistedFirstId
+  };
+
+  const isEn = currentLang === 'en';
+  const titleEl = document.getElementById('ecModalTitle');
+  const searchEl = document.getElementById('ecSearchInput');
+  const closeBtn = document.getElementById('ecCloseBtn');
+  if (titleEl) titleEl.textContent = isEn ? '📚 Elective Course Catalog' : '📚 Seçmeli Ders Kataloğu';
+  if (searchEl) {
+    searchEl.value = '';
+    searchEl.placeholder = isEn ? 'Search by code, name, or description...' : 'Ders kodu, adı veya açıklama ara...';
+  }
+  if (closeBtn) closeBtn.textContent = isEn ? 'Close' : 'Kapat';
+
+  hideEcWarning();
+  renderEcSelectedBox();
+  updateEcProgressBanner();
+  renderElectiveCatalogTabs();
+  renderElectiveCatalogList();
+  modal.classList.add('open');
+}
+
+function closeElectiveCatalogModal() {
+  const modal = document.getElementById('electiveCatalogModal');
+  if (modal) modal.classList.remove('open');
+  ecModalState.pendingFirstPick = null;
+  ecModalState.persistedFirstInstId = null;
+}
+
+function handleElectiveCatalogBackdropClick(event) {
+  if (event.target && event.target.id === 'electiveCatalogModal') {
+    closeElectiveCatalogModal();
+  }
+}
+
+function showEcWarning(msg) {
+  const el = document.getElementById('ecWarningBanner');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.remove('is-hidden');
+}
+
+function hideEcWarning() {
+  const el = document.getElementById('ecWarningBanner');
+  if (el) el.classList.add('is-hidden');
+}
+
+function cancelPendingSplitPick() {
+  if (ecModalState.persistedFirstInstId) {
+    removeSelectedElectiveFromSlot(ecModalState.persistedFirstInstId);
+    return;
+  }
+  ecModalState.pendingFirstPick = null;
+  hideEcWarning();
+  updateEcProgressBanner();
+  renderElectiveCatalogList();
+}
+
+function renderEcSelectedBox() {
+  const box = document.getElementById('ecSelectedBox');
+  if (!box) return;
+  const state = getDeptState(currentDept);
+  const selected = getSlotSelectedInstances(state, ecModalState.slotCourseId, ecModalState.instanceId);
+
+  if (selected.length === 0) {
+    box.classList.add('is-hidden');
+    box.innerHTML = '';
+    return;
+  }
+
+  const isEn = currentLang === 'en';
+  const titleText = isEn ? 'Selected Courses for This Slot:' : 'Mevcut Seçimleriniz:';
+  const chipsHtml = selected.map(sel => {
+    const codeStr = sel.catalogCourse ? sel.catalogCourse.code : (sel.customText || '');
+    const crdStr = sel.catalogCourse ? ` (${sel.catalogCourse.crd} ${isEn ? 'Cr' : 'Kr'})` : '';
+    return `
+      <span class="ec-selected-chip">
+        <span>${escapeHTML(codeStr)}${escapeHTML(crdStr)}</span>
+        <button type="button"
+                class="ec-selected-remove"
+                onclick="removeSelectedElectiveFromSlot('${escapeHTML(sel.instanceId)}')"
+                title="${isEn ? 'Remove' : 'Kaldır'}">✕</button>
+      </span>
+    `;
+  }).join('');
+
+  box.innerHTML = `
+    <div class="ec-selected-title">${escapeHTML(titleText)}</div>
+    <div class="ec-selected-chips">${chipsHtml}</div>
+  `;
+  box.classList.remove('is-hidden');
+}
+
+function removeSelectedElectiveFromSlot(targetInstanceId) {
+  const state = getDeptState(currentDept);
+  const targetIdx = (state.instances || []).findIndex(i => i.instanceId === targetInstanceId);
+  if (targetIdx === -1) return;
+
+  const targetInst = state.instances[targetIdx];
+  const slotCourseId = ecModalState.slotCourseId;
+
+  if (targetInst.splitSlotCourseId) {
+    const siblings = state.instances.filter(i => i.splitSlotCourseId === slotCourseId && i.instanceId !== targetInstanceId);
+    if (siblings.length > 0) {
+      // 2. ders kaldı: boş yer için slotu 1 ders eksik durumuna getir
+      state.instances.splice(targetIdx, 1);
+      const rem = siblings[0];
+      rem.courseId = slotCourseId;
+      rem.splitIndex = 1;
+      ecModalState.instanceId = rem.instanceId;
+      ecModalState.persistedFirstInstId = rem.instanceId;
+      ecModalState.pendingFirstPick = rem.catalogCourse ? {
+        code: rem.catalogCourse.code,
+        name: rem.catalogCourse.name,
+        credits: Number(rem.catalogCourse.crd) || 0,
+        ects: Number(rem.catalogCourse.ects) || 0,
+        category: rem.catalogCourse.category,
+        prerequisites: rem.catalogCourse.prereq || ''
+      } : null;
+    } else {
+      // Son ders de silindi: boş slot instance'ını koru
+      targetInst.courseId = slotCourseId;
+      targetInst.customText = '';
+      targetInst.passed = false;
+      delete targetInst.catalogCourse;
+      delete targetInst.splitGroupId;
+      delete targetInst.splitSlotCourseId;
+      delete targetInst.splitIndex;
+      ecModalState.instanceId = targetInst.instanceId;
+      ecModalState.persistedFirstInstId = null;
+      ecModalState.pendingFirstPick = null;
+    }
+  } else {
+    targetInst.customText = '';
+    delete targetInst.catalogCourse;
+    ecModalState.persistedFirstInstId = null;
+    ecModalState.pendingFirstPick = null;
+  }
+
+  saveGlobalState();
+  initUI();
+  hideEcWarning();
+  renderEcSelectedBox();
+  updateEcProgressBanner();
+  renderElectiveCatalogList();
+}
+
+function updateEcProgressBanner() {
+  const banner = document.getElementById('ecProgressBanner');
+  if (!banner) return;
+  const pick = ecModalState.pendingFirstPick;
+  if (!pick) {
+    banner.classList.add('is-hidden');
+    banner.innerHTML = '';
+    return;
+  }
+
+  const isEn = currentLang === 'en';
+  const msg = ecModalState.persistedFirstInstId
+    ? (isEn
+      ? `1 course missing — select 1 more 2-credit PA (or PE) course to pair with <strong>${escapeHTML(pick.code)} (${pick.credits} Cr)</strong>.`
+      : `1 ders eksik — <strong>${escapeHTML(pick.code)} (${pick.credits} Kr)</strong> ile eşleştirmek için 1 adet daha 2 kredili PA (veya PE) dersi seçin.`)
+    : (isEn
+      ? `1st course selected: <strong>${escapeHTML(pick.code)} (${pick.credits} Cr)</strong>. Select 1 more 2-credit PA (or PE) course to complete this slot.`
+      : `1. ders seçildi: <strong>${escapeHTML(pick.code)} (${pick.credits} Kr)</strong>. Bu slotu tamamlamak için 1 adet daha 2 kredili PA (veya PE) dersi seçin.`);
+
+  banner.innerHTML = `
+    <span>${msg}</span>
+    <button type="button" class="whatif-preset-btn" onclick="cancelPendingSplitPick()">${isEn ? 'Cancel' : 'İptal'}</button>
+  `;
+  banner.classList.remove('is-hidden');
+}
+
+function renderElectiveCatalogTabs() {
+  const tabsEl = document.getElementById('ecCategoryTabs');
+  if (!tabsEl) return;
+  const isEn = currentLang === 'en';
+  const cats = ['ALL', ...ecModalState.allowedCategories];
+  tabsEl.innerHTML = cats.map(c => {
+    const label = c === 'ALL' ? (isEn ? 'All' : 'Tümü') : c;
+    const activeCls = ecModalState.activeCategory === c ? 'active' : '';
+    return `<button type="button" class="ec-cat-tab ${activeCls}" onclick="setElectiveCatalogCategory('${c}')">${escapeHTML(label)}</button>`;
+  }).join('');
+}
+
+function setElectiveCatalogCategory(cat) {
+  ecModalState.activeCategory = cat || 'ALL';
+  renderElectiveCatalogTabs();
+  renderElectiveCatalogList();
+}
+
+function renderElectiveCatalogList() {
+  const listEl = document.getElementById('ecCourseList');
+  if (!listEl) return;
+
+  const isEn = currentLang === 'en';
+  const searchEl = document.getElementById('ecSearchInput');
+  const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+  const allowedSet = new Set(ecModalState.allowedCategories);
+
+  const state = getDeptState(currentDept);
+  const currentSelected = getSlotSelectedInstances(state, ecModalState.slotCourseId, ecModalState.instanceId);
+  const selectedCodesSet = new Set(
+    currentSelected.map(s => String(s.catalogCourse ? s.catalogCourse.code : s.customText).trim().toUpperCase().replace(/\s+/g, ''))
+  );
+  if (ecModalState.pendingFirstPick && ecModalState.pendingFirstPick.code) {
+    selectedCodesSet.add(String(ecModalState.pendingFirstPick.code).trim().toUpperCase().replace(/\s+/g, ''));
+  }
+
+  const filtered = electivesCatalogData.filter(item => {
+    if (!item || !allowedSet.has(item.category)) return false;
+    if (ecModalState.activeCategory !== 'ALL' && item.category !== ecModalState.activeCategory) return false;
+    if (ecModalState.pendingFirstPick) {
+      const isPairable = (item.category === 'PA' && Number(item.credits) === 2) || item.category === 'PE';
+      if (!isPairable) return false;
+    }
+    if (q) {
+      const hay = `${item.code || ''} ${item.name || ''} ${item.description || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="whatif-result-box">${isEn ? 'No matching elective courses found.' : 'Eşleşen seçmeli ders bulunamadı.'}</div>`;
+    return;
+  }
+
+  const groups = {};
+  ecModalState.allowedCategories.forEach(c => { groups[c] = []; });
+  filtered.forEach(item => {
+    if (!groups[item.category]) groups[item.category] = [];
+    groups[item.category].push(item);
+  });
+
+  const catTitles = {
+    HSS: isEn ? 'HSS — Humanities & Social Sciences' : 'HSS — İnsan ve Toplum Bilimleri',
+    MLE: isEn ? 'MLE — Modern Languages' : 'MLE — Modern Diller',
+    PA: isEn ? 'PA — Performing & Fine Arts (2 Cr = 1/2 Slot)' : 'PA — Güzel Sanatlar (2 Kr = 1/2 Slot)',
+    PE: isEn ? 'PE — Physical Education (2 PE = 1 Slot)' : 'PE — Beden Eğitimi (2 PE = 1 Slot)'
+  };
+
+  let html = '';
+  Object.keys(groups).forEach(cat => {
+    const items = groups[cat];
+    if (!items || items.length === 0) return;
+
+    html += `<div class="ec-group-header"><span>${escapeHTML(catTitles[cat] || cat)}</span><span>${items.length}</span></div>`;
+    items.forEach(item => {
+      const normItemCode = String(item.code || '').trim().toUpperCase().replace(/\s+/g, '');
+      const isAlreadySelected = selectedCodesSet.has(normItemCode);
+      const prereqRaw = formatCatalogItemPrereq(item);
+      const prereqText = prereqRaw ? translatePrereq(prereqRaw) : '';
+      const descText = getLocalizedCatalogDescription(item);
+      const crdLabel = `${item.credits} ${isEn ? 'Cr' : 'Kr'} / ${item.ects || item.credits} ${isEn ? 'ECTS' : 'AKTS'}`;
+      html += `
+        <div class="ec-course-row">
+          <div class="ec-course-main">
+            <div class="ec-course-head">
+              <span class="ec-course-title">${escapeHTML(item.code)} — ${escapeHTML(item.name)}</span>
+              <span class="ec-crd-pill">${escapeHTML(crdLabel)}</span>
+              ${prereqText ? `<span class="ec-prereq-pill">${escapeHTML(prereqText)}</span>` : ''}
+            </div>
+            ${descText ? `<div class="ec-course-desc">${escapeHTML(descText)}</div>` : ''}
+          </div>
+          ${isAlreadySelected
+            ? `<button type="button" class="ec-add-btn selected" disabled>${isEn ? 'Selected ✓' : 'Seçili ✓'}</button>`
+            : `<button type="button" class="ec-add-btn" onclick="selectElectiveFromCatalog('${escapeHTML(item.code)}')">${isEn ? 'Add (+)' : 'Ekle (+)'}</button>`}
+        </div>
+      `;
+    });
+  });
+
+  listEl.innerHTML = html;
+}
+
+function selectElectiveFromCatalog(courseCode) {
+  const norm = String(courseCode || '').trim().toUpperCase().replace(/\s+/g, '');
+  const item = ELECTIVE_CATALOG_BY_CODE[norm];
+  if (!item) return;
+
+  const state = getDeptState(currentDept);
+  let inst = (state.instances || []).find(i => i.instanceId === ecModalState.instanceId);
+  if (!inst) return;
+
+  const isEn = currentLang === 'en';
+  const slotCourseId = ecModalState.slotCourseId;
+  const isTwoCreditPa = item.category === 'PA' && Number(item.credits) === 2;
+  const isPairable = isTwoCreditPa || item.category === 'PE';
+  const formattedPrereq = formatCatalogItemPrereq(item);
+
+  // Kural 3A: Tek başına 3+ kredili ders (HSS, MLE veya 3 kredili PA) seçildiğinde
+  // eski split seçimleri (2'li PA/PE) hem sol slottan hem sağ dönemden tamamen silinir.
+  if (!isPairable) {
+    hideEcWarning();
+    state.instances = state.instances.filter(i => !(i.splitSlotCourseId === slotCourseId && i.instanceId !== inst.instanceId));
+    inst.courseId = slotCourseId;
+    inst.customText = item.code;
+    inst.passed = false;
+    inst.grade = 'AA';
+    inst.catalogCourse = {
+      code: item.code,
+      name: item.name,
+      crd: Number(item.credits) || 0,
+      ects: Number(item.ects) || 0,
+      category: item.category,
+      prereq: formattedPrereq
+    };
+    delete inst.splitGroupId;
+    delete inst.splitSlotCourseId;
+    delete inst.splitIndex;
+
+    saveGlobalState();
+    closeElectiveCatalogModal();
+    initUI();
+    showToast(`${item.code} — ${item.name}`);
+    return;
+  }
+
+  // Kural 3B: Slot zaten 2 split dersle doluysa ve kullanıcı yeni bir 2-kr PA / PE seçerse
+  // önceki 2 dersi temizle, yeni 1. ders olarak başlat ve 2. dersi seçmesini iste.
+  if (!ecModalState.persistedFirstInstId && !ecModalState.pendingFirstPick) {
+    const existingSplit = (state.instances || []).filter(i => i.splitSlotCourseId === slotCourseId && i.catalogCourse);
+    if (existingSplit.length >= 2) {
+      const baseInst = existingSplit.find(i => i.instanceId === inst.instanceId) || existingSplit[0];
+      state.instances = state.instances.filter(i => !(i.splitSlotCourseId === slotCourseId && i.instanceId !== baseInst.instanceId));
+      baseInst.courseId = slotCourseId;
+      baseInst.customText = '';
+      baseInst.passed = false;
+      baseInst.grade = 'AA';
+      delete baseInst.catalogCourse;
+      delete baseInst.splitGroupId;
+      delete baseInst.splitSlotCourseId;
+      delete baseInst.splitIndex;
+      inst = baseInst;
+      ecModalState.instanceId = baseInst.instanceId;
+      saveGlobalState();
+      initUI();
+    }
+  }
+
+  if (isTwoCreditPa) {
+    const existingCount = countTwoCreditPaCourses(state);
+    const pendingUnsavedPa = (!ecModalState.persistedFirstInstId && ecModalState.pendingFirstPick && ecModalState.pendingFirstPick.category === 'PA' && Number(ecModalState.pendingFirstPick.credits) === 2) ? 1 : 0;
+    if (existingCount + pendingUnsavedPa >= 3) {
+      const warnMsg = isEn
+        ? 'At most 3 two-credit PA courses can count as electives.'
+        : 'En fazla 3 adet 2 kredili PA dersi seçmeli olarak sayılabilir.';
+      showEcWarning(warnMsg);
+      showToast(warnMsg);
+      return;
+    }
+  }
+
+  hideEcWarning();
+
+  // 2 kredili PA veya PE eşleştirme (1. seçim -> modal açık kalır)
+  if (!ecModalState.pendingFirstPick) {
+    ecModalState.pendingFirstPick = item;
+    renderEcSelectedBox();
+    updateEcProgressBanner();
+    renderElectiveCatalogList();
+    return;
+  }
+
+  // 2. seçim tamamlandı -> Sağdaki döneme 2 ayrı kart, soldaki slota Split Card!
+  const item1 = ecModalState.pendingFirstPick;
+  const item2 = item;
+  const splitGroupId = inst.splitGroupId || `split_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+  const preserveFirstPassed = !!ecModalState.persistedFirstInstId;
+
+  inst.courseId = slotCourseId;
+  inst.customText = item1.code;
+  if (!preserveFirstPassed) {
+    inst.passed = false;
+    inst.grade = 'AA';
+  }
+  inst.splitGroupId = splitGroupId;
+  inst.splitSlotCourseId = slotCourseId;
+  inst.splitIndex = 1;
+  inst.catalogCourse = {
+    code: item1.code,
+    name: item1.name,
+    crd: Number(item1.credits) || 0,
+    ects: Number(item1.ects) || 0,
+    category: item1.category,
+    prereq: formatCatalogItemPrereq(item1)
+  };
+
+  const inst2 = {
+    instanceId: `inst_split2_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+    courseId: `${slotCourseId}_split2_${Date.now()}`,
+    semId: inst.semId,
+    passed: false,
+    grade: 'AA',
+    customText: item2.code,
+    splitGroupId,
+    splitSlotCourseId: slotCourseId,
+    splitIndex: 2,
+    catalogCourse: {
+      code: item2.code,
+      name: item2.name,
+      crd: Number(item2.credits) || 0,
+      ects: Number(item2.ects) || 0,
+      category: item2.category,
+      prereq: formattedPrereq
+    }
+  };
+
+  const idx = state.instances.findIndex(i => i.instanceId === inst.instanceId);
+  if (idx > -1) {
+    state.instances.splice(idx + 1, 0, inst2);
+  } else {
+    state.instances.push(inst2);
+  }
+
+  saveGlobalState();
+  closeElectiveCatalogModal();
+  initUI();
+  showToast(`${item1.code} + ${item2.code}`);
+}
