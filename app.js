@@ -1,3 +1,4 @@
+// Created by Enes Furkan Gözüdik
 const isMobileDevice = () => window.innerWidth <= 900;
 
 const FALL_TERM = "2026/2027-1";
@@ -4482,7 +4483,7 @@ function handleApplyDmFromModal() {
   closeDmModal();
 }
 
-const FEEDBACK_API_URL = "https://takip-phi.vercel.app/api/issue";
+const FEEDBACK_API_URL = "https://bountracker-api.vercel.app/api/issue";
 
 function openFeedbackModal() {
   const modal = document.getElementById('feedbackModal');
