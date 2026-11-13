@@ -35,6 +35,7 @@ const translations = {
     supportBtn: "☕ Destek Ol",
     supportBtnTitle: "Projeye Destek Ol",
     toastSupportSoon: "☕ Destek bağlantısı yakında eklenecek!",
+    toastSupportThanks: "☕ Desteğiniz için teşekkürler!",
     resetBtn: "Sıfırla",
     resetBtnTitle: "Bölüm planını sıfırla",
     tabPool: "📋 Ders Havuzu",
@@ -343,6 +344,7 @@ const translations = {
     supportBtn: "☕ Support",
     supportBtnTitle: "Support the Project",
     toastSupportSoon: "☕ Support link coming soon!",
+    toastSupportThanks: "☕ Thank you for your support!",
     resetBtn: "Reset",
     resetBtnTitle: "Reset department plan",
     tabPool: "📋 Course Pool",
@@ -4766,6 +4768,7 @@ function handleSupportClick(event) {
   }
   if (event) event.preventDefault();
   window.open(href, '_blank', 'noopener,noreferrer');
+  showToast(t('toastSupportThanks'));
 }
 
 const toolsDropdownEl = document.getElementById('toolsDropdown');
