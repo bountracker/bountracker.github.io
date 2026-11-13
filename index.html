@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Boğaziçi Tracker | BÜ Ders Planlayıcı, GPA Hesaplama, ÇAP &amp; Yandal Takip</title>
+  <meta name="description" content="Boğaziçi Üniversitesi öğrencileri için ücretsiz 4 yıllık ders planlayıcı, DNO/GNO (GPA) hesaplama, e-Devlet transkript PDF aktarma, önkoşul ağacı ve ÇAP / Yandal müfredat takip aracı.">
+  <meta name="keywords" content="Boğaziçi Üniversitesi, BOUN, ders planlayıcı, GPA hesaplama, GNO hesaplama, DNO, ÇAP, Yandal, önkoşul ağacı, transkript, Boğaziçi Tracker, BÜ müfredat">
+  <meta name="author" content="Boğaziçi Tracker">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f172a">
+
+  
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Boğaziçi Tracker">
+  <meta property="og:title" content="Boğaziçi Tracker | BÜ Ders Planlayıcı, GPA Hesaplama, ÇAP &amp; Yandal Takip">
+  <meta property="og:description" content="Boğaziçi Üniversitesi öğrencileri için ücretsiz 4 yıllık ders planlayıcı, DNO/GNO (GPA) hesaplama, e-Devlet transkript PDF aktarma, önkoşul ağacı ve ÇAP / Yandal müfredat takip aracı.">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boğaziçi Tracker | BÜ Ders Planlayıcı, GPA Hesaplama, ÇAP &amp; Yandal Takip">
+  <meta name="twitter:description" content="Boğaziçi Üniversitesi öğrencileri için ücretsiz 4 yıllık ders planlayıcı, DNO/GNO (GPA) hesaplama, transkript PDF aktarma, önkoşul ağacı ve ÇAP / Yandal takip aracı.">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Boğaziçi Tracker",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "inLanguage": ["tr", "en"],
+    "isAccessibleForFree": true,
+    "description": "Boğaziçi Üniversitesi öğrencileri için ücretsiz 4 yıllık ders planlayıcı, DNO/GNO (GPA) hesaplama, e-Devlet transkript PDF aktarma, önkoşul ağacı ve ÇAP / Yandal müfredat takip aracı."
+  }
+  </script>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23003366'/><path d='M50 24 L82 40 L50 56 L18 40 Z' fill='%23ffffff'/><path d='M30 46 L30 64 C30 73 70 73 70 64 L70 46' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round'/><path d='M76 43 L76 65 C76 68 80 68 80 65 L80 43' fill='none' stroke='%23f59e0b' stroke-width='3'/><circle cx='80' cy='67' r='3' fill='%23f59e0b'/></svg>" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css?v=2">
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="top-bar-brand-row">
+      <h1>
+        <span>🎓 Boğaziçi Tracker</span>
+        <span id="appSubtitle" style="font-weight: 400; font-size: 1.05rem; color: #64748b;">| Ders & GPA Takip</span>
+      </h1>
+      <div class="mobile-header-actions">
+        <button type="button" id="mobileLangBtn" class="topbar-btn lang-btn" onclick="toggleLanguage()" title="Dil Değiştir / Switch Language">
+          🌐 <span id="mobileLangToggleLabel">TR | EN</span>
+        </button>
+        <button type="button" id="mobileMenuBtn" class="topbar-btn mobile-menu-btn" onclick="openMobileCatalog()" aria-expanded="false" aria-controls="mobileCatalogModal" title="Uygulama Kataloğu / App Catalog">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <circle cx="4" cy="4" r="1.8"/><circle cx="10" cy="4" r="1.8"/><circle cx="16" cy="4" r="1.8"/>
+            <circle cx="4" cy="10" r="1.8"/><circle cx="10" cy="10" r="1.8"/><circle cx="16" cy="10" r="1.8"/>
+            <circle cx="4" cy="16" r="1.8"/><circle cx="10" cy="16" r="1.8"/><circle cx="16" cy="16" r="1.8"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="top-bar-controls">
+      <div class="dept-select-container">
+        <label id="deptLabel" for="deptSelect">Bölüm:</label>
+        <select id="deptSelect" class="dept-select" onchange="changeDepartment(this.value)">
+        </select>
+      </div>
+      <div class="minor-select-container">
+        <button id="minorBtn" class="minor-btn" onclick="openMinorModal()" title="Yandal Programı Seç / Düzenle">
+          🎓 Yandal Ekle
+        </button>
+        <button id="dmBtn" class="minor-btn dm-btn" onclick="openDmModal()" title="Çift Anadal Programı Seç / Düzenle">
+          🎓 ÇAP Ekle
+        </button>
+      </div>
+      <div id="toolsDropdown" class="top-bar-btn-group">
+        <button id="shareBtn" class="topbar-btn share-btn" onclick="openShareModal()" title="Ders planınızı paylaşın, görsel/JSON indirin veya transkript/yedek aktarın">
+          📤 Paylaş &amp; Aktar
+        </button>
+        <button id="guideBtn" class="topbar-btn guide-btn" onclick="openWelcomeModal()" title="Uygulama Rehberi ve Hızlı Başlangıç">
+          ❓ Rehber
+        </button>
+        <button id="feedbackBtn" class="topbar-btn feedback-btn" onclick="openFeedbackModal()" title="Hata Bildir veya Öneri Paylaş">
+          💬 Hata / Öneri
+        </button>
+        <a href="#" id="supportBtn" class="topbar-btn support-btn" onclick="handleSupportClick(event)" title="Projeye Destek Ol">☕ Destek Ol</a>
+        <button id="langToggleBtn" class="topbar-btn lang-btn" onclick="toggleLanguage()" title="Dil Değiştir / Switch Language">
+          🌐 <span id="langToggleLabel">TR | EN</span>
+        </button>
+        <button id="resetBtn" class="reset-btn" onclick="resetCurrentDept()" title="Bölüm planını sıfırla">Sıfırla</button>
+      </div>
+      <input type="file" id="jsonFileInput" accept=".json,application/json" style="display: none;" onchange="importDataFromJSON(event)">
+    </div>
+  </header>
+
+  <div id="sandboxBanner" class="sandbox-banner" style="display: none;">
+    <div class="sandbox-banner-content">
+      <div class="sandbox-banner-text" id="sandboxBannerText">
+        👀 Önizleme Modu — Paylaşılan planı inceliyorsunuz; yaptığınız değişiklikler kaydedilmez.
+      </div>
+      <div class="sandbox-banner-actions">
+        <button type="button" id="sandboxSaveBtn" class="sandbox-btn save-btn" onclick="saveSandboxToMyPlan()">
+          💾 Kendi Planıma Aktar
+        </button>
+        <button type="button" id="sandboxExitBtn" class="sandbox-btn exit-btn" onclick="exitSandboxMode()">
+          ↩️ Kendi Planıma Dön
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-tab-bar" id="mobileTabs">
+    <button class="tab-btn active" id="tabBtnPool" onclick="switchMobileTab('pool')">
+      📋 Ders Havuzu
+    </button>
+    <button class="tab-btn" id="tabBtnSemesters" onclick="switchMobileTab('semesters')">
+      📅 Dönemler & Plan
+    </button>
+  </nav>
+
+  <main class="app-main">
+    <aside class="sidebar active-tab" id="sidebarContainer">
+      <div class="sidebar-fixed-top" id="sidebarFixedTop">
+        <div class="sidebar-title">
+          <span id="sidebarPoolTitle">Ders Havuzu</span>
+          <span id="sidebarPoolSubtitle" style="font-size: 0.74rem; font-weight: normal; color: var(--text-muted);">Dönem Blokları</span>
+        </div>
+      </div>
+
+      <div id="course-pool" class="sidebar-scroll-pool">
+        <div id="poolActionBar" class="sidebar-segmented-bar pool-action-bar">
+          <button type="button" id="prereqTreeBtn" class="sidebar-seg-btn prereq-tree-btn" onclick="openPrereqTreeModal()" title="Derslerin önkoşul ağacını ve kilit zincirlerini görüntüleyin">
+            🕸️ Önkoşul Ağacı
+          </button>
+          <div class="sidebar-autofill-group">
+            <button type="button" id="autoFillBtn" class="sidebar-seg-btn autofill-btn" onclick="openAutoFillModal()" title="Kalan dersleri önkoşul sırasına göre dönemlere otomatik yerleştirin">
+              ⚡ Otomatik Doldur
+            </button>
+            <button type="button" id="undoAutoFillBtn" class="sidebar-undo-pill is-hidden" onclick="undoAutoFillCourses()" disabled title="Son otomatik doldurma işlemini geri al" aria-label="Doldurmayı Geri Al">
+              ↩️
+            </button>
+          </div>
+        </div>
+        <div id="dashCardWrapper" class="dashboard-card-wrapper">
+          <div class="dashboard-card">
+            <button type="button" id="pinDashBtn" class="pin-dash-btn" onclick="toggleDashPin()" title="Kartı Üste Sabitle">📌</button>
+            <div class="dash-row dash-row-top">
+              <div class="dash-item">
+                <span class="dash-label">GPA</span>
+                <span id="gpa-display" class="dash-val">0.00</span>
+              </div>
+              <div class="dash-item" style="text-align: right;">
+                <span id="labelRemainingTotal" class="dash-label">Kalan / Toplam</span>
+                <span id="remaining-count" class="dash-val">0</span>
+              </div>
+            </div>
+            
+            <div class="dash-row" style="border-top: 1px solid rgba(255,255,255,0.18); padding-top: 5px;">
+              <div class="dash-item">
+                <span id="labelSelectedCourses" class="dash-label">Seçilen Ders</span>
+                <span id="selected-courses-count" class="dash-subval">0 Ders</span>
+              </div>
+              <div class="dash-item" style="text-align: right;">
+                <span id="labelSelectedCredits" class="dash-label">Seçilen Kredi</span>
+                <span id="selected-credits" class="dash-subval">0 Cr</span>
+              </div>
+            </div>
+
+            <div class="dash-row" style="border-top: 1px solid rgba(255,255,255,0.18); padding-top: 5px;">
+              <div class="dash-item">
+                <span id="labelCompleted" class="dash-label">Tamamlanan</span>
+                <span id="completed-credits" class="dash-subval">0 Cr (0 Ders)</span>
+              </div>
+              <div class="dash-item" style="text-align: right;">
+                <span id="labelTargetCredits" class="dash-label">Hedef Kredi</span>
+                <span id="total-credits" class="dash-subval">0 Cr</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="main-content" id="years-grid"></section>
+  </main>
+
+  <div id="global-tooltip"></div>
+  <div id="toast" class="toast-msg"></div>
+
+  
+  <div id="feedbackModal" class="modal-backdrop" onclick="handleFeedbackBackdropClick(event)">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle">
+      <div class="modal-header">
+        <h3 id="feedbackModalTitle">💬 Hata / Öneri Bildir</h3>
+        <button type="button" class="modal-close-btn" onclick="closeFeedbackModal()" aria-label="Kapat">✕</button>
+      </div>
+      <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="feedbackTitle"><span id="feedbackTitleLabel">Başlık</span> <span style="color:#ef4444;">*</span></label>
+            <input type="text" id="feedbackTitle" class="form-control" placeholder="Örn: CMPE 250 önkoşulu hatalı" required maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label id="feedbackCategoryLabel" for="feedbackCategory">Kategori</label>
+            <select id="feedbackCategory" class="form-control" style="cursor: pointer;">
+              <option value="Hatalı Ders/Önkoşul">Hatalı Ders/Önkoşul</option>
+              <option value="Yeni Özellik Önerisi">Yeni Özellik Önerisi</option>
+              <option value="Arayüz/Hesaplama Hatası">Arayüz/Hesaplama Hatası</option>
+              <option value="Diğer">Diğer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="feedbackDesc"><span id="feedbackDescLabel">Açıklama</span> <span style="color:#ef4444;">*</span></label>
+            <textarea id="feedbackDesc" class="form-control" placeholder="Detaylı açıklama..." rows="4" required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="feedbackCancelBtn" class="btn-cancel-issue" onclick="closeFeedbackModal()">İptal</button>
+          <button type="submit" id="feedbackSubmitBtn" class="btn-submit-issue">
+            <span>Gönder</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  <div id="minorModal" class="modal-backdrop" onclick="handleMinorBackdropClick(event)">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="minorModalTitle">
+      <div class="modal-header">
+        <h3 id="minorModalTitle">🎓 Yandal Programı Seçimi</h3>
+        <button type="button" class="modal-close-btn" onclick="closeMinorModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label id="minorSelectLabel" for="minorSelect">Yandal Programı Seçin</label>
+          <select id="minorSelect" class="form-control" onchange="handleMinorSelectChange(this.value)" style="cursor: pointer;">
+            <option value="">(Yandal Yok / İptal Et)</option>
+          </select>
+        </div>
+
+        <div id="minorPreviewBox" class="minor-preview-box">
+          <div style="color: #64748b; font-style: italic;">Lütfen incelemek istediğiniz bir yandal programı seçin.</div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="minorCancelBtn" class="btn-cancel-issue" onclick="closeMinorModal()">Vazgeç</button>
+        <button type="button" id="minorApplyBtn" class="btn-submit-issue" onclick="handleApplyMinorFromModal()">
+          <span>Yandalı Uygula</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dmModal" class="modal-backdrop" onclick="handleDmBackdropClick(event)">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="dmModalTitle">
+      <div class="modal-header">
+        <h3 id="dmModalTitle">🎓 Çift Anadal Programı (ÇAP) Seçimi</h3>
+        <button type="button" class="modal-close-btn" onclick="closeDmModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="dmDataNotice" class="dm-info-box">
+          ℹ️ Bilgi: Mevcut veri eksikliği nedeniyle bazı bölümlerin ÇAP programları sisteme henüz yüklenmemiştir. Aradığınız ÇAP programını listede göremiyorsanız "Hata / Öneri Bildir" üzerinden bize iletebilirsiniz.
+        </div>
+        <div class="form-group">
+          <label id="dmSelectLabel" for="dmSelect">ÇAP Programı Seçin</label>
+          <select id="dmSelect" class="form-control" onchange="handleDmSelectChange(this.value)" style="cursor: pointer;">
+            <option value="">(ÇAP Yok / İptal Et)</option>
+          </select>
+        </div>
+
+        <div id="dmPreviewBox" class="minor-preview-box">
+          <div style="color: #64748b; font-style: italic;">Lütfen incelemek istediğiniz bir ÇAP programı seçin.</div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="dmCancelBtn" class="btn-cancel-issue" onclick="closeDmModal()">Vazgeç</button>
+        <button type="button" id="dmApplyBtn" class="btn-submit-issue" onclick="handleApplyDmFromModal()">
+          <span>ÇAP'ı Uygula</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="shareModal" class="modal-backdrop" onclick="handleShareBackdropClick(event)">
+    <div class="modal-dialog share-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+      <div class="modal-header">
+        <h3 id="shareModalTitle">📤 Paylaş &amp; Aktar</h3>
+        <button type="button" class="modal-close-btn" onclick="closeShareModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body share-modal-body">
+        <div class="share-two-col">
+          <div class="share-col">
+            <div id="shareExportSectionTitle" class="share-section-title">📤 Dışa Aktar &amp; Paylaş</div>
+            <div class="share-options-grid">
+              <button type="button" class="share-option-card" onclick="exportPlanAsPng()">
+                <div class="share-option-icon">🖼️</div>
+                <div class="share-option-content">
+                  <strong id="sharePngBtn">Görsel Olarak İndir (PNG)</strong>
+                  <span id="sharePngDesc">Dönemleri ve ders planınızı yüksek çözünürlüklü özet görseli olarak indirin.</span>
+                </div>
+              </button>
+              <button type="button" class="share-option-card" onclick="copyShareLink()">
+                <div class="share-option-icon">🔗</div>
+                <div class="share-option-content">
+                  <strong id="shareLinkBtn">Paylaşılabilir Plan Linki Kopyala</strong>
+                  <span id="shareLinkDesc">Arkadaşın kendi verileri bozulmadan planını önizleyebilir</span>
+                </div>
+              </button>
+              <button type="button" class="share-option-card" onclick="closeShareModal(); exportDataAsJSON()">
+                <div class="share-option-icon">💾</div>
+                <div class="share-option-content">
+                  <strong id="shareJsonExportBtn">Yedek İndir (JSON)</strong>
+                  <span id="shareJsonExportDesc">Tüm planınızı ve notlarınızı JSON yedek dosyası olarak kaydedin.</span>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="share-col">
+            <div id="shareImportSectionTitle" class="share-section-title">📥 İçe Aktar</div>
+            <div class="share-options-grid">
+              <button type="button" class="share-option-card" onclick="closeShareModal(); openTranscriptModal()">
+                <div class="share-option-icon" style="background:#ecfdf5;">📄</div>
+                <div class="share-option-content">
+                  <strong id="shareTranscriptBtn">BÜ / e-Devlet Transkripti Aktar (PDF / Metin)</strong>
+                  <span id="shareTranscriptDesc">Transkript PDF dosyanızı yükleyin veya metni yapıştırarak derslerinizi otomatik aktarın.</span>
+                </div>
+              </button>
+              <button type="button" class="share-option-card" onclick="closeShareModal(); document.getElementById('jsonFileInput').click()">
+                <div class="share-option-icon" style="background:#f5f3ff;">📂</div>
+                <div class="share-option-content">
+                  <strong id="shareJsonImportBtn">Yedek Dosyası Yükle (JSON)</strong>
+                  <span id="shareJsonImportDesc">Daha önce indirdiğiniz JSON plan yedeğini geri yükleyin.</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="shareCancelBtn" class="btn-cancel-issue" onclick="closeShareModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="transcriptModal" class="modal-backdrop" onclick="handleTranscriptBackdropClick(event)">
+    <div class="modal-dialog transcript-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="transcriptModalTitle">
+      <div class="modal-header">
+        <h3 id="transcriptModalTitle">📥 BÜ Transkript Otomatik İçe Aktarıcı</h3>
+        <button type="button" class="modal-close-btn" onclick="closeTranscriptModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body transcript-modal-body">
+        <div class="transcript-guide-box">
+          <p id="transcriptGuide">
+            📌 <strong>BUIS (Öğrenci Bilgi Sistemi)</strong> &rarr; <em>Transkript</em> sayfasını açıp <code>Ctrl+A</code> ve <code>Ctrl+C</code> ile tüm sayfayı kopyalayın ve aşağıdaki kutuya yapıştırın.
+          </p>
+        </div>
+        <div class="transcript-upload-box" id="transcriptUploadBox" onclick="document.getElementById('transcriptFileInput').click()">
+          <input type="file" id="transcriptFileInput" accept="application/pdf" style="display:none;" onchange="handleTranscriptFileSelected(event)">
+          <div class="transcript-upload-icon">📄</div>
+          <div class="transcript-upload-text">
+            <strong id="transcriptUploadTitle">PDF Transkript Dosyasını Yükleyin</strong>
+            <span id="transcriptUploadSubtitle">veya dosyayı buraya sürükleyip bırakın (e-Devlet / BUIS PDF)</span>
+          </div>
+          <button type="button" class="transcript-file-btn" onclick="event.stopPropagation(); document.getElementById('transcriptFileInput').click()">
+            <span id="transcriptUploadBtnText">Dosya Seç</span>
+          </button>
+        </div>
+        <div class="transcript-divider">
+          <span id="transcriptDividerText">VEYA METİN OLARAK YAPIŞTIRIN</span>
+        </div>
+        <div class="form-group">
+          <label id="transcriptInputLabel" for="transcriptInput">Transkript Metni:</label>
+          <textarea id="transcriptInput" class="form-control transcript-textarea" rows="7" placeholder="Örn:&#10;2021/2022-1&#10;MATH 101.01 CALCULUS I 4.0 6.0 AA&#10;PHYS 121 GENERAL PHYSICS I 4.0 6.0 BA..." oninput="handleTranscriptInputChange()"></textarea>
+        </div>
+        <div class="transcript-btn-row">
+          <button type="button" id="transcriptPreviewBtn" class="topbar-btn transcript-preview-btn" onclick="previewTranscript()">
+            🔍 Önizle ve Ayrıştır
+          </button>
+        </div>
+        <div id="transcriptPreviewArea" class="transcript-preview-area" style="display: none;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="transcriptCancelBtn" class="btn-cancel-issue" onclick="closeTranscriptModal()">Kapat</button>
+        <button type="button" id="transcriptApplyBtn" class="btn-submit-issue" onclick="applyParsedTranscript()" disabled>
+          <span>✅ Seçilenleri Plana Aktar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="prereqTreeModal" class="modal-backdrop" onclick="handlePrereqTreeBackdropClick(event)">
+    <div class="modal-dialog prereq-tree-dialog" role="dialog" aria-modal="true" aria-labelledby="prereqTreeModalTitle">
+      <div class="modal-header">
+        <div class="prereq-tree-header-left">
+          <h3 id="prereqTreeModalTitle">🕸️ İnteraktif Önkoşul Ağacı</h3>
+          <div class="prereq-tree-legend" id="prereqTreeLegend">
+            <span class="pt-leg-item"><i class="pt-dot passed"></i> <span id="ptLegPassed">Geçildi</span></span>
+            <span class="pt-leg-item"><i class="pt-dot planned"></i> <span id="ptLegPlanned">Planlandı</span></span>
+            <span class="pt-leg-item"><i class="pt-dot pending"></i> <span id="ptLegPending">Alınmadı</span></span>
+            <span class="pt-leg-sep">|</span>
+            <span class="pt-leg-item"><i class="pt-dot prereq"></i> <span id="ptLegPrereq">Önkoşul</span></span>
+            <span class="pt-leg-item"><i class="pt-dot unlock"></i> <span id="ptLegUnlock">Kilitlediği</span></span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closePrereqTreeModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div id="prereqTreeInfoBar" class="prereq-tree-info-bar">
+        💡 Bir ders kutusunun üzerine gelin veya tıklayın; önkoşullarını ve kilitlediği tüm zincirleme dersleri görün.
+      </div>
+      <div class="prereq-tree-canvas-wrap" id="prereqTreeCanvasWrap">
+        <div class="prereq-tree-stage" id="prereqTreeStage">
+          <svg id="prereqTreeSvg" class="prereq-tree-svg"></svg>
+          <div id="prereqTreeColumns" class="prereq-tree-columns"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="autoFillModal" class="modal-backdrop" onclick="handleAutoFillBackdropClick(event)">
+    <div class="modal-dialog autofill-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="autoFillModalTitle">
+      <div class="modal-header">
+        <h3 id="autoFillModalTitle">⚡ Kalan Dersleri Otomatik Doldur</h3>
+        <button type="button" class="modal-close-btn" onclick="closeAutoFillModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="autoFillDesc" class="autofill-desc">
+          Mevcut geçtiğiniz ve dönemlere yerleştirdiğiniz dersler korunur; yalnızca sol havuzda kalan dersler önkoşul sırasına ve açılış dönemine göre gelecek dönemlere dağıtılır.
+        </p>
+        <label class="form-checkbox-label autofill-summer-label">
+          <input type="checkbox" id="autoFillSummerCheck" checked onchange="toggleAutoFillSummerOptions()">
+          <span id="autoFillSummerLabel">☀️ Yaz okullarına (1.3, 2.3, 3.3...) ders yerleştirilsin (Öncelik: TK, AE ve seçmeli dersler)</span>
+        </label>
+        <div id="autoFillSummerOptions" class="autofill-summer-options">
+          <div class="form-group">
+            <label id="summerMaxCreditsLabel" for="autoFillSummerMaxCredits">Yaz Maks. Kredi:</label>
+            <input type="number" id="autoFillSummerMaxCredits" class="form-control" value="8" min="3" max="12" step="1">
+          </div>
+          <div class="form-group">
+            <label id="summerMaxCoursesLabel" for="autoFillSummerMaxCourses">Yaz Maks. Ders:</label>
+            <select id="autoFillSummerMaxCourses" class="form-control">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="0" id="summerMaxCoursesUnlimitedOpt">Sınırsız (Krediye göre)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label id="autoFillMaxCreditsLabel" for="autoFillMaxCredits">Dönemlik Maksimum Kredi Hedefi:</label>
+          <input type="number" id="autoFillMaxCredits" class="form-control" value="20" min="12" max="35" step="1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="autoFillCancelBtn" class="btn-cancel-issue" onclick="closeAutoFillModal()">İptal</button>
+        <button type="button" id="autoFillConfirmBtn" class="btn-submit-issue" onclick="executeAutoFillRemainingCourses()">
+          <span>⚡ Otomatik Doldur</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="termPickerModal" class="bottom-sheet-backdrop" onclick="handleTermPickerBackdropClick(event)">
+    <div class="bottom-sheet-dialog" role="dialog" aria-modal="true" aria-labelledby="termPickerTitle">
+      <div class="bottom-sheet-handle"></div>
+      <div class="bottom-sheet-header">
+        <div class="bottom-sheet-title-wrap">
+          <div id="termPickerSubtitle" class="bottom-sheet-subtitle">Eklemek istediğiniz dönemi seçin</div>
+          <h3 id="termPickerTitle" class="bottom-sheet-title"></h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeTermPickerModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div id="termPickerBody" class="bottom-sheet-body"></div>
+    </div>
+  </div>
+
+  <div id="mobileCatalogModal" class="catalog-backdrop" onclick="handleMobileCatalogBackdropClick(event)">
+    <div class="catalog-sheet" role="dialog" aria-modal="true" aria-labelledby="mobileCatalogTitle">
+      <div class="bottom-sheet-handle"></div>
+      <div class="catalog-header">
+        <h3 id="mobileCatalogTitle">⊞ Uygulama Kataloğu</h3>
+        <button type="button" class="modal-close-btn" onclick="closeMobileCatalog()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="catalog-body">
+        <div class="catalog-section">
+          <div id="catSecAcademic" class="catalog-section-title">Akademik Programlar</div>
+          <div class="catalog-grid">
+            <button type="button" id="catalogMinorCard" class="catalog-card cat-card-indigo" onclick="closeMobileCatalog(); openMinorModal()">
+              <span class="cat-icon">🎓</span>
+              <span class="cat-title" id="catMinorTitle">Yandal Ekle / Yönet</span>
+              <span class="cat-sub" id="catMinorSub">Yandal programı seç</span>
+            </button>
+            <button type="button" id="catalogDmCard" class="catalog-card cat-card-emerald" onclick="closeMobileCatalog(); openDmModal()">
+              <span class="cat-icon">🎓</span>
+              <span class="cat-title" id="catDmTitle">ÇAP Ekle / Yönet</span>
+              <span class="cat-sub" id="catDmSub">Çift anadal seç</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="catalog-section">
+          <div id="catSecSmart" class="catalog-section-title">Akıllı Araçlar</div>
+          <div class="catalog-grid">
+            <button type="button" id="catalogPrereqCard" class="catalog-card cat-card-purple" onclick="closeMobileCatalog(); openPrereqTreeModal()">
+              <span class="cat-icon">🕸️</span>
+              <span class="cat-title" id="catPrereqTitle">Önkoşul Ağacı</span>
+              <span class="cat-sub" id="catPrereqSub">Kilit zincirlerini gör</span>
+            </button>
+            <button type="button" id="catalogAutoFillCard" class="catalog-card cat-card-teal" onclick="closeMobileCatalog(); openAutoFillModal()">
+              <span class="cat-icon">⚡</span>
+              <span class="cat-title" id="catAutoFillTitle">Otomatik Doldur</span>
+              <span class="cat-sub" id="catAutoFillSub">Dönemlere akıllı dağıt</span>
+            </button>
+            <button type="button" id="catalogUndoCard" class="catalog-card cat-card-amber is-hidden" onclick="closeMobileCatalog(); undoAutoFillCourses()">
+              <span class="cat-icon">↩️</span>
+              <span class="cat-title" id="catUndoTitle">Doldurmayı Geri Al</span>
+              <span class="cat-sub" id="catUndoSub">Önceki plana dön</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="catalog-section">
+          <div id="catSecData" class="catalog-section-title">Veri &amp; Paylaşım</div>
+          <div class="catalog-grid">
+            <button type="button" id="catalogTranscriptCard" class="catalog-card cat-card-blue" onclick="closeMobileCatalog(); openTranscriptModal()">
+              <span class="cat-icon">📄</span>
+              <span class="cat-title" id="catTranscriptTitle">Transkript Aktar (PDF)</span>
+              <span class="cat-sub" id="catTranscriptSub">e-Devlet / BUIS yükle</span>
+            </button>
+            <button type="button" id="catalogPngCard" class="catalog-card" onclick="closeMobileCatalog(); exportPlanAsPng()">
+              <span class="cat-icon">🖼️</span>
+              <span class="cat-title" id="catPngTitle">Görsel İndir (PNG)</span>
+              <span class="cat-sub" id="catPngSub">Planı resim kaydet</span>
+            </button>
+            <button type="button" id="catalogLinkCard" class="catalog-card" onclick="closeMobileCatalog(); copyShareLink()">
+              <span class="cat-icon">🔗</span>
+              <span class="cat-title" id="catLinkTitle">Paylaşılabilir Plan Linki Kopyala</span>
+              <span class="cat-sub" id="catLinkSub">Arkadaşın kendi verileri bozulmadan planını önizleyebilir</span>
+            </button>
+            <button type="button" id="catalogExportJsonCard" class="catalog-card" onclick="closeMobileCatalog(); exportDataAsJSON()">
+              <span class="cat-icon">💾</span>
+              <span class="cat-title" id="catExportJsonTitle">JSON İndir</span>
+              <span class="cat-sub" id="catExportJsonSub">Yedek dosyası al</span>
+            </button>
+            <button type="button" id="catalogImportJsonCard" class="catalog-card" onclick="closeMobileCatalog(); document.getElementById('jsonFileInput').click()">
+              <span class="cat-icon">📂</span>
+              <span class="cat-title" id="catImportJsonTitle">JSON Yükle</span>
+              <span class="cat-sub" id="catImportJsonSub">Yedeği geri yükle</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="catalog-section">
+          <div id="catSecSystem" class="catalog-section-title">Sistem</div>
+          <div class="catalog-grid">
+            <button type="button" id="catalogGuideCard" class="catalog-card" onclick="closeMobileCatalog(); openWelcomeModal()">
+              <span class="cat-icon">❓</span>
+              <span class="cat-title" id="catGuideTitle">Rehber</span>
+              <span class="cat-sub" id="catGuideSub">İlk açılış kılavuzu</span>
+            </button>
+            <button type="button" id="catalogFeedbackCard" class="catalog-card" onclick="closeMobileCatalog(); openFeedbackModal()">
+              <span class="cat-icon">💬</span>
+              <span class="cat-title" id="catFeedbackTitle">Hata / Öneri</span>
+              <span class="cat-sub" id="catFeedbackSub">Geri bildirim gönder</span>
+            </button>
+            <button type="button" id="catalogResetCard" class="catalog-card cat-card-danger" onclick="closeMobileCatalog(); resetCurrentDept()">
+              <span class="cat-icon">🗑️</span>
+              <span class="cat-title" id="catResetTitle">Planı Sıfırla</span>
+              <span class="cat-sub" id="catResetSub">Tüm dönemleri temizle</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="welcomeModal" class="modal-backdrop" onclick="handleWelcomeBackdropClick(event)">
+    <div class="modal-dialog welcome-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <div class="modal-header welcome-modal-header">
+        <div class="welcome-header-text">
+          <h3 id="welcomeTitle">👋 Boğaziçi Tracker'a Hoş Geldin!</h3>
+          <p id="welcomeSubtitle" class="welcome-subtitle">4 yıllık ders planını, GPA hedeflerini, Yandal ve ÇAP süreçlerini tek yerden yönet.</p>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeWelcomeModal(true)" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body welcome-modal-body">
+        <div class="welcome-features-grid">
+          <div class="welcome-feature-card">
+            <div class="welcome-feature-icon">📅</div>
+            <div class="welcome-feature-content">
+              <h4 id="welcomeFeat1Title">Sürükle-Bırak &amp; GPA Takibi</h4>
+              <p id="welcomeFeat1Desc">Dersleri dönemlere yerleştir, tahmini harf notlarıyla anlık dönem ve genel ortalamanı (GPA) hesapla.</p>
+            </div>
+          </div>
+          <div class="welcome-feature-card">
+            <div class="welcome-feature-icon">🎓</div>
+            <div class="welcome-feature-content">
+              <h4 id="welcomeFeat2Title">Yandal &amp; ÇAP Desteği</h4>
+              <p id="welcomeFeat2Desc">Ana dalının yanına Yandal veya Çift Anadal ekle; ortak sayılan dersleri ve kalan kredileri otomatik gör.</p>
+            </div>
+          </div>
+          <div class="welcome-feature-card">
+            <div class="welcome-feature-icon">📄</div>
+            <div class="welcome-feature-content">
+              <h4 id="welcomeFeat3Title">PDF Transkript &amp; Otomatik Doldur</h4>
+              <p id="welcomeFeat3Desc">BÜ / e-Devlet transkriptini saniyeler içinde aktar veya kalan derslerini önkoşullara göre otomatik planla.</p>
+            </div>
+          </div>
+          <div class="welcome-feature-card">
+            <div class="welcome-feature-icon">🕸️</div>
+            <div class="welcome-feature-content">
+              <h4 id="welcomeFeat4Title">Önkoşul Ağacı &amp; Güvenli Paylaşım</h4>
+              <p id="welcomeFeat4Desc">Hangi dersin neleri kilitlediğini görselleştir; planını link, PNG veya JSON yedeği olarak paylaş.</p>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-warning-box">
+          <span class="welcome-warning-icon">⚠️</span>
+          <p id="welcomeWarningText"><strong>Önemli Not:</strong> Müfredat ve önkoşul verileri bölüm sayfalarından derlenmiştir; dönemlik güncellemeler nedeniyle nadir de olsa farklılıklar bulunabilir. Eksik veya hatalı bir ders/önkoşul fark ederseniz <strong>Hata / Öneri Bildir</strong> butonundan bize iletebilirsiniz.</p>
+        </div>
+      </div>
+      <div class="modal-footer welcome-footer">
+        <button type="button" id="welcomeFeedbackBtn" class="btn-cancel-issue" onclick="openFeedbackFromWelcome()">🐞 Hata / Öneri Bildir</button>
+        <button type="button" id="welcomeStartBtn" class="btn-submit-issue welcome-start-btn" onclick="closeWelcomeModal(true)">🚀 Planlamaya Başla</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+  <script src="./app.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,6760 @@
+[
+  {
+    "course_code": "CMPE 160",
+    "prerequisites": [
+      "CMPE 101 or CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CMPE 210",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CMPE 222",
+    "prerequisites": [
+      "CMPE 250"
+    ]
+  },
+  {
+    "course_code": "CMPE 223",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CMPE 230",
+    "prerequisites": [
+      "CMPE 160"
+    ]
+  },
+  {
+    "course_code": "CMPE 244",
+    "prerequisites": [
+      "CMPE 142 or EE 240 or EE 243"
+    ]
+  },
+  {
+    "course_code": "CMPE 250",
+    "prerequisites": [
+      "CMPE 160 or CMPE 210 or IE 201"
+    ]
+  },
+  {
+    "course_code": "CMPE 300",
+    "prerequisites": [
+      "CMPE 250"
+    ]
+  },
+  {
+    "course_code": "CMPE 320",
+    "prerequisites": [
+      "CMPE 250"
+    ]
+  },
+  {
+    "course_code": "CMPE 322",
+    "prerequisites": [
+      "CMPE 250"
+    ]
+  },
+  {
+    "course_code": "CMPE 343",
+    "prerequisites": [
+      "MATH 101"
+    ]
+  },
+  {
+    "course_code": "CMPE 346",
+    "prerequisites": [
+      "CMPE 244"
+    ]
+  },
+  {
+    "course_code": "CMPE 350",
+    "prerequisites": [
+      "CMPE 220 or MATH 162 or MATH 111"
+    ]
+  },
+  {
+    "course_code": "CMPE 354",
+    "prerequisites": [
+      "CMPE 222"
+    ]
+  },
+  {
+    "course_code": "CMPE 362",
+    "prerequisites": [
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "CMPE 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 416",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 417",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CMPE 418",
+    "prerequisites": [
+      "CMPE 322"
+    ]
+  },
+  {
+    "course_code": "CMPE 420",
+    "prerequisites": [
+      "CMPE 322"
+    ]
+  },
+  {
+    "course_code": "CMPE 421",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CMPE 422",
+    "prerequisites": [
+      "CMPE 321"
+    ]
+  },
+  {
+    "course_code": "CMPE 425",
+    "prerequisites": [
+      "CMPE 320"
+    ]
+  },
+  {
+    "course_code": "CMPE 446",
+    "prerequisites": [
+      "CMPE 344 and CMPE 322"
+    ]
+  },
+  {
+    "course_code": "CMPE 460",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 462",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 475",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 476",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 477",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 478",
+    "prerequisites": [
+      "CMPE 322"
+    ]
+  },
+  {
+    "course_code": "CMPE 480",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 491",
+    "prerequisites": [
+      "Senior standing in CMPE and consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CMPE 492",
+    "prerequisites": [
+      "Senior standing in CMPE"
+    ]
+  },
+  {
+    "course_code": "CMPE 493-498",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CET 224",
+    "prerequisites": [
+      "CET 102"
+    ]
+  },
+  {
+    "course_code": "CET 301",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CET 314",
+    "prerequisites": [
+      "CET 102"
+    ]
+  },
+  {
+    "course_code": "CET 321",
+    "prerequisites": [
+      "CMPE 150"
+    ]
+  },
+  {
+    "course_code": "CET 322",
+    "prerequisites": [
+      "CET 301",
+      "CET 321"
+    ]
+  },
+  {
+    "course_code": "CET 341",
+    "prerequisites": [
+      "CET 215"
+    ]
+  },
+  {
+    "course_code": "CET 372",
+    "prerequisites": [
+      "CET 341"
+    ]
+  },
+  {
+    "course_code": "CET 441",
+    "prerequisites": [
+      "CET 341",
+      "CET 372"
+    ]
+  },
+  {
+    "course_code": "CET 451",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "CET 462",
+    "prerequisites": [
+      "CET 451"
+    ]
+  },
+  {
+    "course_code": "CET 472",
+    "prerequisites": [
+      "CET 372"
+    ]
+  },
+  {
+    "course_code": "TR 110",
+    "prerequisites": [
+      "TR 109"
+    ]
+  },
+  {
+    "course_code": "TR 202",
+    "prerequisites": [
+      "TR 201"
+    ]
+  },
+  {
+    "course_code": "TR 208",
+    "prerequisites": [
+      "TR 203"
+    ]
+  },
+  {
+    "course_code": "INT 301",
+    "prerequisites": [
+      "INT 202"
+    ]
+  },
+  {
+    "course_code": "TR 315",
+    "prerequisites": [
+      "TR 215"
+    ]
+  },
+  {
+    "course_code": "INT 318",
+    "prerequisites": [
+      "INT 301"
+    ]
+  },
+  {
+    "course_code": "INT 320",
+    "prerequisites": [
+      "INT 202"
+    ]
+  },
+  {
+    "course_code": "TR 403",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "INT 416",
+    "prerequisites": [
+      "INT 415"
+    ]
+  },
+  {
+    "course_code": "INT 417",
+    "prerequisites": [
+      "INT 301"
+    ]
+  },
+  {
+    "course_code": "INT 420",
+    "prerequisites": [
+      "INT 419"
+    ]
+  },
+  {
+    "course_code": "TR 428",
+    "prerequisites": [
+      "TR 427"
+    ]
+  },
+  {
+    "course_code": "ED 200",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 202",
+    "prerequisites": [
+      "ED 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 203",
+    "prerequisites": [
+      "ED 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 205",
+    "prerequisites": [
+      "ED 101"
+    ]
+  },
+  {
+    "course_code": "ED 206",
+    "prerequisites": [
+      "ED 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 208",
+    "prerequisites": [
+      "ED 201"
+    ]
+  },
+  {
+    "course_code": "ED 226",
+    "prerequisites": [
+      "ED 209"
+    ]
+  },
+  {
+    "course_code": "ED 252",
+    "prerequisites": [
+      "ED 101"
+    ]
+  },
+  {
+    "course_code": "ED 282",
+    "prerequisites": [
+      "ED 211"
+    ]
+  },
+  {
+    "course_code": "ED 300",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 301",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 304",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 306",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 307",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 309",
+    "prerequisites": [
+      "ED 208"
+    ]
+  },
+  {
+    "course_code": "ED 310",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 311",
+    "prerequisites": [
+      "ED 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 312",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 313",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 314",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 315",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 316",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 317",
+    "prerequisites": [
+      "ED 209"
+    ]
+  },
+  {
+    "course_code": "ED 319",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 322",
+    "prerequisites": [
+      "ED 221"
+    ]
+  },
+  {
+    "course_code": "ED 328",
+    "prerequisites": [
+      "ED 226"
+    ]
+  },
+  {
+    "course_code": "ED 330",
+    "prerequisites": [
+      "ED 226"
+    ]
+  },
+  {
+    "course_code": "ED 331",
+    "prerequisites": [
+      "ED 209 consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 335",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 342",
+    "prerequisites": [
+      "ED 221 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 370",
+    "prerequisites": [
+      "ED 201"
+    ]
+  },
+  {
+    "course_code": "ED 371",
+    "prerequisites": [
+      "ED 370"
+    ]
+  },
+  {
+    "course_code": "ED 374",
+    "prerequisites": [
+      "ED 201 & ED 370"
+    ]
+  },
+  {
+    "course_code": "ED 400",
+    "prerequisites": [
+      "ED 221"
+    ]
+  },
+  {
+    "course_code": "ED 401",
+    "prerequisites": [
+      "ED 209/ED 211"
+    ]
+  },
+  {
+    "course_code": "ED 402",
+    "prerequisites": [
+      "ED 104 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 403",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 410",
+    "prerequisites": [
+      "ED 226"
+    ]
+  },
+  {
+    "course_code": "ED 411",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 412",
+    "prerequisites": [
+      "ED 411"
+    ]
+  },
+  {
+    "course_code": "ED 415",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 417",
+    "prerequisites": [
+      "ED 330"
+    ]
+  },
+  {
+    "course_code": "ED 421",
+    "prerequisites": [
+      "ED 209"
+    ]
+  },
+  {
+    "course_code": "ED 422",
+    "prerequisites": [
+      "ED 421"
+    ]
+  },
+  {
+    "course_code": "ED 425",
+    "prerequisites": [
+      "ED 330"
+    ]
+  },
+  {
+    "course_code": "ED 431",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 434",
+    "prerequisites": [
+      "ED 330"
+    ]
+  },
+  {
+    "course_code": "ED 436",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 437",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 442",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 444",
+    "prerequisites": [
+      "ED 401"
+    ]
+  },
+  {
+    "course_code": "ED 451",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 453",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 459",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 460",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 461",
+    "prerequisites": [
+      "ED 330",
+      "ED 200 / ED 415"
+    ]
+  },
+  {
+    "course_code": "ED 465",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "ED 469",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 471",
+    "prerequisites": [
+      "ED 226"
+    ]
+  },
+  {
+    "course_code": "ED 472",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 474",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 475",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 477",
+    "prerequisites": [
+      "ED 330"
+    ]
+  },
+  {
+    "course_code": "ED 478",
+    "prerequisites": [
+      "ED 425",
+      "ED 477"
+    ]
+  },
+  {
+    "course_code": "ED 479",
+    "prerequisites": [
+      "ED 209 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 48A – 48Z",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ED 49A – 49Z",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EC 203",
+    "prerequisites": [
+      "EC 101"
+    ]
+  },
+  {
+    "course_code": "EC 205",
+    "prerequisites": [
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 206",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 208",
+    "prerequisites": [
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 223",
+    "prerequisites": [
+      "EC 101",
+      "EC 102",
+      "MATH 101",
+      "MATH 102",
+      "MATH 201"
+    ]
+  },
+  {
+    "course_code": "EC 233",
+    "prerequisites": [
+      "MATH 101"
+    ]
+  },
+  {
+    "course_code": "EC 234",
+    "prerequisites": [
+      "EC 233"
+    ]
+  },
+  {
+    "course_code": "EC 301",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 304",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 305",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 306",
+    "prerequisites": [
+      "EC 206",
+      "EC 223"
+    ]
+  },
+  {
+    "course_code": "EC 307",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 308",
+    "prerequisites": [
+      "EC 205",
+      "EC 223"
+    ]
+  },
+  {
+    "course_code": "EC 310",
+    "prerequisites": [
+      "EC 101",
+      "102"
+    ]
+  },
+  {
+    "course_code": "EC 311",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 312",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 314",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 315",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 317",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 331",
+    "prerequisites": [
+      "EC 234",
+      "MATH 101"
+    ]
+  },
+  {
+    "course_code": "EC 332",
+    "prerequisites": [
+      "EC 331"
+    ]
+  },
+  {
+    "course_code": "EC 344",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 350",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 351",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 352",
+    "prerequisites": [
+      "EC 351"
+    ]
+  },
+  {
+    "course_code": "EC 358",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 361",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 362",
+    "prerequisites": [
+      "EC 361",
+      "EC 208"
+    ]
+  },
+  {
+    "course_code": "EC 403",
+    "prerequisites": [
+      "EC 203",
+      "EC 205",
+      "EC 331"
+    ]
+  },
+  {
+    "course_code": "EC 404",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 405",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 406",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 407",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 408",
+    "prerequisites": [
+      "EC 203",
+      "EC 205",
+      "EC 331"
+    ]
+  },
+  {
+    "course_code": "EC 409",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 411",
+    "prerequisites": [
+      "EC 203, EC 205; or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EC 412",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 414",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 416",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 419",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 423",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 425",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 427",
+    "prerequisites": [
+      "EC 203"
+    ]
+  },
+  {
+    "course_code": "EC 428",
+    "prerequisites": [
+      "EC 427",
+      "EC 332"
+    ]
+  },
+  {
+    "course_code": "EC 431",
+    "prerequisites": [
+      "EC 331"
+    ]
+  },
+  {
+    "course_code": "EC 432",
+    "prerequisites": [
+      "EC 332"
+    ]
+  },
+  {
+    "course_code": "EC 433",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 436",
+    "prerequisites": [
+      "EC 331"
+    ]
+  },
+  {
+    "course_code": "EC 438",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 439",
+    "prerequisites": [
+      "EC 206"
+    ]
+  },
+  {
+    "course_code": "EC 442",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 447",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "EC 449",
+    "prerequisites": [
+      "EC 203",
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 454",
+    "prerequisites": [
+      "EC 351",
+      "EC 352"
+    ]
+  },
+  {
+    "course_code": "EC 465",
+    "prerequisites": [
+      "EC 205"
+    ]
+  },
+  {
+    "course_code": "EC 470",
+    "prerequisites": [
+      "EC 208 and Senior Standing"
+    ]
+  },
+  {
+    "course_code": "EC 471",
+    "prerequisites": [
+      "EC 203",
+      "EC 208"
+    ]
+  },
+  {
+    "course_code": "EC 474",
+    "prerequisites": [
+      "EC 203",
+      "208"
+    ]
+  },
+  {
+    "course_code": "EC 475",
+    "prerequisites": [
+      "EC 205 or POLS 343 or POLS 344"
+    ]
+  },
+  {
+    "course_code": "EE 202",
+    "prerequisites": [
+      "EE 201"
+    ]
+  },
+  {
+    "course_code": "EE 212",
+    "prerequisites": [
+      "EE 210"
+    ]
+  },
+  {
+    "course_code": "EE 232",
+    "prerequisites": [
+      "Phys 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EE 244",
+    "prerequisites": [
+      "EE 142"
+    ]
+  },
+  {
+    "course_code": "EE 272",
+    "prerequisites": [
+      "EE 271"
+    ]
+  },
+  {
+    "course_code": "EE 304",
+    "prerequisites": [
+      "EE 201"
+    ]
+  },
+  {
+    "course_code": "EE 330",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 333",
+    "prerequisites": [
+      "EE 201",
+      "EE 232"
+    ]
+  },
+  {
+    "course_code": "EE 334",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 336",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 351",
+    "prerequisites": [
+      "MATH 202",
+      "EE 201"
+    ]
+  },
+  {
+    "course_code": "EE 363",
+    "prerequisites": [
+      "PHYS 201",
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "EE 364",
+    "prerequisites": [
+      "EE 363 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EE 371",
+    "prerequisites": [
+      "EE 271"
+    ]
+  },
+  {
+    "course_code": "EE 372",
+    "prerequisites": [
+      "EE 214 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EE 373",
+    "prerequisites": [
+      "Math 202",
+      "EE 201"
+    ]
+  },
+  {
+    "course_code": "EE 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "EE 431",
+    "prerequisites": [
+      "EE 333",
+      "EE 335"
+    ]
+  },
+  {
+    "course_code": "EE 432",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 433",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 437",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 438",
+    "prerequisites": [
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 439",
+    "prerequisites": [
+      "EE 334"
+    ]
+  },
+  {
+    "course_code": "EE 443",
+    "prerequisites": [
+      "EE 244",
+      "EE 333"
+    ]
+  },
+  {
+    "course_code": "EE 450",
+    "prerequisites": [
+      "EE 351"
+    ]
+  },
+  {
+    "course_code": "EE 451",
+    "prerequisites": [
+      "EE 351"
+    ]
+  },
+  {
+    "course_code": "EE 453",
+    "prerequisites": [
+      "EE 351"
+    ]
+  },
+  {
+    "course_code": "EE 454",
+    "prerequisites": [
+      "EE 453"
+    ]
+  },
+  {
+    "course_code": "EE 457",
+    "prerequisites": [
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "EE 460",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EE 461",
+    "prerequisites": [
+      "EE 363 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "EE 463",
+    "prerequisites": [
+      "EE 363"
+    ]
+  },
+  {
+    "course_code": "EE 470",
+    "prerequisites": [
+      "EE 371",
+      "EE 372"
+    ]
+  },
+  {
+    "course_code": "EE 473",
+    "prerequisites": [
+      "EE 272"
+    ]
+  },
+  {
+    "course_code": "EE 474",
+    "prerequisites": [
+      "EE 271"
+    ]
+  },
+  {
+    "course_code": "EE 475",
+    "prerequisites": [
+      "EE 272"
+    ]
+  },
+  {
+    "course_code": "EE 477",
+    "prerequisites": [
+      "EE 371",
+      "EE 372"
+    ]
+  },
+  {
+    "course_code": "EE 479",
+    "prerequisites": [
+      "EE 371, concurrent with 477"
+    ]
+  },
+  {
+    "course_code": "IE 201",
+    "prerequisites": [
+      "CMPE 150 or equivalent"
+    ]
+  },
+  {
+    "course_code": "IE 202",
+    "prerequisites": [
+      "MATH 201"
+    ]
+  },
+  {
+    "course_code": "IE 203",
+    "prerequisites": [
+      "IE 202 and IE 255"
+    ]
+  },
+  {
+    "course_code": "IE 220",
+    "prerequisites": [
+      "PHYS 121",
+      "CHEM 105"
+    ]
+  },
+  {
+    "course_code": "IE 256",
+    "prerequisites": [
+      "IE 255 or equivalent"
+    ]
+  },
+  {
+    "course_code": "IE 306",
+    "prerequisites": [
+      "IE 256"
+    ]
+  },
+  {
+    "course_code": "IE 310",
+    "prerequisites": [
+      "MATH 201 or equivalent"
+    ]
+  },
+  {
+    "course_code": "IE 312",
+    "prerequisites": [
+      "IE 256 and IE 202"
+    ]
+  },
+  {
+    "course_code": "IE 313",
+    "prerequisites": [
+      "IE 312 or equivalent"
+    ]
+  },
+  {
+    "course_code": "IE 350",
+    "prerequisites": [
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "IE 360",
+    "prerequisites": [
+      "IE 256 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "IE 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "IE 420",
+    "prerequisites": [
+      "IE 202 or IE 310"
+    ]
+  },
+  {
+    "course_code": "IE 423",
+    "prerequisites": [
+      "IE 256 or equivalent"
+    ]
+  },
+  {
+    "course_code": "IE 425",
+    "prerequisites": [
+      "IE 256 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "IE 440",
+    "prerequisites": [
+      "IE 203"
+    ]
+  },
+  {
+    "course_code": "IE 441",
+    "prerequisites": [
+      "IE 202"
+    ]
+  },
+  {
+    "course_code": "IE 442",
+    "prerequisites": [
+      "IE 201"
+    ]
+  },
+  {
+    "course_code": "IE 450",
+    "prerequisites": [
+      "IE 203"
+    ]
+  },
+  {
+    "course_code": "IE 461",
+    "prerequisites": [
+      "IE 202 or equivalent"
+    ]
+  },
+  {
+    "course_code": "LING 102",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 104",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 201",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 202",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 203",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 206",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 305",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 307",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 308",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 309",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 313",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 314",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 320",
+    "prerequisites": [
+      "LING 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 324",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 325",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 330",
+    "prerequisites": [
+      "LING 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 334",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 340",
+    "prerequisites": [
+      "LING 203 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 341",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 342",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 350",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 360",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 406",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 408",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 409",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 411",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 413",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 414",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 416",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 450",
+    "prerequisites": [
+      "LING 305 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 470",
+    "prerequisites": [
+      "LING 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LING 480–499",
+    "prerequisites": [
+      "LING 101 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TID 102",
+    "prerequisites": [
+      "TID 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TID 201",
+    "prerequisites": [
+      "TID102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AE 101",
+    "prerequisites": [
+      "Grade “C” on BUEPT (or its equivalent on TOEFL/IELTS as specified by SFL) and the specification of AE 101 as a required course in the student’s departmental curriculum"
+    ]
+  },
+  {
+    "course_code": "AE 102",
+    "prerequisites": [
+      "Grade “C” on BUEPT (or its equivalent on TOEFL/IELTS as specified by SFL) and the specification of AE 101 as a required course in the student’s departmental curriculum"
+    ]
+  },
+  {
+    "course_code": "AE 111",
+    "prerequisites": [
+      "Grade “C+” on BUEPT (or its equivalent on TOEFL/IELTS as specified by SFL) and the specification of AE 111 as a required course in the student’s departmental curriculum"
+    ]
+  },
+  {
+    "course_code": "AE 112",
+    "prerequisites": [
+      "Grade “C+” on BUEPT (or its equivalent on TOEFL/IELTS as specified by SFL) and the specification of AE 112 as a required course in the student’s departmental curriculum"
+    ]
+  },
+  {
+    "course_code": "AE 202",
+    "prerequisites": [
+      "AE 201 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "AE 242",
+    "prerequisites": [
+      "AE 241 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AE 271",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AE 281",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AE 411",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AE 412",
+    "prerequisites": [
+      "AE 411 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 102",
+    "prerequisites": [
+      "PHYS 101"
+    ]
+  },
+  {
+    "course_code": "PHYS 130",
+    "prerequisites": [
+      "PHYS 101"
+    ]
+  },
+  {
+    "course_code": "PHYS 150",
+    "prerequisites": [
+      "MATH 101, PHYS 101 or PHYS 121"
+    ]
+  },
+  {
+    "course_code": "PHYS 180",
+    "prerequisites": [
+      "PHYS 101 or PHSY 121, MATH 101"
+    ]
+  },
+  {
+    "course_code": "PHYS 201",
+    "prerequisites": [
+      "PHYS 101 or PHYS 121"
+    ]
+  },
+  {
+    "course_code": "PHYS 202",
+    "prerequisites": [
+      "PHYS 201"
+    ]
+  },
+  {
+    "course_code": "PHYS 221",
+    "prerequisites": [
+      "PHYS 102 or PHYS 130 or PHYS 121"
+    ]
+  },
+  {
+    "course_code": "PHYS 301",
+    "prerequisites": [
+      "(PHYS 102 or PHYS 130 or PHYS 121) and MATH 102"
+    ]
+  },
+  {
+    "course_code": "PHYS 302",
+    "prerequisites": [
+      "(PHYS 301 or CE 241) and MATH 201"
+    ]
+  },
+  {
+    "course_code": "PHYS 311",
+    "prerequisites": [
+      "PHYS 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 312",
+    "prerequisites": [
+      "PHYS 311"
+    ]
+  },
+  {
+    "course_code": "PHYS 325",
+    "prerequisites": [
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 326",
+    "prerequisites": [
+      "MATH 325"
+    ]
+  },
+  {
+    "course_code": "PHYS 331",
+    "prerequisites": [
+      "PHYS 201 and EE 210"
+    ]
+  },
+  {
+    "course_code": "PHYS 332",
+    "prerequisites": [
+      "PHYS 331"
+    ]
+  },
+  {
+    "course_code": "PHYS 337",
+    "prerequisites": [
+      "PHYS 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 345",
+    "prerequisites": [
+      "PHYS 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 346",
+    "prerequisites": [
+      "PHYS 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 380",
+    "prerequisites": [
+      "PHYS 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 390",
+    "prerequisites": [
+      "MATH 202 and (PHYS 290 or CmpE 150 or consent of the instructor)"
+    ]
+  },
+  {
+    "course_code": "PHYS 391",
+    "prerequisites": [
+      "(PHYS 202 or equivalent) and MATH 201"
+    ]
+  },
+  {
+    "course_code": "PHYS 392",
+    "prerequisites": [
+      "PHYS 391 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 401",
+    "prerequisites": [
+      "PHYS 325 and PHYS 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 402",
+    "prerequisites": [
+      "PHYS 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 407",
+    "prerequisites": [
+      "PHYS 202"
+    ]
+  },
+  {
+    "course_code": "PHYS 408",
+    "prerequisites": [
+      "PHYS 407 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 411",
+    "prerequisites": [
+      "PHYS 325 and PHYS 311"
+    ]
+  },
+  {
+    "course_code": "PHYS 412",
+    "prerequisites": [
+      "PHYS 411 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 442",
+    "prerequisites": [
+      "PHYS 311 or PHYS 407"
+    ]
+  },
+  {
+    "course_code": "PHYS 443",
+    "prerequisites": [
+      "PHYS 442 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 445",
+    "prerequisites": [
+      "PHYS 345"
+    ]
+  },
+  {
+    "course_code": "PHYS 446",
+    "prerequisites": [
+      "PHYS 345"
+    ]
+  },
+  {
+    "course_code": "PHYS 447",
+    "prerequisites": [
+      "PHYS 346"
+    ]
+  },
+  {
+    "course_code": "PHYS 448",
+    "prerequisites": [
+      "PHYS 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 449",
+    "prerequisites": [
+      "PHYS 346"
+    ]
+  },
+  {
+    "course_code": "PHYS 452",
+    "prerequisites": [
+      "PHYS 411"
+    ]
+  },
+  {
+    "course_code": "PHYS 455",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 456",
+    "prerequisites": [
+      "PHYS 311, PHYS 401 or PHYS 380"
+    ]
+  },
+  {
+    "course_code": "PHYS 458",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 462",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PHYS 466",
+    "prerequisites": [
+      "PHYS 411 or PHYS 312"
+    ]
+  },
+  {
+    "course_code": "PHYS 472",
+    "prerequisites": [
+      "PHYS 411"
+    ]
+  },
+  {
+    "course_code": "STS 230",
+    "prerequisites": [
+      "(PHYS 102 or PHYS 121 or PHYS 130), and MATH 102"
+    ]
+  },
+  {
+    "course_code": "LAW 104",
+    "prerequisites": [
+      "LAW 103 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAW 132",
+    "prerequisites": [
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "LAW 231",
+    "prerequisites": [
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "LAW 335",
+    "prerequisites": [
+      "LAW 205",
+      "LAW 206"
+    ]
+  },
+  {
+    "course_code": "LAW 337",
+    "prerequisites": [
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "LAW 348",
+    "prerequisites": [
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "LAW 438",
+    "prerequisites": [
+      "LAW 101",
+      "LAW 341"
+    ]
+  },
+  {
+    "course_code": "CE 211",
+    "prerequisites": [
+      "PHYS 130",
+      "CHEM 105"
+    ]
+  },
+  {
+    "course_code": "CE 212",
+    "prerequisites": [
+      "CE 211"
+    ]
+  },
+  {
+    "course_code": "CE 214",
+    "prerequisites": [
+      "CE 243 or CE 245"
+    ]
+  },
+  {
+    "course_code": "CE 243",
+    "prerequisites": [
+      "PHYS 101"
+    ]
+  },
+  {
+    "course_code": "CE 246",
+    "prerequisites": [
+      "CE 245 or CE 243"
+    ]
+  },
+  {
+    "course_code": "CE 303",
+    "prerequisites": [
+      "MATH 102"
+    ]
+  },
+  {
+    "course_code": "CE 315",
+    "prerequisites": [
+      "CE 214 or CE 311"
+    ]
+  },
+  {
+    "course_code": "CE 322",
+    "prerequisites": [
+      "Consent of the Instructor"
+    ]
+  },
+  {
+    "course_code": "CE 335",
+    "prerequisites": [
+      "CE 231",
+      "CE 246"
+    ]
+  },
+  {
+    "course_code": "CE 336",
+    "prerequisites": [
+      "CE 332 or CE 335"
+    ]
+  },
+  {
+    "course_code": "CE 344",
+    "prerequisites": [
+      "MATH 202",
+      "CE 246"
+    ]
+  },
+  {
+    "course_code": "CE 354",
+    "prerequisites": [
+      "CE 246"
+    ]
+  },
+  {
+    "course_code": "CE 355",
+    "prerequisites": [
+      "CE 246"
+    ]
+  },
+  {
+    "course_code": "CE 353",
+    "prerequisites": [
+      "CE 211",
+      "CE 246"
+    ]
+  },
+  {
+    "course_code": "CE 371",
+    "prerequisites": [
+      "MATH 202",
+      "CmpE 150 or equivalent",
+      "consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "CE 401",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 402",
+    "prerequisites": [
+      "CE 202 or CE 303 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 412",
+    "prerequisites": [
+      "CE 312"
+    ]
+  },
+  {
+    "course_code": "CE 422",
+    "prerequisites": [
+      "CE 421 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 424",
+    "prerequisites": [
+      "CE111"
+    ]
+  },
+  {
+    "course_code": "CE 453",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 461",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 463",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CE 492",
+    "prerequisites": [
+      "Senior standing"
+    ]
+  },
+  {
+    "course_code": "AD 211",
+    "prerequisites": [
+      "For EC students"
+    ]
+  },
+  {
+    "course_code": "AD 214",
+    "prerequisites": [
+      "AD 213"
+    ]
+  },
+  {
+    "course_code": "AD 216",
+    "prerequisites": [
+      "For IE students"
+    ]
+  },
+  {
+    "course_code": "AD 252",
+    "prerequisites": [
+      "AD 251"
+    ]
+  },
+  {
+    "course_code": "AD 302",
+    "prerequisites": [
+      "MIS 130 or CMPE 140",
+      "AD 252"
+    ]
+  },
+  {
+    "course_code": "AD 311",
+    "prerequisites": [
+      "MATH 101 or (MATH 105 and MATH 106)",
+      "AD 211 or AD 213 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 314",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 316",
+    "prerequisites": [
+      "AD 211 or AD 214"
+    ]
+  },
+  {
+    "course_code": "AD 351",
+    "prerequisites": [
+      "MATH 101",
+      "EC 101",
+      "AD 251"
+    ]
+  },
+  {
+    "course_code": "AD 352",
+    "prerequisites": [
+      "EC 101",
+      "MATH 101",
+      "MATH 102",
+      "AD 251"
+    ]
+  },
+  {
+    "course_code": "AD 353",
+    "prerequisites": [
+      "MATH 101",
+      "MATH 102",
+      "AD 251 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 401",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 403",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 407",
+    "prerequisites": [
+      "4th year standing"
+    ]
+  },
+  {
+    "course_code": "AD 408",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 409",
+    "prerequisites": [
+      "4th year standing"
+    ]
+  },
+  {
+    "course_code": "AD 410",
+    "prerequisites": [
+      "AD 214",
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 411",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "AD 412",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 413",
+    "prerequisites": [
+      "AD 211 or",
+      "AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 414",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 415",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 416",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 417",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 418",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 419",
+    "prerequisites": [
+      "AD 418"
+    ]
+  },
+  {
+    "course_code": "AD 420",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 421",
+    "prerequisites": [
+      "AD 220"
+    ]
+  },
+  {
+    "course_code": "AD 425",
+    "prerequisites": [
+      "4th year standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 427",
+    "prerequisites": [
+      "AD 220 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 429",
+    "prerequisites": [
+      "AD 220"
+    ]
+  },
+  {
+    "course_code": "AD 433",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 439",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 440",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 441",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 442",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 444",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 445",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 446",
+    "prerequisites": [
+      "AD 302",
+      "AD 252",
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 447",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 448",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 451",
+    "prerequisites": [
+      "AD 351 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 453",
+    "prerequisites": [
+      "AD 351",
+      "AD 353"
+    ]
+  },
+  {
+    "course_code": "AD 454",
+    "prerequisites": [
+      "AD 353",
+      "MIS 130"
+    ]
+  },
+  {
+    "course_code": "AD 455",
+    "prerequisites": [
+      "AD 454"
+    ]
+  },
+  {
+    "course_code": "AD 458",
+    "prerequisites": [
+      "MATH 101",
+      "AD 101",
+      "AD 252"
+    ]
+  },
+  {
+    "course_code": "AD 459",
+    "prerequisites": [
+      "AD 351",
+      "AD 353"
+    ]
+  },
+  {
+    "course_code": "AD 460",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 463",
+    "prerequisites": [
+      "Law 101"
+    ]
+  },
+  {
+    "course_code": "AD 465",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 466",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 467",
+    "prerequisites": [
+      "LAW 231",
+      "AD 311",
+      "AD 312"
+    ]
+  },
+  {
+    "course_code": "AD 468",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 469",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 470",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 471",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 472",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 473",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 474",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 475",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 476",
+    "prerequisites": [
+      "AD 211 or AD 214 or  AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 477",
+    "prerequisites": [
+      "AD 312"
+    ]
+  },
+  {
+    "course_code": "AD 478",
+    "prerequisites": [
+      "AD 311"
+    ]
+  },
+  {
+    "course_code": "AD 479",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 480",
+    "prerequisites": [
+      "AD 220 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 481",
+    "prerequisites": [
+      "AD 351"
+    ]
+  },
+  {
+    "course_code": "AD 482",
+    "prerequisites": [
+      "AD 352 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 484",
+    "prerequisites": [
+      "AD 242 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 488",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216"
+    ]
+  },
+  {
+    "course_code": "AD 489",
+    "prerequisites": [
+      "AD 211 or AD 214 or AD 216 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 490",
+    "prerequisites": [
+      "AD 403"
+    ]
+  },
+  {
+    "course_code": "AD 491",
+    "prerequisites": [
+      "AD 353"
+    ]
+  },
+  {
+    "course_code": "AD 492",
+    "prerequisites": [
+      "AD 252",
+      "AD 351"
+    ]
+  },
+  {
+    "course_code": "AD 495",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 496",
+    "prerequisites": [
+      "AD 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "AD 497",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 213",
+    "prerequisites": [
+      "CHEM 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 214",
+    "prerequisites": [
+      "CHEM 213"
+    ]
+  },
+  {
+    "course_code": "CHEM 223",
+    "prerequisites": [
+      "CHEM 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 224",
+    "prerequisites": [
+      "CHEM 223 and CHEM 225"
+    ]
+  },
+  {
+    "course_code": "CHEM 234",
+    "prerequisites": [
+      "CHEM 101 and CHEM 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 241",
+    "prerequisites": [
+      "CHEM 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 250",
+    "prerequisites": [
+      "CHEM 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 316",
+    "prerequisites": [
+      "CHEM 214"
+    ]
+  },
+  {
+    "course_code": "CHEM 325",
+    "prerequisites": [
+      "CHEM 214"
+    ]
+  },
+  {
+    "course_code": "CHEM 335",
+    "prerequisites": [
+      "CHEM 234 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 353",
+    "prerequisites": [
+      "CHEM 101",
+      "CHEM 102",
+      "MATH 201",
+      "PHYS 130/PHYS 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 371",
+    "prerequisites": [
+      "CHEM 213 or CHEM 241"
+    ]
+  },
+  {
+    "course_code": "CHEM 400",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 401",
+    "prerequisites": [
+      "Senior standing"
+    ]
+  },
+  {
+    "course_code": "CHEM 411",
+    "prerequisites": [
+      "CHEM 214 or CHEM 241"
+    ]
+  },
+  {
+    "course_code": "CHEM 412",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 413",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 417",
+    "prerequisites": [
+      "CHEM 213 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 421",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 435",
+    "prerequisites": [
+      "CHEM 214 or CHEM 241"
+    ]
+  },
+  {
+    "course_code": "CHEM 447",
+    "prerequisites": [
+      "CHEM 102",
+      "MATH 201",
+      "PHYS 130/PHYS 102"
+    ]
+  },
+  {
+    "course_code": "CHEM 456",
+    "prerequisites": [
+      "CHEM 345 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 457",
+    "prerequisites": [
+      "CHEM 214 or CHEM 241"
+    ]
+  },
+  {
+    "course_code": "CHEM 471",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 473",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 474",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 475",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHEM 476",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 232",
+    "prerequisites": [
+      "ChE 110",
+      "PHYS 121",
+      "Math 102"
+    ]
+  },
+  {
+    "course_code": "ChE 302",
+    "prerequisites": [
+      "ChE 201",
+      "ChE 232"
+    ]
+  },
+  {
+    "course_code": "ChE 321",
+    "prerequisites": [
+      "ChE 201",
+      "ChE 211"
+    ]
+  },
+  {
+    "course_code": "ChE 333",
+    "prerequisites": [
+      "ChE 232"
+    ]
+  },
+  {
+    "course_code": "ChE 334",
+    "prerequisites": [
+      "ChE 201",
+      "ChE 232"
+    ]
+  },
+  {
+    "course_code": "ChE 342",
+    "prerequisites": [
+      "ChE 202"
+    ]
+  },
+  {
+    "course_code": "ChE 353",
+    "prerequisites": [
+      "ChE 110"
+    ]
+  },
+  {
+    "course_code": "ChE 386",
+    "prerequisites": [
+      "ChE 211"
+    ]
+  },
+  {
+    "course_code": "CHE 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 401",
+    "prerequisites": [
+      "ChE 302",
+      "ChE 334",
+      "ChE 342"
+    ]
+  },
+  {
+    "course_code": "ChE 427",
+    "prerequisites": [
+      "ChE 342"
+    ]
+  },
+  {
+    "course_code": "ChE 430",
+    "prerequisites": [
+      "ChE 334"
+    ]
+  },
+  {
+    "course_code": "ChE 433",
+    "prerequisites": [
+      "ChE 321",
+      "ChE 333",
+      "ChE 334",
+      "ChE 342"
+    ]
+  },
+  {
+    "course_code": "ChE 440",
+    "prerequisites": [
+      "ChE 342"
+    ]
+  },
+  {
+    "course_code": "ChE 441",
+    "prerequisites": [
+      "ChE 342"
+    ]
+  },
+  {
+    "course_code": "ChE 444",
+    "prerequisites": [
+      "ChE 342 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 460",
+    "prerequisites": [
+      "4th year standing"
+    ]
+  },
+  {
+    "course_code": "ChE 462",
+    "prerequisites": [
+      "ChE 321",
+      "ChE 333",
+      "ChE 334",
+      "ChE 342 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 465",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 470",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 471",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 472",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ChE 475",
+    "prerequisites": [
+      "ChE 386"
+    ]
+  },
+  {
+    "course_code": "ChE 477",
+    "prerequisites": [
+      "ChE 386"
+    ]
+  },
+  {
+    "course_code": "ME 207",
+    "prerequisites": [
+      "MATH 102"
+    ]
+  },
+  {
+    "course_code": "ME 210",
+    "prerequisites": [
+      "PHYS 102",
+      "CHEM 105"
+    ]
+  },
+  {
+    "course_code": "ME 212",
+    "prerequisites": [
+      "PHYS 102",
+      "CHEM 105"
+    ]
+  },
+  {
+    "course_code": "ME 241",
+    "prerequisites": [
+      "PHYS 101",
+      "MATH 102"
+    ]
+  },
+  {
+    "course_code": "ME 242",
+    "prerequisites": [
+      "ME 241"
+    ]
+  },
+  {
+    "course_code": "ME 244",
+    "prerequisites": [
+      "ME 241"
+    ]
+  },
+  {
+    "course_code": "ME 263",
+    "prerequisites": [
+      "PHYS 102",
+      "MATH 102"
+    ]
+  },
+  {
+    "course_code": "ME 303",
+    "prerequisites": [
+      "CMPE 150",
+      "MATH 102",
+      "MATH 201",
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "ME 304",
+    "prerequisites": [
+      "EE 210",
+      "ME 207",
+      "ME 244",
+      "ME 353"
+    ]
+  },
+  {
+    "course_code": "ME 316",
+    "prerequisites": [
+      "ME 212"
+    ]
+  },
+  {
+    "course_code": "ME 318",
+    "prerequisites": [
+      "ME 212"
+    ]
+  },
+  {
+    "course_code": "ME 324",
+    "prerequisites": [
+      "ME 244",
+      "ME 110"
+    ]
+  },
+  {
+    "course_code": "ME 331",
+    "prerequisites": [
+      "PHSY 201",
+      "EE 210"
+    ]
+  },
+  {
+    "course_code": "ME 335",
+    "prerequisites": [
+      "MATH 202",
+      "ME 242"
+    ]
+  },
+  {
+    "course_code": "ME 353",
+    "prerequisites": [
+      "MATH 201",
+      "MATH 202"
+    ]
+  },
+  {
+    "course_code": "ME 362",
+    "prerequisites": [
+      "ME 263",
+      "ME 353"
+    ]
+  },
+  {
+    "course_code": "ME 400",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "ME 411",
+    "prerequisites": [
+      "ME 212"
+    ]
+  },
+  {
+    "course_code": "ME 415",
+    "prerequisites": [
+      "ME 212"
+    ]
+  },
+  {
+    "course_code": "ME 420",
+    "prerequisites": [
+      "ME 212"
+    ]
+  },
+  {
+    "course_code": "ME 422",
+    "prerequisites": [
+      "ME 353",
+      "ME 324"
+    ]
+  },
+  {
+    "course_code": "ME 424",
+    "prerequisites": [
+      "ME 324"
+    ]
+  },
+  {
+    "course_code": "ME 425",
+    "prerequisites": [
+      "MATH 201",
+      "MATH 202",
+      "ME 242"
+    ]
+  },
+  {
+    "course_code": "ME 426",
+    "prerequisites": [
+      "ME 242"
+    ]
+  },
+  {
+    "course_code": "ME 429",
+    "prerequisites": [
+      "ME 324",
+      "ME 331",
+      "ME 353"
+    ]
+  },
+  {
+    "course_code": "ME 430",
+    "prerequisites": [
+      "ME 242",
+      "ME 324"
+    ]
+  },
+  {
+    "course_code": "ME 438",
+    "prerequisites": [
+      "ME 335"
+    ]
+  },
+  {
+    "course_code": "ME 446",
+    "prerequisites": [
+      "ME 244"
+    ]
+  },
+  {
+    "course_code": "ME 447",
+    "prerequisites": [
+      "ME 244",
+      "ME 353"
+    ]
+  },
+  {
+    "course_code": "ME 455",
+    "prerequisites": [
+      "ME 263",
+      "ME 353"
+    ]
+  },
+  {
+    "course_code": "ME 466",
+    "prerequisites": [
+      "ME 263"
+    ]
+  },
+  {
+    "course_code": "ME 474",
+    "prerequisites": [
+      "ME 362"
+    ]
+  },
+  {
+    "course_code": "ME 475",
+    "prerequisites": [
+      "ME 362"
+    ]
+  },
+  {
+    "course_code": "ME 478",
+    "prerequisites": [
+      "ME 362"
+    ]
+  },
+  {
+    "course_code": "ME 492",
+    "prerequisites": [
+      "ME 429"
+    ]
+  },
+  {
+    "course_code": "MATH 102",
+    "prerequisites": [
+      "MATH 101"
+    ]
+  },
+  {
+    "course_code": "MATH 132",
+    "prerequisites": [
+      "MATH 131"
+    ]
+  },
+  {
+    "course_code": "MATH 202",
+    "prerequisites": [
+      "MATH 101 or MATH 131",
+      "MATH 201 or MATH 221"
+    ]
+  },
+  {
+    "course_code": "MATH 221",
+    "prerequisites": [
+      "MATH 111 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 222",
+    "prerequisites": [
+      "MATH 111"
+    ]
+  },
+  {
+    "course_code": "MATH 231",
+    "prerequisites": [
+      "MATH 132 or MATH 102"
+    ]
+  },
+  {
+    "course_code": "MATH 234",
+    "prerequisites": [
+      "MATH 231"
+    ]
+  },
+  {
+    "course_code": "MATH 323",
+    "prerequisites": [
+      "MATH 222 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 324",
+    "prerequisites": [
+      "MATH 222 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 325",
+    "prerequisites": [
+      "MATH 102 or MATH 132",
+      "MATH 222"
+    ]
+  },
+  {
+    "course_code": "MATH 327",
+    "prerequisites": [
+      "MATH 111 or MATH 162"
+    ]
+  },
+  {
+    "course_code": "MATH 331",
+    "prerequisites": [
+      "MATH 231"
+    ]
+  },
+  {
+    "course_code": "MATH 332",
+    "prerequisites": [
+      "MATH 234 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 334",
+    "prerequisites": [
+      "MATH 221",
+      "MATH 234"
+    ]
+  },
+  {
+    "course_code": "MATH 336",
+    "prerequisites": [
+      "MATH 101 or MATH 131",
+      "MATH 201 or MATH 221"
+    ]
+  },
+  {
+    "course_code": "MATH 338",
+    "prerequisites": [
+      "MATH 132"
+    ]
+  },
+  {
+    "course_code": "MATH 344",
+    "prerequisites": [
+      "MATH 102 or MATH 132"
+    ]
+  },
+  {
+    "course_code": "MATH 345",
+    "prerequisites": [
+      "MATH 344 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 352",
+    "prerequisites": [
+      "(MATH 132 and MATH 202) or (MATH 102 and MATH 202)"
+    ]
+  },
+  {
+    "course_code": "MATH 361",
+    "prerequisites": [
+      "MATH 201 or MATH 221"
+    ]
+  },
+  {
+    "course_code": "MATH 363",
+    "prerequisites": [
+      "MATH 221 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 401",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 411",
+    "prerequisites": [
+      "MATH 111"
+    ]
+  },
+  {
+    "course_code": "MATH 412",
+    "prerequisites": [
+      "MATH 111"
+    ]
+  },
+  {
+    "course_code": "MATH 413",
+    "prerequisites": [
+      "MATH 111"
+    ]
+  },
+  {
+    "course_code": "MATH 425",
+    "prerequisites": [
+      "MATH 323"
+    ]
+  },
+  {
+    "course_code": "MATH 426",
+    "prerequisites": [
+      "MATH 323 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 427",
+    "prerequisites": [
+      "MATH 162"
+    ]
+  },
+  {
+    "course_code": "MATH 432",
+    "prerequisites": [
+      "MATH 338"
+    ]
+  },
+  {
+    "course_code": "MATH 433",
+    "prerequisites": [
+      "MATH 338 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 436",
+    "prerequisites": [
+      "MATH 331"
+    ]
+  },
+  {
+    "course_code": "MATH 462",
+    "prerequisites": [
+      "MATH 221 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 471",
+    "prerequisites": [
+      "MATH 331"
+    ]
+  },
+  {
+    "course_code": "MATH 472",
+    "prerequisites": [
+      "MATH 331 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 474",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 475",
+    "prerequisites": [
+      "MATH 234 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 476",
+    "prerequisites": [
+      "MATH 331"
+    ]
+  },
+  {
+    "course_code": "MATH 477",
+    "prerequisites": [
+      "MATH 201 or MATH 221"
+    ]
+  },
+  {
+    "course_code": "MATH 478",
+    "prerequisites": [
+      "MATH 222 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 481-489, 491-499",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MATH 490",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SCED 282",
+    "prerequisites": [
+      "Prerequisite or Corequisite: ED 211"
+    ]
+  },
+  {
+    "course_code": "SCED 320",
+    "prerequisites": [
+      "SCED 282 or ED 282"
+    ]
+  },
+  {
+    "course_code": "SCED 330",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SCED 342",
+    "prerequisites": [
+      "SCED 320"
+    ]
+  },
+  {
+    "course_code": "SCED 351",
+    "prerequisites": [
+      "ED 211"
+    ]
+  },
+  {
+    "course_code": "SCED 371",
+    "prerequisites": [
+      "SCED 282 or ED 282"
+    ]
+  },
+  {
+    "course_code": "SCED 372",
+    "prerequisites": [
+      "SCED 371 or SCED 320"
+    ]
+  },
+  {
+    "course_code": "SCED 403",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SCED 414",
+    "prerequisites": [
+      "SCED 421",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 416",
+    "prerequisites": [
+      "PRED 372 or SCED 372 or SCED 431",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 418",
+    "prerequisites": [
+      "SCED 441",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 421",
+    "prerequisites": [
+      "SCED 320"
+    ]
+  },
+  {
+    "course_code": "SCED 422",
+    "prerequisites": [
+      "SCED 421",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 431",
+    "prerequisites": [
+      "SCED 371 or SCED 320"
+    ]
+  },
+  {
+    "course_code": "SCED 432",
+    "prerequisites": [
+      "PRED 372 or SCED 372 or SCED 431",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 441",
+    "prerequisites": [
+      "SCED 320"
+    ]
+  },
+  {
+    "course_code": "SCED 442",
+    "prerequisites": [
+      "SCED 441",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 444",
+    "prerequisites": [
+      "SCED 404"
+    ]
+  },
+  {
+    "course_code": "SCED 450",
+    "prerequisites": [
+      "SCED 320 or SCED 371"
+    ]
+  },
+  {
+    "course_code": "SCED 462",
+    "prerequisites": [
+      "SCED 342",
+      "SCED 450"
+    ]
+  },
+  {
+    "course_code": "SCED 464",
+    "prerequisites": [
+      "SCED 450",
+      "SCED 342"
+    ]
+  },
+  {
+    "course_code": "SCED 468",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SCED 480-489",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SCED 490-499",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 102",
+    "prerequisites": [
+      "ARB 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 201",
+    "prerequisites": [
+      "ARB 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 202",
+    "prerequisites": [
+      "ARB 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 301",
+    "prerequisites": [
+      "ARB 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 302",
+    "prerequisites": [
+      "ARB 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 401",
+    "prerequisites": [
+      "ARB 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 402",
+    "prerequisites": [
+      "ARB 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 411",
+    "prerequisites": [
+      "ARB 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 421",
+    "prerequisites": [
+      "ARB 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 431",
+    "prerequisites": [
+      "ARB 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARB 441",
+    "prerequisites": [
+      "ARB 421 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ARM 102",
+    "prerequisites": [
+      "ARM 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 102",
+    "prerequisites": [
+      "CHIN 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 201",
+    "prerequisites": [
+      "CHIN 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 202",
+    "prerequisites": [
+      "CHIN 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 301",
+    "prerequisites": [
+      "CHIN 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 302",
+    "prerequisites": [
+      "CHIN 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 401",
+    "prerequisites": [
+      "CHIN 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CHIN 402",
+    "prerequisites": [
+      "CHIN 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FR 102",
+    "prerequisites": [
+      "FR 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FR 201",
+    "prerequisites": [
+      "FR 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FR 202",
+    "prerequisites": [
+      "FR 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FR 301",
+    "prerequisites": [
+      "FR 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FR 302",
+    "prerequisites": [
+      "FR 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 102",
+    "prerequisites": [
+      "GER 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 105",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 201",
+    "prerequisites": [
+      "GER 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 202",
+    "prerequisites": [
+      "GER 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 301",
+    "prerequisites": [
+      "GER 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 302",
+    "prerequisites": [
+      "GER 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 403",
+    "prerequisites": [
+      "GER 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 404",
+    "prerequisites": [
+      "GER 403 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 413",
+    "prerequisites": [
+      "GER 404 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 414",
+    "prerequisites": [
+      "GER 404 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GER 480 – 499",
+    "prerequisites": [
+      "GER 405 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 102",
+    "prerequisites": [
+      "GR 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 201",
+    "prerequisites": [
+      "GR 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 202",
+    "prerequisites": [
+      "GR 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 301",
+    "prerequisites": [
+      "GR 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 302",
+    "prerequisites": [
+      "GR 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 102",
+    "prerequisites": [
+      "HUNG 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 201",
+    "prerequisites": [
+      "HUNG 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 202",
+    "prerequisites": [
+      "HUNG 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 301",
+    "prerequisites": [
+      "HUNG 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 302",
+    "prerequisites": [
+      "HUNG 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 303",
+    "prerequisites": [
+      "HUNG 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 401",
+    "prerequisites": [
+      "HUNG 303 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 402",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 411",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 412",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 413",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 414",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 421",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HUNG 422",
+    "prerequisites": [
+      "HUNG 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 102",
+    "prerequisites": [
+      "ITA 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 201",
+    "prerequisites": [
+      "ITA 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 202",
+    "prerequisites": [
+      "ITA 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 301",
+    "prerequisites": [
+      "ITA 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 302",
+    "prerequisites": [
+      "ITA 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 401",
+    "prerequisites": [
+      "ITA 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 402",
+    "prerequisites": [
+      "ITA 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 413",
+    "prerequisites": [
+      "ITA 402 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 414",
+    "prerequisites": [
+      "ITA 402 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 421",
+    "prerequisites": [
+      "ITA 402 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "ITA 422",
+    "prerequisites": [
+      "ITA 402 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 201",
+    "prerequisites": [
+      "JP 101 and 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 202",
+    "prerequisites": [
+      "JP 201 or the consent of instructor"
+    ]
+  },
+  {
+    "course_code": "JP 301",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 302",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 401",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 402",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 403",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 404",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "JP 405",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 102",
+    "prerequisites": [
+      "KR 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 201",
+    "prerequisites": [
+      "KR 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 202",
+    "prerequisites": [
+      "KR 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 301",
+    "prerequisites": [
+      "KR 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 302",
+    "prerequisites": [
+      "KR 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 401",
+    "prerequisites": [
+      "KR 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "KR 402",
+    "prerequisites": [
+      "KR 401 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 102",
+    "prerequisites": [
+      "POR 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 201",
+    "prerequisites": [
+      "POR 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 202",
+    "prerequisites": [
+      "POR 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 301",
+    "prerequisites": [
+      "POR 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 302",
+    "prerequisites": [
+      "POR 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 303",
+    "prerequisites": [
+      "POR 302 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "POR 304",
+    "prerequisites": [
+      "POR 303 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "RUS 102",
+    "prerequisites": [
+      "RUS 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "RUS 201",
+    "prerequisites": [
+      "RUS 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "RUS 202",
+    "prerequisites": [
+      "RUS 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "RUS 301",
+    "prerequisites": [
+      "RUS 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "RUS 302",
+    "prerequisites": [
+      "RUS 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 102",
+    "prerequisites": [
+      "SPA 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 201",
+    "prerequisites": [
+      "SPA 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 202",
+    "prerequisites": [
+      "SPA 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 301",
+    "prerequisites": [
+      "SPA 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 302",
+    "prerequisites": [
+      "SPA 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 321",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 322",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 401",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 402",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 411",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SPA 412",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 102",
+    "prerequisites": [
+      "CAU 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 112",
+    "prerequisites": [
+      "CAU 111 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 122",
+    "prerequisites": [
+      "CAU 121 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 201",
+    "prerequisites": [
+      "CAU 102 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 202",
+    "prerequisites": [
+      "CAU 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 211",
+    "prerequisites": [
+      "CAU 112 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 212",
+    "prerequisites": [
+      "CAU 211 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 221",
+    "prerequisites": [
+      "CAU 122 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 222",
+    "prerequisites": [
+      "CAU 221 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 301",
+    "prerequisites": [
+      "CAU 202 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 302",
+    "prerequisites": [
+      "CAU 301 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 311",
+    "prerequisites": [
+      "CAU 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 312",
+    "prerequisites": [
+      "CAU 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 321",
+    "prerequisites": [
+      "CAU 222 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "CAU 322",
+    "prerequisites": [
+      "CAU 321 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 112",
+    "prerequisites": [
+      "GR 111 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 211-212",
+    "prerequisites": [
+      "GR 112 / GR 211 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 311",
+    "prerequisites": [
+      "GR 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "GR 312",
+    "prerequisites": [
+      "GR 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAT 112",
+    "prerequisites": [
+      "LAT 111 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAT 211",
+    "prerequisites": [
+      "LAT 112 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAT 212",
+    "prerequisites": [
+      "LAT 211 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAT 311",
+    "prerequisites": [
+      "LAT 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "LAT 312",
+    "prerequisites": [
+      "LAT 311 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PER 202",
+    "prerequisites": [
+      "PER 201 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "PER 203",
+    "prerequisites": [
+      "PER 202 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PER 204",
+    "prerequisites": [
+      "PER 203 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "BIO 106",
+    "prerequisites": [
+      "Corequisite: BIO 102"
+    ]
+  },
+  {
+    "course_code": "BIO 254",
+    "prerequisites": [
+      "Corequisite: BIO 252"
+    ]
+  },
+  {
+    "course_code": "BIO 311",
+    "prerequisites": [
+      "BIO 102"
+    ]
+  },
+  {
+    "course_code": "BIO 312",
+    "prerequisites": [
+      "BIO 102",
+      "BIO 311"
+    ]
+  },
+  {
+    "course_code": "BIO 333",
+    "prerequisites": [
+      "Corequisite: BIO 301"
+    ]
+  },
+  {
+    "course_code": "BIO 353",
+    "prerequisites": [
+      "BIO 102"
+    ]
+  },
+  {
+    "course_code": "BIO 356",
+    "prerequisites": [
+      "BIO 353"
+    ]
+  },
+  {
+    "course_code": "BIO 407",
+    "prerequisites": [
+      "BIO 353"
+    ]
+  },
+  {
+    "course_code": "PSY 112",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 202",
+    "prerequisites": [
+      "PSY 201"
+    ]
+  },
+  {
+    "course_code": "PSY 222",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 228",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 229",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 233",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 234",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 241",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 242",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 251",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 271",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 301",
+    "prerequisites": [
+      "PSY 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 302",
+    "prerequisites": [
+      "PSY 301"
+    ]
+  },
+  {
+    "course_code": "PSY 304",
+    "prerequisites": [
+      "PSY 201",
+      "PSY 202"
+    ]
+  },
+  {
+    "course_code": "PSY 326",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 327",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 328",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 329",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 338",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 352",
+    "prerequisites": [
+      "PSY 101 or PSY 111",
+      "PSY 251"
+    ]
+  },
+  {
+    "course_code": "PSY 357",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 362",
+    "prerequisites": [
+      "PSY 201"
+    ]
+  },
+  {
+    "course_code": "PSY 363",
+    "prerequisites": [
+      "PSY 251 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 364",
+    "prerequisites": [
+      "(PSY 101 or PSY 111) and (PSY 233 or PSY 234) or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 377",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 411",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 412",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 427",
+    "prerequisites": [
+      "PSY 222"
+    ]
+  },
+  {
+    "course_code": "PSY 428",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or PSY 233 or PSY 328 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 443",
+    "prerequisites": [
+      "PSY 101 or PSY 111"
+    ]
+  },
+  {
+    "course_code": "PSY 448",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 458",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 464",
+    "prerequisites": [
+      "PSY 363"
+    ]
+  },
+  {
+    "course_code": "PSY 466",
+    "prerequisites": [
+      "PSY 101 or PSY 111 or Consent of the Instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 467",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 468",
+    "prerequisites": [
+      "PSY 363"
+    ]
+  },
+  {
+    "course_code": "PSY 472",
+    "prerequisites": [
+      "PSY 271 or PSY 272"
+    ]
+  },
+  {
+    "course_code": "PSY 479",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 480",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 482",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 484",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 486",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 487",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 488",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 491",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 494",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 495",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 496",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "PSY 498",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "HIST 102",
+    "prerequisites": [
+      "HIST 101"
+    ]
+  },
+  {
+    "course_code": "HIST 103",
+    "prerequisites": [
+      "None"
+    ]
+  },
+  {
+    "course_code": "HIST 209",
+    "prerequisites": [
+      "HIST 108"
+    ]
+  },
+  {
+    "course_code": "HIST 210",
+    "prerequisites": [
+      "HIST 101",
+      "HIST 102"
+    ]
+  },
+  {
+    "course_code": "HIST 472",
+    "prerequisites": [
+      "HIST 471"
+    ]
+  },
+  {
+    "course_code": "PRED 211",
+    "prerequisites": [
+      "PRED 203 or PRED 204"
+    ]
+  },
+  {
+    "course_code": "PRED 212",
+    "prerequisites": [
+      "PRED 203",
+      "Corequisite: PRED 204"
+    ]
+  },
+  {
+    "course_code": "PRED 214",
+    "prerequisites": [
+      "PRED 203"
+    ]
+  },
+  {
+    "course_code": "PRED 218",
+    "prerequisites": [
+      "PRED 204",
+      "Corequisite: PRED 203"
+    ]
+  },
+  {
+    "course_code": "PRED 282",
+    "prerequisites": [
+      "ED 211"
+    ]
+  },
+  {
+    "course_code": "PRED 332",
+    "prerequisites": [
+      "PRED 331 or Consent of the Instructor"
+    ]
+  },
+  {
+    "course_code": "PRED 372",
+    "prerequisites": [
+      "PRED 371"
+    ]
+  },
+  {
+    "course_code": "PRED 411",
+    "prerequisites": [
+      "PRED 320",
+      "PRED 333"
+    ]
+  },
+  {
+    "course_code": "PRED 413",
+    "prerequisites": [
+      "PRED 218"
+    ]
+  },
+  {
+    "course_code": "PRED 414",
+    "prerequisites": [
+      "PRED 413"
+    ]
+  },
+  {
+    "course_code": "PRED 416",
+    "prerequisites": [
+      "Corequisite: PRED 413"
+    ]
+  },
+  {
+    "course_code": "PRED 422",
+    "prerequisites": [
+      "PRED 413"
+    ]
+  },
+  {
+    "course_code": "PRED 424",
+    "prerequisites": [
+      "PRED 413"
+    ]
+  },
+  {
+    "course_code": "PRED 462",
+    "prerequisites": [
+      "PRED 460"
+    ]
+  },
+  {
+    "course_code": "PRED 465",
+    "prerequisites": [
+      "PRED 371 or PRED 358"
+    ]
+  },
+  {
+    "course_code": "PRED 466",
+    "prerequisites": [
+      "PRED 463",
+      "PRED 465"
+    ]
+  },
+  {
+    "course_code": "PRED 468",
+    "prerequisites": [
+      "PRED 463",
+      "PRED 465"
+    ]
+  },
+  {
+    "course_code": "PRED 471",
+    "prerequisites": [
+      "PRED 358"
+    ]
+  },
+  {
+    "course_code": "PRED 474",
+    "prerequisites": [
+      "PRED 471",
+      "PRED 465"
+    ]
+  },
+  {
+    "course_code": "PRED 476",
+    "prerequisites": [
+      "PRED 471",
+      "PRED 465"
+    ]
+  },
+  {
+    "course_code": "TRM 224",
+    "prerequisites": [
+      "TRM 141"
+    ]
+  },
+  {
+    "course_code": "TRM 232",
+    "prerequisites": [
+      "TRM 231"
+    ]
+  },
+  {
+    "course_code": "TRM 242",
+    "prerequisites": [
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "TRM 258",
+    "prerequisites": [
+      "TRM 257"
+    ]
+  },
+  {
+    "course_code": "TRM 307",
+    "prerequisites": [
+      "TRM 107 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 313",
+    "prerequisites": [
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "TRM 331",
+    "prerequisites": [
+      "TRM 134",
+      "TRM 141"
+    ]
+  },
+  {
+    "course_code": "TRM 335",
+    "prerequisites": [
+      "TRM 231"
+    ]
+  },
+  {
+    "course_code": "TRM 336",
+    "prerequisites": [
+      "TRM 331 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 339",
+    "prerequisites": [
+      "TRM 101 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 355",
+    "prerequisites": [
+      "TRM 258"
+    ]
+  },
+  {
+    "course_code": "TRM 364",
+    "prerequisites": [
+      "TRM 134",
+      "TRM 263"
+    ]
+  },
+  {
+    "course_code": "TRM 366",
+    "prerequisites": [
+      "TRM 335"
+    ]
+  },
+  {
+    "course_code": "TRM 376",
+    "prerequisites": [
+      "TRM 223 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 378",
+    "prerequisites": [
+      "TRM 134"
+    ]
+  },
+  {
+    "course_code": "TRM 400",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 404",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 405",
+    "prerequisites": [
+      "TRM 263"
+    ]
+  },
+  {
+    "course_code": "TRM 406",
+    "prerequisites": [
+      "TRM 263 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 408",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 409",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 413",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 415",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 435",
+    "prerequisites": [
+      "TRM 336 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 436",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 441",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 465",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 468",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 472",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 476",
+    "prerequisites": [
+      "TRM 263 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TRM 492",
+    "prerequisites": [
+      "TRM 355 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "POLS 201",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 202",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 201"
+    ]
+  },
+  {
+    "course_code": "POLS 203",
+    "prerequisites": [
+      "MATH 106"
+    ]
+  },
+  {
+    "course_code": "POLS 206",
+    "prerequisites": [
+      "POLS 203"
+    ]
+  },
+  {
+    "course_code": "POLS 215",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 217",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 242",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 246",
+    "prerequisites": [
+      "POLS 101 or Consent of the Instructor"
+    ]
+  },
+  {
+    "course_code": "POLS 303",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 340",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 472",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 304",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 305",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 307",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 308",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 310",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 311",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 314",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 317",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 320",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 323",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 330",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 332",
+    "prerequisites": [
+      "POLS 101",
+      "SOC 101",
+      "SOC 108"
+    ]
+  },
+  {
+    "course_code": "POLS 333",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 347",
+    "prerequisites": [
+      "POLS 101",
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "POLS 361",
+    "prerequisites": [
+      "POLS 101",
+      "LAW 101"
+    ]
+  },
+  {
+    "course_code": "POLS 404",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 405",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 410",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 413",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 415",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 416",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 417",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 421",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 424",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 445",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 452",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 466",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 473",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 202"
+    ]
+  },
+  {
+    "course_code": "POLS 474",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 475",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 476",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 482",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 215"
+    ]
+  },
+  {
+    "course_code": "POLS 321",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 242"
+    ]
+  },
+  {
+    "course_code": "POLS 324",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 326",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 327",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 329",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 345",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 346",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 217",
+      "POLS 242"
+    ]
+  },
+  {
+    "course_code": "POLS 420",
+    "prerequisites": [
+      "POLS 101",
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "POLS 425",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 426",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 438",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 242",
+      "POLS 437"
+    ]
+  },
+  {
+    "course_code": "POLS 439",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 440",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 217"
+    ]
+  },
+  {
+    "course_code": "POLS 443",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 242"
+    ]
+  },
+  {
+    "course_code": "POLS 446",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 447",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 449",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 242"
+    ]
+  },
+  {
+    "course_code": "POLS 453",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 454",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 455",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 461",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 464",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 477",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 485",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 242"
+    ]
+  },
+  {
+    "course_code": "POLS 306",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 319",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 336",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 339",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 373",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 375",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 402",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 403",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 406",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 407",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 408",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 430",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 431",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 471",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 483",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 201",
+      "POLS 202"
+    ]
+  },
+  {
+    "course_code": "POLS 309",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 318",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 334",
+    "prerequisites": [
+      "POLS 101",
+      "LAW 132"
+    ]
+  },
+  {
+    "course_code": "POLS 335",
+    "prerequisites": [
+      "POLS 101",
+      "AD 131"
+    ]
+  },
+  {
+    "course_code": "POLS 338",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 217"
+    ]
+  },
+  {
+    "course_code": "POLS 348",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 435",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 451",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 484",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 204",
+    "prerequisites": [
+      "POLS 203"
+    ]
+  },
+  {
+    "course_code": "POLS 350",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 351",
+    "prerequisites": [
+      "POLS 101",
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "POLS 353",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 370",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 203"
+    ]
+  },
+  {
+    "course_code": "POLS 422",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 423",
+    "prerequisites": [
+      "POLS 101",
+      "EC 101",
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "POLS 470",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 370"
+    ]
+  },
+  {
+    "course_code": "POLS 343",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 344",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 364",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 418",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 448",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 456",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 457",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 465",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 480",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 203",
+      "POLS 206"
+    ]
+  },
+  {
+    "course_code": "POLS 481",
+    "prerequisites": [
+      "POLS 101",
+      "POLS 203",
+      "POLS 206"
+    ]
+  },
+  {
+    "course_code": "POLS 486",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 487",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 313",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 342",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "POLS 409",
+    "prerequisites": [
+      "POLS 101"
+    ]
+  },
+  {
+    "course_code": "SOC 100",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 108",
+    "prerequisites": [
+      "SOC 101"
+    ]
+  },
+  {
+    "course_code": "SOC 203",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 204",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 221",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 224",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 227",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 262",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 272",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 281",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 282",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 284",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 285",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 286",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 287",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 303",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 304",
+    "prerequisites": [
+      "SOC 303"
+    ]
+  },
+  {
+    "course_code": "SOC 306",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 320",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 324",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 340",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 341",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 342",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 343",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 344",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 345",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 353",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 360",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 368",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 370",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 371",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 373",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 375",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 377",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 379",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 380",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 387",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 425",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 430",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 435",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 441",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 442",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 443",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 451",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 452",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 453",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 455",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 458",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 462",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 465",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 471",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 472",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 479",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 480, 481",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 482",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 485, 486",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 490, 496, 497, 498, 499",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "SOC 491, 492, 493, 494, 495",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 132",
+    "prerequisites": [
+      "MIS 131"
+    ]
+  },
+  {
+    "course_code": "MIS 144",
+    "prerequisites": [
+      "MIS 143"
+    ]
+  },
+  {
+    "course_code": "MIS 214",
+    "prerequisites": [
+      "MIS 213"
+    ]
+  },
+  {
+    "course_code": "MIS 218",
+    "prerequisites": [
+      "MIS 211"
+    ]
+  },
+  {
+    "course_code": "MIS 233",
+    "prerequisites": [
+      "MIS 131"
+    ]
+  },
+  {
+    "course_code": "MIS 251",
+    "prerequisites": [
+      "MIS 131"
+    ]
+  },
+  {
+    "course_code": "MIS 252",
+    "prerequisites": [
+      "MIS 131"
+    ]
+  },
+  {
+    "course_code": "MIS 321",
+    "prerequisites": [
+      "MIS 131"
+    ]
+  },
+  {
+    "course_code": "MIS 323",
+    "prerequisites": [
+      "AD 252"
+    ]
+  },
+  {
+    "course_code": "MIS 326",
+    "prerequisites": [
+      "MIS 132",
+      "MIS 321"
+    ]
+  },
+  {
+    "course_code": "MIS 331",
+    "prerequisites": [
+      "MIS 213"
+    ]
+  },
+  {
+    "course_code": "MIS 344",
+    "prerequisites": [
+      "MATH 101"
+    ]
+  },
+  {
+    "course_code": "MIS 400",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 422",
+    "prerequisites": [
+      "Senior Standing or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 432",
+    "prerequisites": [
+      "Senior Standing or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 433",
+    "prerequisites": [
+      "MIS 321"
+    ]
+  },
+  {
+    "course_code": "MIS 441",
+    "prerequisites": [
+      "Senior Standing or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 463",
+    "prerequisites": [
+      "Senior Standing or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "MIS 492",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKL 102",
+    "prerequisites": [
+      "TKL 101"
+    ]
+  },
+  {
+    "course_code": "TKL 204",
+    "prerequisites": [
+      "TKL 102"
+    ]
+  },
+  {
+    "course_code": "TKL 205",
+    "prerequisites": [
+      "TKL 102"
+    ]
+  },
+  {
+    "course_code": "TKL 206",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKL 213",
+    "prerequisites": [
+      "TKL 101",
+      "TKL 102",
+      "TKL 103",
+      "TKL 104"
+    ]
+  },
+  {
+    "course_code": "TKL 214",
+    "prerequisites": [
+      "TKL 102",
+      "TKL 103",
+      "TKL 104"
+    ]
+  },
+  {
+    "course_code": "TKL 215",
+    "prerequisites": [
+      "TKL 101",
+      "TKL 102"
+    ]
+  },
+  {
+    "course_code": "TKL 216",
+    "prerequisites": [
+      "TKL 215"
+    ]
+  },
+  {
+    "course_code": "TKL 217",
+    "prerequisites": [
+      "TKL 102"
+    ]
+  },
+  {
+    "course_code": "TKL 301",
+    "prerequisites": [
+      "PHIL 111",
+      "PHIL 112"
+    ]
+  },
+  {
+    "course_code": "TKL 302",
+    "prerequisites": [
+      "PHIL 111",
+      "PHIL 112"
+    ]
+  },
+  {
+    "course_code": "TKL 313",
+    "prerequisites": [
+      "TKL 204",
+      "TKL 205"
+    ]
+  },
+  {
+    "course_code": "TKL 314",
+    "prerequisites": [
+      "TKL 204",
+      "TKL 205"
+    ]
+  },
+  {
+    "course_code": "TKF 111",
+    "prerequisites": [
+      "Consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 112",
+    "prerequisites": [
+      "TK 111 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 211",
+    "prerequisites": [
+      "TK 112 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 212",
+    "prerequisites": [
+      "TK 211 or consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 217",
+    "prerequisites": [
+      "TK 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 218",
+    "prerequisites": [
+      "TK 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 315",
+    "prerequisites": [
+      "TK 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 316",
+    "prerequisites": [
+      "TK 315 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 317",
+    "prerequisites": [
+      "TK 316 on consent of instructor"
+    ]
+  },
+  {
+    "course_code": "TKF 318",
+    "prerequisites": [
+      "TK 317 on consent of instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 122",
+    "prerequisites": [
+      "INTT 121"
+    ]
+  },
+  {
+    "course_code": "INTT 211",
+    "prerequisites": [
+      "EC 101"
+    ]
+  },
+  {
+    "course_code": "INTT 212",
+    "prerequisites": [
+      "EC 102"
+    ]
+  },
+  {
+    "course_code": "INTT 228",
+    "prerequisites": [
+      "INTT 227"
+    ]
+  },
+  {
+    "course_code": "INTT 241",
+    "prerequisites": [
+      "INTT 142 or Consent of the Instructor for non INTT students"
+    ]
+  },
+  {
+    "course_code": "INTT 277",
+    "prerequisites": [
+      "INTT 203"
+    ]
+  },
+  {
+    "course_code": "INTT 304",
+    "prerequisites": [
+      "INTT 203"
+    ]
+  },
+  {
+    "course_code": "INTT 321",
+    "prerequisites": [
+      "MATH 105"
+    ]
+  },
+  {
+    "course_code": "INTT 323",
+    "prerequisites": [
+      "INTT 228"
+    ]
+  },
+  {
+    "course_code": "INTT 331",
+    "prerequisites": [
+      "INTT 132"
+    ]
+  },
+  {
+    "course_code": "INTT 333",
+    "prerequisites": [
+      "INTT 132"
+    ]
+  },
+  {
+    "course_code": "INTT 341",
+    "prerequisites": [
+      "INTT 142 or Consent of the Instructor for non INTT students"
+    ]
+  },
+  {
+    "course_code": "INTT 355",
+    "prerequisites": [
+      "INTT 252 or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 358",
+    "prerequisites": [
+      "INTT 252"
+    ]
+  },
+  {
+    "course_code": "INTT 362",
+    "prerequisites": [
+      "INTT 211"
+    ]
+  },
+  {
+    "course_code": "INTT 375",
+    "prerequisites": [
+      "INTT 228"
+    ]
+  },
+  {
+    "course_code": "INTT 378",
+    "prerequisites": [
+      "INTT 277"
+    ]
+  },
+  {
+    "course_code": "INTT 400",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 402",
+    "prerequisites": [
+      "INTT 241"
+    ]
+  },
+  {
+    "course_code": "INTT 413",
+    "prerequisites": [
+      "INTT 211",
+      "INTT 212"
+    ]
+  },
+  {
+    "course_code": "INTT 416",
+    "prerequisites": [
+      "EC 101 or EC 102"
+    ]
+  },
+  {
+    "course_code": "INTT 423",
+    "prerequisites": [
+      "INTT 322"
+    ]
+  },
+  {
+    "course_code": "INTT 427",
+    "prerequisites": [
+      "INTT 322 or Consent of Instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 434",
+    "prerequisites": [
+      "Senior standing or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 435",
+    "prerequisites": [
+      "Senior Standing"
+    ]
+  },
+  {
+    "course_code": "INTT 438",
+    "prerequisites": [
+      "INTT 132"
+    ]
+  },
+  {
+    "course_code": "INTT 440",
+    "prerequisites": [
+      "INTT 142"
+    ]
+  },
+  {
+    "course_code": "INTT 442",
+    "prerequisites": [
+      "INTT 142"
+    ]
+  },
+  {
+    "course_code": "INTT 453",
+    "prerequisites": [
+      "INTT 252"
+    ]
+  },
+  {
+    "course_code": "INTT 457",
+    "prerequisites": [
+      "INTT 252"
+    ]
+  },
+  {
+    "course_code": "INTT 458",
+    "prerequisites": [
+      "INTT 252"
+    ]
+  },
+  {
+    "course_code": "INTT 459",
+    "prerequisites": [
+      "INTT 358"
+    ]
+  },
+  {
+    "course_code": "INTT 467",
+    "prerequisites": [
+      "INTT 211"
+    ]
+  },
+  {
+    "course_code": "INTT 474",
+    "prerequisites": [
+      "INTT 277"
+    ]
+  },
+  {
+    "course_code": "INTT 480",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "INTT 481-489",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 211",
+    "prerequisites": [
+      "LING 101"
+    ]
+  },
+  {
+    "course_code": "FLED 212",
+    "prerequisites": [
+      "FLED 201 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 224",
+    "prerequisites": [
+      "FLED 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 317",
+    "prerequisites": [
+      "FLED 212 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 318",
+    "prerequisites": [
+      "FLED 317"
+    ]
+  },
+  {
+    "course_code": "FLED 323",
+    "prerequisites": [
+      "FLED 224 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 401",
+    "prerequisites": [
+      "Consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 403",
+    "prerequisites": [
+      "FLED 318 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 412",
+    "prerequisites": [
+      "FLED 403 or consent of the instructor"
+    ]
+  },
+  {
+    "course_code": "FLED 416",
+    "prerequisites": [
+      "FLED 403",
+      "Corequisite: FLED 412"
+    ]
+  },
+  {
+    "course_code": "FLED 417",
+    "prerequisites": [
+      "FLED 315 or consent of the instructor"
+    ]
+  }
+
+
+
+
+
+
+
+
+]

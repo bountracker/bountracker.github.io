@@ -1,0 +1,283 @@
+{
+  "wll_minor": {
+    "name": "Batı Dilleri ve Edebiyatları (WLL) Yandalı",
+    "faculty": "İnsan ve Toplum Bilimleri Fakültesi",
+    "requirements": {
+      "gpa": 3.50,
+      "totalCourses": 7,
+      "totalCredits": 21,
+      "compulsoryCount": 3,
+      "electiveCount": 4
+    },
+    "compulsoryCourses": [
+      { "code": "EL 101", "name": "Survey of English Literature from the Old English Period to Restoration", "crd": 3 },
+      { "code": "EL 102", "name": "Survey of English Literature from Restoration to Present", "crd": 3 },
+      { "code": "ENGL 105", "name": "Introduction to Literary Forms I (veya ENGL 106)", "crd": 3 }
+    ],
+    "electiveDescription": "EL, AL, CL, DRA kodlu derslerden 4 seçmeli (en az 2 tanesi 300 veya 400 seviyesinde olmalı)."
+  },
+  "cmpe_minor": {
+    "name": "Bilgisayar Mühendisliği (CMPE) Yandalı",
+    "faculty": "Mühendislik Fakültesi",
+    "requirements": {
+      "totalCourses": 6,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "CMPE 160", "name": "Object Oriented Programming (veya CMPE 210)", "crd": 4 },
+      { "code": "CMPE 142", "name": "Digital Systems", "crd": 4 },
+      { "code": "CMPE 250", "name": "Data Structures and Algorithms", "crd": 3 },
+      { "code": "CMPE 220", "name": "Discrete Computational Structures", "crd": 3 }
+    ],
+    "electivePools": [
+      {
+        "poolName": "Grup A (1 ders)",
+        "options": ["CMPE 222", "CMPE 300", "CMPE 322", "CMPE 350", "CMPE 4XX"]
+      },
+      {
+        "poolName": "Grup B (1 ders)",
+        "options": ["CMPE 244", "CMPE 354"]
+      }
+    ]
+  },
+  "cet_minor": {
+    "name": "Eğitimde Bilgi ve İletişim Teknolojileri (CET) Yandalı",
+    "faculty": "Eğitim Fakültesi",
+    "requirements": {
+      "totalCourses": 5,
+      "totalCredits": 17,
+      "compulsoryCount": 5,
+      "electiveCount": 0
+    },
+    "compulsoryCourses": [
+      { "code": "CET 101", "name": "Eğitim Teknolojisine Giriş", "crd": 4 },
+      { "code": "CET 102", "name": "Eğitimde Bilişim Sistemleri ve Bilişim Tasarımı", "crd": 4 },
+      { "code": "CET 215", "name": "Eğitim ve Teknoloji", "crd": 3 },
+      { "code": "CET 224", "name": "Eğitimde Görselleştirme", "crd": 3 },
+      { "code": "CET 341", "name": "Öğretim Tasarımı", "crd": 3 }
+    ]
+  },
+  "ee_minor": {
+    "name": "Elektrik-Elektronik Mühendisliği (EE) Yandalı",
+    "faculty": "Mühendislik Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["EE 201", "EE 210"],
+      "totalCourses": 6,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "EE 232", "name": "Yarıiletkenler ve Elektronik Aygıtlar", "crd": 3 },
+      { "code": "EE 271", "name": "Sinyaller ve Sistemler I", "crd": 3 },
+      { "code": "EE 272", "name": "Sinyaller ve Sistemler II", "crd": 3 },
+      { "code": "EE 351", "name": "Sistem Dinamiği ve Denetimi", "crd": 3 }
+    ],
+    "electiveOptions": ["EE 142", "EE 304", "EE 333", "EE 363", "EE 371"],
+    "notes": "CMPE öğrencileri EE 142, PHYS öğrencileri EE 363 alamaz."
+  },
+  "ie_prod_minor": {
+    "name": "Endüstri Mühendisliği: Üretim ve Servis Sistemleri Yandalı",
+    "faculty": "Mühendislik Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["MATH 201"],
+      "totalCourses": 6,
+      "compulsoryCount": 2,
+      "electiveCount": 4
+    },
+    "compulsoryCourses": [
+      { "code": "IE 202", "name": "Operations Research I", "crd": 4 },
+      { "code": "IE 312", "name": "Facilities Design and Planning", "crd": 4 }
+    ],
+    "electiveOptions": ["IE 306", "IE 313", "IE 341", "IE 350", "IE 414", "IE 423", "IE 430", "IE 441", "IE 461", "IE 523", "IE 524", "IE 542"]
+  },
+  "ie_or_minor": {
+    "name": "Endüstri Mühendisliği: Yöneylem Araştırması (OR) Yandalı",
+    "faculty": "Mühendislik Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["MATH 201"],
+      "totalCourses": 6,
+      "compulsoryCount": 2,
+      "electiveCount": 4
+    },
+    "compulsoryCourses": [
+      { "code": "IE 202", "name": "Operations Research I", "crd": 4 },
+      { "code": "IE 203", "name": "Operations Research II", "crd": 4 }
+    ],
+    "electiveOptions": ["IE 306", "IE 312", "IE 360", "IE 420", "IE 425", "IE 440", "IE 441", "IE 450", "IE 456", "IE 515", "IE 516", "IE 517", "IE 518"]
+  },
+  "econ_minor": {
+    "name": "Ekonomi (EC) Yandalı",
+    "faculty": "İktisadi ve İdari Bilimler Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["EC 101", "EC 102", "MATH 101", "MATH 106"],
+      "totalCourses": 6,
+      "totalCredits": 18,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "EC 203", "name": "Mikroekonomi I", "crd": 3 },
+      { "code": "EC 205", "name": "Makroekonomi I", "crd": 3 },
+      { "code": "EC 206", "name": "Mikroekonomi II", "crd": 3 },
+      { "code": "EC 208", "name": "Makroekonomi II", "crd": 3 }
+    ],
+    "electiveDescription": "EC 223 ve EC 233 dışındaki EC seçmelilerinden 2 ders."
+  },
+  "mgmt_minor": {
+    "name": "İşletme (AD) Yandalı",
+    "faculty": "İktisadi ve İdari Bilimler Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["EC 101", "EC 102", "MATH 101", "MATH 102"],
+      "totalCourses": 6,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "AD 216", "name": "Finans ve Maliyet Muhasebesi", "crd": 4 },
+      { "code": "AD 220", "name": "Örgüt Yönetimi", "crd": 3 },
+      { "code": "AD 242", "name": "Stratejik Pazarlama Yönetimi", "crd": 3 },
+      { "code": "AD 311", "name": "Kurumsal Finans", "crd": 3 }
+    ],
+    "electiveDescription": "AD 3XX veya AD 4XX kodlu 2 seçmeli ders."
+  },
+  "chem_minor": {
+    "name": "Kimya (CHEM) Yandalı",
+    "faculty": "Fen Fakültesi",
+    "requirements": {
+      "gpa": 2.75,
+      "applicationPrereq": ["CHEM 103", "CHEM 104", "MATH 201"],
+      "totalCourses": 5,
+      "compulsoryCount": 4,
+      "electiveCount": 1
+    },
+    "compulsoryCourses": [
+      { "code": "CHEM 245", "name": "Inorganic Chemistry I", "crd": 3 },
+      { "code": "CHEM 241", "name": "Organic Chemistry for Engineers", "crd": 4 },
+      { "code": "CHEM 351", "name": "Physical Chemistry I", "crd": 4 },
+      { "code": "CHEM 308", "name": "Instrumental Analysis II", "crd": 4 }
+    ],
+    "electiveDescription": "CHEM kodlu 1 seçmeli ders (3 kredi)."
+  },
+  "me_minor": {
+    "name": "Makina Mühendisliği (ME) Yandalı",
+    "faculty": "Mühendislik Fakültesi",
+    "requirements": {
+      "totalCourses": 6,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "ME 242", "name": "Dinamik", "crd": 3 },
+      { "code": "ME 263", "name": "Termodinamik I", "crd": 3 },
+      { "code": "ME 244", "name": "Mukavemet", "crd": 4 },
+      { "code": "ME 353", "name": "Akışkanlar Mekaniği", "crd": 4 }
+    ],
+    "electiveOptions": ["ME 324", "ME 331", "ME 335", "ME 362", "ME 411", "ME 425", "ME 426", "ME 430", "ME 446", "ME 455", "ME 466", "ME 474", "ME 478"]
+  },
+  "mbg_minor": {
+    "name": "Moleküler Biyoloji ve Genetik (MBG) Yandalı",
+    "faculty": "Fen Fakültesi",
+    "requirements": {
+      "gpa": 2.75,
+      "totalCourses": 5,
+      "totalCredits": 18,
+      "compulsoryCount": 5,
+      "electiveCount": 0
+    },
+    "compulsoryCourses": [
+      { "code": "BIO 102", "name": "Cellular and Molecular Biology II", "crd": 4 },
+      { "code": "BIO 106", "name": "Cell Biology Laboratory", "crd": 2 },
+      { "code": "BIO 301", "name": "Biochemistry I (veya BIO 302)", "crd": 4 },
+      { "code": "BIO 353", "name": "Molecular Genetics", "crd": 4 },
+      { "code": "BIO 311", "name": "Cellular and Molecular Biology III", "crd": 4 }
+    ]
+  },
+  "pols_minor": {
+    "name": "Siyaset Bilimi ve Uluslararası İlişkiler (POLS) Yandalı",
+    "faculty": "İktisadi ve İdari Bilimler Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["POLS 101"],
+      "totalCourses": 6,
+      "compulsoryCount": 3,
+      "electiveCount": 3
+    },
+    "compulsoryCourses": [
+      { "code": "POLS 217", "name": "Uluslararası Siyasi Tarih", "crd": 3 },
+      { "code": "POLS 242", "name": "Uluslararası İlişkilere Giriş", "crd": 3 },
+      { "code": "POLS 441", "name": "Dış Politika", "crd": 3 }
+    ],
+    "electiveDescription": "İkisi 300, biri 400 kodlu 3 adet POLS seçmeli dersi."
+  },
+  "trm_minor": {
+    "name": "Turizm İşletmeciliği (TRM) Yandalı",
+    "faculty": "Uygulamalı Bilimler Fakültesi",
+    "requirements": {
+      "totalCourses": 7,
+      "totalCredits": 21,
+      "compulsoryCount": 7,
+      "electiveCount": 0
+    },
+    "compulsoryCourses": [
+      { "code": "TRM 101", "name": "Turizm Endüstrisine Giriş", "crd": 3 },
+      { "code": "TRM 107", "name": "Anadolu Uygarlıkları", "crd": 3 },
+      { "code": "TRM 223", "name": "Konaklama Endüstrisi", "crd": 3 },
+      { "code": "TRM 282", "name": "Seyahat Endüstrisi", "crd": 3 },
+      { "code": "TRM 378", "name": "Yiyecek Hizmetleri Yönetimi", "crd": 3 },
+      { "code": "TRM 405", "name": "Turizmde Özel Etkinlikler ve Kongre Turizmi", "crd": 3 },
+      { "code": "TRM 413", "name": "Turizmde Yeni Varış Noktaları Oluşturma", "crd": 3 }
+    ]
+  },
+  "tkl_minor": {
+    "name": "Türk Dili ve Edebiyatı (TKL) Yandalı",
+    "faculty": "İnsan ve Toplum Bilimleri Fakültesi",
+    "requirements": {
+      "gpa": 2.75,
+      "totalCourses": 7,
+      "totalCredits": 21
+    },
+    "compulsoryCourses": [],
+    "electiveOptions": [
+      "TKL 107", "TKL 204", "TKL 205", "TKL 211", "TKL 212",
+      "TKL 309", "TKL 311", "TKL 312", "TKL 313", "TKL 314",
+      "TKL 409", "TKL 414", "TKL 434"
+    ],
+    "notes": "Listeden toplam 7 ders alınmalı, en az biri 400 seviyesinde olmalıdır."
+  },
+  "intt_minor": {
+    "name": "Uluslararası Ticaret (INTT) Yandalı",
+    "faculty": "Uygulamalı Bilimler Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["EC 101", "EC 102"],
+      "totalCourses": 6,
+      "compulsoryCount": 4,
+      "electiveCount": 2
+    },
+    "compulsoryCourses": [
+      { "code": "INTT 211", "name": "Uluslararası Ticaret Teorileri ve Politikaları", "crd": 3 },
+      { "code": "INTT 212", "name": "Kambiyo Rejimleri ve Dış Ticaret", "crd": 3 },
+      { "code": "INTT 241", "name": "Uluslararası Ekonomi Hukuku", "crd": 3 },
+      { "code": "INTT 254", "name": "Uluslararası Ticaret İşlemleri", "crd": 3 }
+    ],
+    "electiveDescription": "INTT 3XX veya INTT 4XX kodlu 2 seçmeli ders."
+  },
+  "mis_minor": {
+    "name": "Yönetim Bilişim Sistemleri (MIS) Yandalı",
+    "faculty": "Uygulamalı Bilimler Fakültesi",
+    "requirements": {
+      "applicationPrereq": ["MIS 131", "CMPE 150"],
+      "totalCourses": 6,
+      "totalCredits": 18,
+      "compulsoryCount": 6,
+      "electiveCount": 0
+    },
+    "compulsoryCourses": [
+      { "code": "MIS 125", "name": "Bilişim Sistemleri ve Teknolojilerine Giriş", "crd": 3 },
+      { "code": "MIS 132", "name": "Orta Düzey Programlama", "crd": 3 },
+      { "code": "MIS 321", "name": "Sistem Analizi ve Tasarımı", "crd": 3 },
+      { "code": "MIS 236", "name": "Veri Tabanı Sistemleri", "crd": 3 },
+      { "code": "MIS 326", "name": "Nesne Yönelimli Modelleme ve Geliştirme", "crd": 3 },
+      { "code": "MIS 346", "name": "Kurumsal Bilgi Sistemleri", "crd": 3 }
+    ]
+  }
+}
