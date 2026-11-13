@@ -4021,18 +4021,23 @@ textarea.form-control {
   color: #ecfdf5 !important;
 }
 
-[data-theme="dark"] .pt-node-unlocked,
-[data-theme="dark"] .pt-node-planned:not(.pt-node-locked) {
-  background-color: rgba(245, 158, 11, 0.18) !important;
-  border: 1.5px solid #fbbf24 !important;
-  color: #fef3c7 !important;
+[data-theme="dark"] .pt-node-unlocked {
+  background-color: var(--bg-surface) !important;
+  border: 1.5px solid var(--border-subtle) !important;
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .pt-node-planned {
+  background-color: var(--badge-info-bg) !important;
+  border: 1.5px solid #60a5fa !important;
+  color: var(--badge-info-text) !important;
 }
 
 [data-theme="dark"] .pt-node-locked {
-  background-color: rgba(239, 68, 68, 0.14) !important;
-  border: 1.5px dashed #f87171 !important;
-  color: #fca5a5 !important;
-  opacity: 0.88;
+  background-color: var(--bg-subtle) !important;
+  border: 1.5px dashed var(--border-strong) !important;
+  color: var(--text-secondary) !important;
+  opacity: 0.85;
 }
 
 [data-theme="dark"] .pt-node.pt-node-active {

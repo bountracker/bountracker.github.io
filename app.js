@@ -836,7 +836,6 @@ function applyStaticTranslations() {
   setText('catResetTitle', t('catResetTitle'));
   setText('catResetSub', t('catResetSub'));
 
-  setText('guideBtn', t('guideBtn'));
   setAttr('guideBtn', 'title', t('guideBtnTitle'));
   setText('catGuideTitle', t('catGuideTitle'));
   setText('catGuideSub', t('catGuideSub'));
@@ -3075,6 +3074,26 @@ function handleInstanceInput(instanceId, text) {
 
     const card = document.getElementById(`inst-${instanceId}`);
     if (card) {
+      const course = getCourseForInstance(inst);
+      const baseSlot = findCourseById(inst.splitSlotCourseId || inst.courseId) || inst.customCourse || course;
+      const titleEl = card.querySelector('.course-title');
+      const nameEl = card.querySelector('.course-name');
+      if (titleEl) {
+        titleEl.textContent = trimmed || (baseSlot ? baseSlot.code : (course ? course.code : ''));
+      }
+      if (nameEl) {
+        if (!trimmed) {
+          nameEl.textContent = baseSlot ? baseSlot.name : (course ? course.name : '');
+        } else {
+          const normCode = trimmed.toUpperCase().replace(/\s+/g, '');
+          const catMatch = (typeof ELECTIVE_CATALOG_BY_CODE !== 'undefined') ? ELECTIVE_CATALOG_BY_CODE[normCode] : null;
+          if (catMatch) {
+            nameEl.textContent = catMatch.name;
+          } else if (inst.catalogCourse) {
+            nameEl.textContent = baseSlot ? baseSlot.name : trimmed;
+          }
+        }
+      }
       const linkWrap = card.querySelector('.course-desc-link-wrap');
       if (linkWrap) {
         const course = getCourseForInstance(inst);
