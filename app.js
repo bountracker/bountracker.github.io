@@ -5759,9 +5759,77 @@ function selectTermFromPicker(semId) {
   }, { passive: true });
 })();
 
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) {
+let lastLayoutWidth = window.innerWidth;
+const mobileBreakpointMq = window.matchMedia('(max-width: 900px)');
+
+function resetMobileLayoutState(isMobileView) {
+  const sidebar = document.getElementById('sidebarContainer');
+  const main = document.getElementById('years-grid');
+  const btnPool = document.getElementById('tabBtnPool');
+  const btnSem = document.getElementById('tabBtnSemesters');
+
+  [sidebar, main, document.body, document.documentElement].forEach(el => {
+    if (!el) return;
+    el.style.transform = '';
+    el.style.overflow = '';
+    if (el === sidebar || el === main) {
+      el.style.display = '';
+    }
+  });
+
+  if (!isMobileView) {
     closeToolsDropdown();
+    const mobileCatalogModal = document.getElementById('mobileCatalogModal');
+    if (mobileCatalogModal) mobileCatalogModal.classList.remove('open');
+    const termPickerModal = document.getElementById('termPickerModal');
+    if (termPickerModal) termPickerModal.classList.remove('open');
+  } else if (sidebar && main) {
+    const hasActive = sidebar.classList.contains('active-tab') || main.classList.contains('active-tab');
+    if (!hasActive) {
+      main.classList.add('active-tab');
+      if (btnSem) btnSem.classList.add('active');
+      if (btnPool) btnPool.classList.remove('active');
+    }
+  }
+}
+
+function handleBreakpointChange(e) {
+  lastLayoutWidth = window.innerWidth;
+  resetMobileLayoutState(e.matches);
+  initUI();
+  const ptModal = document.getElementById('prereqTreeModal');
+  if (ptModal && ptModal.classList.contains('open')) {
+    requestAnimationFrame(() => drawPrereqTreeArrows());
+  }
+}
+
+if (typeof mobileBreakpointMq.addEventListener === 'function') {
+  mobileBreakpointMq.addEventListener('change', handleBreakpointChange);
+} else if (typeof mobileBreakpointMq.addListener === 'function') {
+  mobileBreakpointMq.addListener(handleBreakpointChange);
+}
+
+window.addEventListener('resize', () => {
+  const activeEl = document.activeElement;
+  const isEditingField = activeEl && /^(INPUT|TEXTAREA|SELECT)$/i.test(activeEl.tagName);
+  const currentWidth = window.innerWidth;
+  const widthChanged = Math.abs(currentWidth - lastLayoutWidth) > 1;
+
+  // iPadOS/iOS sanal klavye açılışında yalnızca innerHeight değişir; DOM'u yeniden çizme
+  if (!widthChanged) {
+    if (isEditingField) return;
+    const ptModal = document.getElementById('prereqTreeModal');
+    if (ptModal && ptModal.classList.contains('open')) {
+      requestAnimationFrame(() => drawPrereqTreeArrows());
+    }
+    return;
+  }
+
+  lastLayoutWidth = currentWidth;
+  if (isEditingField) return;
+
+  if (currentWidth > 900) {
+    resetMobileLayoutState(false);
   }
   initUI();
   const ptModal = document.getElementById('prereqTreeModal');
