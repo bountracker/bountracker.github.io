@@ -6861,27 +6861,40 @@ function computeWhatIfBaseline() {
 
   const latestPassedByCourse = {};
   const latestInstanceByCourse = {};
+  const passedCourseCodes = new Set();
+  const latestInstanceByCode = {};
 
   sortedInstances.forEach(inst => {
     const course = getCourseForInstance(inst);
     if (!course) return;
     const isErasmusTerm = erasmusSet.has(inst.semId);
     const effectiveGrade = (isErasmusTerm || inst.grade === 'EX') ? 'EX' : (inst.grade || '');
-    latestInstanceByCourse[inst.courseId] = {
+    const displayCode = (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || '');
+    const normCode = normalizeCourseCodeStr(displayCode);
+    const entry = {
       courseId: inst.courseId,
-      code: (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || ''),
+      code: displayCode,
+      normCode,
       name: course.name || '',
       crd: Number(course.crd) || 0,
       passed: !!inst.passed,
       grade: effectiveGrade
     };
-    if (inst.passed) {
+    latestInstanceByCourse[inst.courseId] = entry;
+    if (normCode) {
+      latestInstanceByCode[normCode] = entry;
+    }
+    if (inst.passed && effectiveGrade !== 'F') {
       latestPassedByCourse[inst.courseId] = {
         grade: effectiveGrade || 'AA',
         crd: Number(course.crd) || 0,
-        code: (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || ''),
+        code: displayCode,
+        normCode,
         name: course.name || ''
       };
+      if (normCode) {
+        passedCourseCodes.add(normCode);
+      }
     }
   });
 
@@ -6895,13 +6908,19 @@ function computeWhatIfBaseline() {
     }
   });
 
-  // Plandaki henüz geçilmemiş / not girilmemiş kalan dersler
+  // Plandaki henüz geçilmemiş / not girilmemiş kalan dersler (repeat ile tamamlananları hariç tut)
   const remainingCourses = [];
   const seenRemainingIds = new Set();
+  const seenRemainingCodes = new Set();
   Object.values(latestInstanceByCourse).forEach(item => {
-    if (!item.passed && !latestPassedByCourse[item.courseId] && item.crd > 0) {
+    const isPassedByCode = item.normCode && passedCourseCodes.has(item.normCode);
+    const latestForCode = item.normCode ? latestInstanceByCode[item.normCode] : null;
+    const supersededByLaterAttempt = latestForCode && latestForCode.courseId !== item.courseId && latestForCode.passed && latestForCode.grade !== 'F';
+    if (!item.passed && !latestPassedByCourse[item.courseId] && !isPassedByCode && !supersededByLaterAttempt && item.crd > 0) {
+      if (item.normCode && seenRemainingCodes.has(item.normCode)) return;
       remainingCourses.push({ courseId: item.courseId, code: item.code, name: item.name, crd: item.crd });
       seenRemainingIds.add(item.courseId);
+      if (item.normCode) seenRemainingCodes.add(item.normCode);
     }
   });
 
@@ -6909,17 +6928,24 @@ function computeWhatIfBaseline() {
   if (remainingCourses.length === 0) {
     getActiveCurriculumCourses().forEach(c => {
       const crd = Number(c.crd) || 0;
-      if (crd > 0 && !latestPassedByCourse[c.id] && !seenRemainingIds.has(c.id)) {
+      const normCode = normalizeCourseCodeStr(c.code || '');
+      const isPassedByCode = normCode && passedCourseCodes.has(normCode);
+      if (crd > 0 && !latestPassedByCourse[c.id] && !isPassedByCode && !seenRemainingIds.has(c.id) && !(normCode && seenRemainingCodes.has(normCode))) {
         remainingCourses.push({ courseId: c.id, code: c.code || '', name: c.name || '', crd });
         seenRemainingIds.add(c.id);
+        if (normCode) seenRemainingCodes.add(normCode);
       }
     });
   }
 
-  // Repeat edilebilir dersler (CC, DC, DD veya F)
+  // Repeat edilebilir dersler (CC, DC, DD veya F) - yalnızca dersin en güncel denemesi üzerinden
   const repeatableCourses = [];
   const repeatGrades = new Set(['CC', 'DC', 'DD', 'F']);
+  const seenRepeatCodes = new Set();
   Object.values(latestInstanceByCourse).forEach(item => {
+    const latestForCode = item.normCode ? latestInstanceByCode[item.normCode] : null;
+    if (latestForCode && latestForCode.courseId !== item.courseId) return;
+    if (item.normCode && seenRepeatCodes.has(item.normCode)) return;
     const g = item.passed ? (latestPassedByCourse[item.courseId]?.grade || item.grade) : item.grade;
     if (item.crd > 0 && repeatGrades.has(g)) {
       repeatableCourses.push({
@@ -6930,6 +6956,7 @@ function computeWhatIfBaseline() {
         oldGrade: g,
         inCurrentGpa: !!latestPassedByCourse[item.courseId] && GRADE_POINTS[g] !== null && GRADE_POINTS[g] !== undefined
       });
+      if (item.normCode) seenRepeatCodes.add(item.normCode);
     }
   });
 

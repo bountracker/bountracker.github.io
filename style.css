@@ -5587,8 +5587,10 @@ html, body {
   overflow-x: hidden;
 }
 
-.semesters-container {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+@media (min-width: 1181px) {
+  .semesters-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .semester-header {
@@ -5684,6 +5686,10 @@ html, body {
 
 /* iPad Dikey & Mobil (max-width: 900px): Taşma / zoom-out önleme ve sheet uyumu */
 @media (max-width: 900px) {
+  .semesters-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
   .sidebar,
   .main-content,
   #course-pool,
