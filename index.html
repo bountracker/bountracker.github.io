@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Boğaziçi Tracker | BÜ Ders Planlayıcı, GPA Hesaplama, ÇAP &amp; Yandal Takip</title>
+  <title>Boğaziçi Tracker</title>
   <meta name="description" content="Boğaziçi Üniversitesi öğrencileri için ücretsiz 4 yıllık ders planlayıcı, DNO/GNO (GPA) hesaplama, e-Devlet transkript PDF aktarma, görsel önkoşul ağacı ve ÇAP / Yandal müfredat takip aracı.">
   <meta name="keywords" content="Boğaziçi Üniversitesi, BOUN, BÜ ders planlayıcı, GPA hesaplama, GNO hesaplama, DNO, ÇAP, Yandal, önkoşul ağacı, transkript PDF, Boğaziçi Tracker, BÜ müfredat, boun tracker">
   <meta name="author" content="Enes Furkan Gözüdik">
@@ -67,6 +67,15 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
   <link rel="apple-touch-icon" href="/favicon-192.png">
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('bountracker-theme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="./style.css?v=2">
 </head>
 <body>
@@ -75,9 +84,10 @@
     <div class="top-bar-brand-row">
       <h1>
         <span>🎓 Boğaziçi Tracker</span>
-        <span id="appSubtitle" style="font-weight: 400; font-size: 1.05rem; color: #64748b;">| Ders & GPA Takip</span>
+        <span id="appSubtitle" style="font-weight: 400; font-size: 1.05rem; color: var(--text-muted);">| Ders & GPA Takip</span>
       </h1>
       <div class="mobile-header-actions">
+        <button type="button" id="mobileThemeToggleBtn" class="topbar-btn theme-toggle-btn" onclick="toggleTheme()" aria-label="Temayı Değiştir" title="Temayı Değiştir">🌙</button>
         <button type="button" id="mobileLangBtn" class="topbar-btn lang-btn" onclick="toggleLanguage()" title="Dil Değiştir / Switch Language">
           🌐 <span id="mobileLangToggleLabel">TR | EN</span>
         </button>
@@ -119,6 +129,7 @@
         <button id="langToggleBtn" class="topbar-btn lang-btn" onclick="toggleLanguage()" title="Dil Değiştir / Switch Language">
           🌐 <span id="langToggleLabel">TR | EN</span>
         </button>
+        <button type="button" id="themeToggleBtn" class="topbar-btn theme-toggle-btn" onclick="toggleTheme()" aria-label="Temayı Değiştir" title="Temayı Değiştir">🌙</button>
         <button id="resetBtn" class="reset-btn" onclick="resetCurrentDept()" title="Bölüm planını sıfırla">Sıfırla</button>
       </div>
       <input type="file" id="jsonFileInput" accept=".json,application/json" style="display: none;" onchange="importDataFromJSON(event)">
@@ -275,11 +286,12 @@
         </div>
 
         <div id="minorPreviewBox" class="minor-preview-box">
-          <div style="color: #64748b; font-style: italic;">Lütfen incelemek istediğiniz bir yandal programı seçin.</div>
+          <div style="color: var(--text-muted); font-style: italic;">Lütfen incelemek istediğiniz bir yandal programı seçin.</div>
         </div>
       </div>
 
       <div class="modal-footer">
+        <button type="button" id="minorModalRemoveBtn" class="modal-remove-btn is-hidden" onclick="removeMinor(event); closeMinorModal();">🗑️ Yandalı Kaldır</button>
         <button type="button" id="minorCancelBtn" class="btn-cancel-issue" onclick="closeMinorModal()">Vazgeç</button>
         <button type="button" id="minorApplyBtn" class="btn-submit-issue" onclick="handleApplyMinorFromModal()">
           <span>Yandalı Uygula</span>
@@ -306,11 +318,12 @@
         </div>
 
         <div id="dmPreviewBox" class="minor-preview-box">
-          <div style="color: #64748b; font-style: italic;">Lütfen incelemek istediğiniz bir ÇAP programı seçin.</div>
+          <div style="color: var(--text-muted); font-style: italic;">Lütfen incelemek istediğiniz bir ÇAP programı seçin.</div>
         </div>
       </div>
 
       <div class="modal-footer">
+        <button type="button" id="dmModalRemoveBtn" class="modal-remove-btn is-hidden" onclick="removeDm(event); closeDmModal();">🗑️ ÇAP'ı Kaldır</button>
         <button type="button" id="dmCancelBtn" class="btn-cancel-issue" onclick="closeDmModal()">Vazgeç</button>
         <button type="button" id="dmApplyBtn" class="btn-submit-issue" onclick="handleApplyDmFromModal()">
           <span>ÇAP'ı Uygula</span>
@@ -357,14 +370,14 @@
             <div id="shareImportSectionTitle" class="share-section-title">📥 İçe Aktar</div>
             <div class="share-options-grid">
               <button type="button" class="share-option-card" onclick="closeShareModal(); openTranscriptModal()">
-                <div class="share-option-icon" style="background:#ecfdf5;">📄</div>
+                <div class="share-option-icon" style="background: var(--badge-success-bg);">📄</div>
                 <div class="share-option-content">
                   <strong id="shareTranscriptBtn">BÜ / e-Devlet Transkripti Aktar (PDF / Metin)</strong>
                   <span id="shareTranscriptDesc">Transkript PDF dosyanızı yükleyin veya metni yapıştırarak derslerinizi otomatik aktarın.</span>
                 </div>
               </button>
               <button type="button" class="share-option-card" onclick="closeShareModal(); document.getElementById('jsonFileInput').click()">
-                <div class="share-option-icon" style="background:#f5f3ff;">📂</div>
+                <div class="share-option-icon" style="background: var(--badge-purple-bg);">📂</div>
                 <div class="share-option-content">
                   <strong id="shareJsonImportBtn">Yedek Dosyası Yükle (JSON)</strong>
                   <span id="shareJsonImportDesc">Daha önce indirdiğiniz JSON plan yedeğini geri yükleyin.</span>
@@ -530,11 +543,13 @@
           <div id="catSecAcademic" class="catalog-section-title">Akademik Programlar</div>
           <div class="catalog-grid">
             <button type="button" id="catalogMinorCard" class="catalog-card cat-card-indigo" onclick="closeMobileCatalog(); openMinorModal()">
+              <span id="catalogMinorRemoveBtn" class="catalog-remove-pill is-hidden" role="button" tabindex="0" onclick="event.stopPropagation(); removeMinor(event); closeMobileCatalog();" title="Yandalı Kaldır" aria-label="Yandalı Kaldır">✕</span>
               <span class="cat-icon">🎓</span>
               <span class="cat-title" id="catMinorTitle">Yandal Ekle / Yönet</span>
               <span class="cat-sub" id="catMinorSub">Yandal programı seç</span>
             </button>
             <button type="button" id="catalogDmCard" class="catalog-card cat-card-emerald" onclick="closeMobileCatalog(); openDmModal()">
+              <span id="catalogDmRemoveBtn" class="catalog-remove-pill is-hidden" role="button" tabindex="0" onclick="event.stopPropagation(); removeDm(event); closeMobileCatalog();" title="ÇAP'ı Kaldır" aria-label="ÇAP'ı Kaldır">✕</span>
               <span class="cat-icon">🎓</span>
               <span class="cat-title" id="catDmTitle">ÇAP Ekle / Yönet</span>
               <span class="cat-sub" id="catDmSub">Çift anadal seç</span>

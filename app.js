@@ -25,6 +25,9 @@ const translations = {
     minorBtnTitle: "Yandal Programı Seç / Düzenle",
     minorLabelPrefix: "Yandal",
     minorRemoveTooltip: "Yandalı Kaldır",
+    minorModalRemoveBtn: "🗑️ Yandalı Kaldır",
+    dmModalRemoveBtn: "🗑️ ÇAP'ı Kaldır",
+    missingPrereqLabel: "Eksik Önkoşul",
     minorHasTitleSuffix: "(Kaldırmak için ✕ butonuna tıklayın)",
     exportBtn: "📥 JSON İndir",
     exportBtnTitle: "Mevcut ders planınızı ve notlarınızı JSON dosyası olarak indirin",
@@ -334,6 +337,9 @@ const translations = {
     minorBtnTitle: "Select / Edit Minor Program",
     minorLabelPrefix: "Minor",
     minorRemoveTooltip: "Remove Minor",
+    minorModalRemoveBtn: "🗑️ Remove Minor",
+    dmModalRemoveBtn: "🗑️ Remove Double Major",
+    missingPrereqLabel: "Missing Prereq",
     minorHasTitleSuffix: "(Click ✕ to remove)",
     exportBtn: "📥 Export JSON",
     exportBtnTitle: "Download your current course plan and grades as a JSON file",
@@ -847,7 +853,51 @@ function applyStaticTranslations() {
   updateDmButtonUI();
   updatePinButtonUI();
   updateSandboxBannerUI();
+  updateThemeToggleButtons();
 }
+
+const THEME_STORAGE_KEY = 'bountracker-theme';
+
+function updateThemeToggleButtons(theme) {
+  const activeTheme = theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  const icon = activeTheme === 'dark' ? '☀️' : '🌙';
+  const label = currentLang === 'en' ? 'Toggle Theme' : 'Temayı Değiştir';
+  ['themeToggleBtn', 'mobileThemeToggleBtn'].forEach((id) => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.textContent = icon;
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  });
+}
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const nextTheme = isDark ? 'light' : 'dark';
+  if (nextTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  } catch (_) {
+    // Ignore storage errors
+  }
+  updateThemeToggleButtons(nextTheme);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (saved === 'light') {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  } catch (_) {}
+  updateThemeToggleButtons();
+});
 
 function toggleLanguage() {
   currentLang = currentLang === 'tr' ? 'en' : 'tr';
@@ -1124,6 +1174,110 @@ let lastAutoFillBackup = null;
 
 const GLOBAL_PREREQ_MAP = {};
 const DEPT_PREREQ_MAP = {};
+const PREQ_JSON_MAP = {};
+const PREQ_JSON_COMPACT_MAP = {};
+
+function formatRawPreqJsonPart(rawText, defaultDept) {
+  if (!rawText) return '';
+  let text = String(rawText).trim();
+  if (!text) return '';
+
+  // Uzun BUEPT / TOEFL / IELTS kalıplarını standart kısaltmaya indirge
+  if (/\bBUEPT\b|\bTOEFL\b|\bIELTS\b/i.test(text) && !/\b[A-Z]{2,5}\s*\d{3}\b/.test(text.replace(/\b(AE|HUM|TK|HTR)\s*\d{3}\s+as\s+a\s+required\s+course[^,;)]*/gi, ''))) {
+    return 'İngilizce Yeterlilik (BUEPT)';
+  }
+
+  // Departman içi spesifikasyon ve not şartı kalıplarını temizle
+  text = text
+    .replace(/\s+and\s+the\s+specification\s+of\s+[A-Z]{2,5}\s*\d{3}[A-Z]?\s+as\s+a\s+required\s+course[^,;]*/gi, '')
+    .replace(/Grade\s*[“"']?[A-Z][+-]?[”"']?\s+on\s+BUEPT\s*\([^)]*\)/gi, 'İngilizce Yeterlilik (BUEPT)')
+    .replace(/\b(with\s+(a\s+)?)?(minimum\s+)?grade\s*(of\s*)?[“"']?[A-Z]{1,2}[+-]?[”"']?(\s+(or\s+(above|higher|better)))?/gi, '')
+    .replace(/\b(consent\s+of\s+(the\s+)?instructor|instructor'?s\s+consent|departmental\s+consent|consent\s+of\s+(the\s+)?department)\b/gi, 'Hoca Onayı')
+    .replace(/\b(senior\s+standing|4th\s+year\s+standing|fourth\s+year\s+standing)(\s+in\s+[A-Z]{2,5})?/gi, 'Son Sınıf Şartı')
+    .replace(/\b(junior\s+standing|3rd\s+year\s+standing|third\s+year\s+standing)(\s+in\s+[A-Z]{2,5})?/gi, '3. Sınıf Şartı')
+    .replace(/\b(sophomore\s+standing|2nd\s+year\s+standing|second\s+year\s+standing)(\s+in\s+[A-Z]{2,5})?/gi, '2. Sınıf Şartı');
+
+  // "ED 209/ED 211" veya "ED 200 / ED 415" gibi eğik çizgili alternatifleri "veya"ya çevir
+  text = text.replace(/([A-Z]{2,5}\s*\d{3}[A-Z]?)\s*\/\s*([A-Z]{2,5}\s*\d{3}[A-Z]?)/gi, '$1 veya $2');
+
+  // İngilizce bağlaçları curriculum.json standartlarına çevir
+  text = text
+    .replace(/\bor\b/gi, 'veya')
+    .replace(/\band\b/gi, 've');
+
+  // Eksik bölüm kodu olan yalın 3 haneli ders numaralarını (ör. "102") bir önceki veya dersin kendi bölüm koduyla tamamla
+  let lastDept = defaultDept || '';
+  text = text.replace(/\b(?:([A-Za-z]{2,5})\s*)?(\d{3}[A-Za-z]?)\b/g, (match, dept, num) => {
+    if (dept) {
+      lastDept = dept.toUpperCase();
+      return `${lastDept} ${num.toUpperCase()}`;
+    }
+    if (lastDept) {
+      return `${lastDept} ${num.toUpperCase()}`;
+    }
+    return match;
+  });
+
+  // Fazla boşluk ve noktalama temizliği
+  text = text
+    .replace(/\s+/g, ' ')
+    .replace(/\(\s*\)/g, '')
+    .replace(/^[,;:\s]+|[,;:\s]+$/g, '')
+    .trim();
+
+  return text;
+}
+
+function formatRawPreqJsonEntry(courseCode, prerequisites) {
+  const spacedCode = String(courseCode || '').trim().toUpperCase().replace(/\s+/g, ' ');
+  const deptMatch = spacedCode.match(/^([A-Z]{2,5})\b/);
+  const defaultDept = deptMatch ? deptMatch[1] : '';
+
+  const rawArr = Array.isArray(prerequisites)
+    ? prerequisites.map(p => String(p || '').trim()).filter(Boolean)
+    : (prerequisites ? [String(prerequisites).trim()] : []);
+  if (rawArr.length === 0) return '';
+
+  const prereqParts = [];
+  const coreqParts = [];
+
+  rawArr.forEach(rawItem => {
+    const coreqMatch = rawItem.match(/^(?:co-?requisite|eş\s*koşul)\s*:\s*(.+)$/i);
+    if (coreqMatch) {
+      const cleanedCoreq = formatRawPreqJsonPart(coreqMatch[1], defaultDept);
+      if (cleanedCoreq && !coreqParts.includes(cleanedCoreq)) coreqParts.push(cleanedCoreq);
+    } else {
+      const cleanedRaw = rawItem.replace(/^(?:pre-?requisite|önkoşul)\s*:\s*/i, '');
+      const cleanedPreq = formatRawPreqJsonPart(cleanedRaw, defaultDept);
+      if (cleanedPreq && !prereqParts.includes(cleanedPreq)) prereqParts.push(cleanedPreq);
+    }
+  });
+
+  const sections = [];
+  if (prereqParts.length > 0) {
+    sections.push(`Önkoşul: ${prereqParts.join(' ve ')}`);
+  }
+  if (coreqParts.length > 0) {
+    sections.push(`Eş koşul: ${coreqParts.join(' ve ')}`);
+  }
+  return sections.join('; ');
+}
+
+function initPreqJsonMap(preqList) {
+  Object.keys(PREQ_JSON_MAP).forEach(k => delete PREQ_JSON_MAP[k]);
+  Object.keys(PREQ_JSON_COMPACT_MAP).forEach(k => delete PREQ_JSON_COMPACT_MAP[k]);
+  if (!Array.isArray(preqList)) return;
+
+  preqList.forEach(entry => {
+    if (!entry || !entry.course_code) return;
+    const spaced = String(entry.course_code).trim().toUpperCase().replace(/\s+/g, ' ');
+    const compact = spaced.replace(/\s+/g, '');
+    const prereqStr = formatRawPreqJsonEntry(spaced, entry.prerequisites);
+    if (!prereqStr) return;
+    if (spaced) PREQ_JSON_MAP[spaced] = prereqStr;
+    if (compact) PREQ_JSON_COMPACT_MAP[compact] = prereqStr;
+  });
+}
 
 function initPrereqMaps(currData) {
   if (!currData || typeof currData !== 'object') return;
@@ -1143,6 +1297,80 @@ function initPrereqMaps(currData) {
       }
     });
   });
+}
+
+function extractAssignedElectiveCode(text) {
+  if (!text) return '';
+  const cleaned = String(text).trim().toUpperCase().replace(/\s+/g, ' ');
+  const m = cleaned.match(/([A-Z]{2,5})\s*([0-9]{3}[A-Z]?)/);
+  if (!m) return '';
+  return normalizeCourseCodeStr(`${m[1]} ${m[2]}`);
+}
+
+function getPrereqFromMaps(code) {
+  if (!code) return '';
+  const spaced = String(code).trim().toUpperCase().replace(/\s+/g, ' ');
+  const compact = spaced.replace(/\s+/g, '');
+  const norm = normalizeCourseCodeStr(spaced);
+
+  if (norm && PREQ_JSON_MAP[norm]) return PREQ_JSON_MAP[norm];
+  if (spaced && PREQ_JSON_MAP[spaced]) return PREQ_JSON_MAP[spaced];
+  if (compact && PREQ_JSON_COMPACT_MAP[compact]) return PREQ_JSON_COMPACT_MAP[compact];
+
+  if (norm && DEPT_PREREQ_MAP[currentDept] && DEPT_PREREQ_MAP[currentDept][norm]) {
+    return DEPT_PREREQ_MAP[currentDept][norm];
+  }
+  return (norm && GLOBAL_PREREQ_MAP[norm]) || '';
+}
+
+function resolveDynamicPrereqForInstance(inst, course) {
+  const basePrereq = course && course.prereq ? course.prereq : '';
+  if (!course || !course.isElective || !inst || !inst.customText) return basePrereq;
+  const assignedCode = extractAssignedElectiveCode(inst.customText);
+  if (!assignedCode) return basePrereq;
+  const assignedPrereq = getPrereqFromMaps(assignedCode);
+  return assignedPrereq || basePrereq;
+}
+
+function getSemRankForPrereq(semId) {
+  const m = String(semId || '').match(/^(\d+)\.(\d+)/);
+  return m ? (parseInt(m[1], 10) * 10 + parseInt(m[2], 10)) : 9999;
+}
+
+function getMissingPrereqsForInstance(inst, prereqStr, allInstances) {
+  if (!prereqStr || !inst || !inst.semId) return [];
+  const andGroups = parsePrereqAndOrGroups(prereqStr);
+  if (!andGroups || andGroups.length === 0) return [];
+
+  const targetRank = getSemRankForPrereq(inst.semId);
+  const satisfiedCodes = new Set();
+
+  (allInstances || []).forEach(other => {
+    if (!other || other.instanceId === inst.instanceId || other.grade === 'F') return;
+    if (getSemRankForPrereq(other.semId) >= targetRank) return;
+    const otherCourse = getCourseForInstance(other);
+    if (!otherCourse) return;
+
+    const baseNorm = normalizeCourseCodeStr(otherCourse.code);
+    if (baseNorm) satisfiedCodes.add(baseNorm);
+    String(otherCourse.code || '').split(/[\/,]/).forEach(part => {
+      const pNorm = normalizeCourseCodeStr(part);
+      if (pNorm) satisfiedCodes.add(pNorm);
+    });
+    if (otherCourse.isElective && other.customText) {
+      const assigned = extractAssignedElectiveCode(other.customText);
+      if (assigned) satisfiedCodes.add(assigned);
+    }
+  });
+
+  const missing = [];
+  andGroups.forEach(group => {
+    const ok = group.some(reqCode => satisfiedCodes.has(reqCode));
+    if (!ok && group.length > 0) {
+      missing.push(group.join(' / '));
+    }
+  });
+  return missing;
 }
 
 const DEPT_TO_DM_MAJOR = {
@@ -1169,15 +1397,25 @@ function getDmTargetKey(deptKey) {
 
 async function loadCurriculum() {
   try {
-    const [currResp, minorsResp, dmResp] = await Promise.all([
+    const [currResp, minorsResp, dmResp, preqResp] = await Promise.all([
       fetch('./data/curriculum.json'),
       fetch('./data/minors.json'),
-      fetch('./data/dm_curriculum.json').catch(() => ({ ok: false }))
+      fetch('./data/dm_curriculum.json').catch(() => ({ ok: false })),
+      fetch('./data/preq.json').catch(() => ({ ok: false }))
     ]);
 
     if (!currResp.ok) throw new Error(`HTTP Hata: ${currResp.status}`);
     departmentsData = await currResp.json();
     initPrereqMaps(departmentsData);
+
+    if (preqResp && preqResp.ok) {
+      try {
+        const preqList = await preqResp.json();
+        initPreqJsonMap(preqList);
+      } catch (pErr) {
+        console.warn("preq.json okunamadı:", pErr);
+      }
+    }
 
     if (minorsResp.ok) {
       try {
@@ -2099,7 +2337,13 @@ function createSemesterCourseCard(inst, course) {
 
   const safeCode = escapeHTML(course.code);
   const safeName = escapeHTML(course.name);
-  const safePrereq = course.prereq ? escapeHTML(translatePrereq(course.prereq)) : '';
+  const effectivePrereq = resolveDynamicPrereqForInstance(inst, course);
+  const safePrereq = effectivePrereq ? escapeHTML(translatePrereq(effectivePrereq)) : '';
+  const stateForPrereq = getDeptState(currentDept);
+  const missingPrereqs = !isPassed ? getMissingPrereqsForInstance(inst, effectivePrereq, stateForPrereq.instances) : [];
+  if (missingPrereqs.length > 0) {
+    card.classList.add('prereq-missing');
+  }
   const safeCustomText = escapeHTML(inst.customText || '');
   const safeEffectiveCode = escapeHTML(effectiveCode);
 
@@ -2127,6 +2371,7 @@ function createSemesterCourseCard(inst, course) {
     </div>
     <div class="course-name">${safeName}</div>
     ${safePrereq ? `<div class="course-prereq">${safePrereq}</div>` : ''}
+    ${missingPrereqs.length > 0 ? `<div class="course-prereq-missing-badge">⚠️ ${escapeHTML(t('missingPrereqLabel'))}: ${escapeHTML(missingPrereqs.join(', '))}</div>` : ''}
 
     <div class="course-desc-link-wrap" style="${courseUrl ? '' : 'display:none;'}">
       ${courseUrl ? `
@@ -2397,6 +2642,33 @@ function handleInstanceInput(instanceId, text) {
         const course = getCourseForInstance(inst);
         const isCustomElective = Boolean(course && course.isElective && text.trim());
         const effectiveCode = isCustomElective ? text.trim() : (course ? course.code : text.trim());
+        const effectivePrereq = resolveDynamicPrereqForInstance(inst, course);
+        const missingPrereqs = !inst.passed ? getMissingPrereqsForInstance(inst, effectivePrereq, state.instances) : [];
+        card.classList.toggle('prereq-missing', missingPrereqs.length > 0);
+        let prereqEl = card.querySelector('.course-prereq');
+        if (effectivePrereq) {
+          if (!prereqEl) {
+            prereqEl = document.createElement('div');
+            prereqEl.className = 'course-prereq';
+            const nameEl = card.querySelector('.course-name');
+            if (nameEl) nameEl.insertAdjacentElement('afterend', prereqEl);
+          }
+          prereqEl.innerText = translatePrereq(effectivePrereq);
+        } else if (prereqEl) {
+          prereqEl.remove();
+        }
+        let warnEl = card.querySelector('.course-prereq-missing-badge');
+        if (missingPrereqs.length > 0) {
+          if (!warnEl) {
+            warnEl = document.createElement('div');
+            warnEl.className = 'course-prereq-missing-badge';
+            const anchor = card.querySelector('.course-prereq') || card.querySelector('.course-name');
+            if (anchor) anchor.insertAdjacentElement('afterend', warnEl);
+          }
+          warnEl.innerText = `⚠️ ${t('missingPrereqLabel')}: ${missingPrereqs.join(', ')}`;
+        } else if (warnEl) {
+          warnEl.remove();
+        }
         const newUrl = getBounCourseUrl(effectiveCode, resolveCourseTerm(isCustomElective ? null : course, effectiveCode));
         if (newUrl) {
           const safeEffectiveCode = escapeHTML(effectiveCode);
@@ -2963,6 +3235,7 @@ function loadSharedPlanFromHash() {
     };
 
     updateSandboxBannerUI();
+  updateThemeToggleButtons();
     return true;
   } catch (err) {
     console.warn("Paylaşılan plan çözümlenirken hata:", err);
@@ -2982,6 +3255,7 @@ function saveSandboxToMyPlan() {
 
   saveGlobalState();
   updateSandboxBannerUI();
+  updateThemeToggleButtons();
   history.replaceState(null, '', window.location.pathname + window.location.search);
   showToast(t('sandboxSavedSuccess'));
 }
@@ -3001,6 +3275,7 @@ function exitSandboxMode() {
   }
 
   updateSandboxBannerUI();
+  updateThemeToggleButtons();
   populateDepartmentSelect();
   populateMinorModalOptions();
   populateDmModalOptions();
@@ -4078,6 +4353,19 @@ function updateMinorButtonUI() {
   updateBtn(minorBtn, false);
   updateBtn(mobileMinorBtn, true);
 
+  const hasMinor = Boolean(minorId && minorsData[minorId]);
+  const catMinorRemoveBtn = document.getElementById('catalogMinorRemoveBtn');
+  if (catMinorRemoveBtn) {
+    catMinorRemoveBtn.classList.toggle('is-hidden', !hasMinor);
+    catMinorRemoveBtn.title = t('minorRemoveTooltip');
+    catMinorRemoveBtn.setAttribute('aria-label', t('minorRemoveTooltip'));
+  }
+  const minorModalRemoveBtn = document.getElementById('minorModalRemoveBtn');
+  if (minorModalRemoveBtn) {
+    minorModalRemoveBtn.classList.toggle('is-hidden', !hasMinor);
+    minorModalRemoveBtn.innerText = t('minorModalRemoveBtn');
+  }
+
   const catMinorSub = document.getElementById('catMinorSub');
   if (catMinorSub) {
     catMinorSub.innerText = (minorId && minorsData[minorId])
@@ -4145,7 +4433,7 @@ function handleMinorSelectChange(minorKey) {
     <div class="minor-preview-title">${escapeHTML(getLocalizedMinorName(minorKey))}</div>
     <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">🏛️ ${escapeHTML(getLocalizedFacultyName(minor.faculty || ''))}</div>
     ${reqHtml ? `<div class="minor-preview-reqs">${reqHtml}</div>` : ''}
-    <div style="margin-top: 8px; font-size: 0.82rem; color: #334155;">
+    <div style="margin-top: 8px; font-size: 0.82rem; color: var(--text-color);">
       <strong>${escapeHTML(t('minorSampleDist'))}</strong><br>
       <span style="font-size: 0.78rem; color: #475569;">${coursesPreview}</span>
     </div>
@@ -4322,6 +4610,19 @@ function updateDmButtonUI() {
   updateBtn(dmBtn, false);
   updateBtn(mobileDmBtn, true);
 
+  const hasDm = Boolean(dmId && dmData[dmId]);
+  const catDmRemoveBtn = document.getElementById('catalogDmRemoveBtn');
+  if (catDmRemoveBtn) {
+    catDmRemoveBtn.classList.toggle('is-hidden', !hasDm);
+    catDmRemoveBtn.title = t('dmRemoveTooltip');
+    catDmRemoveBtn.setAttribute('aria-label', t('dmRemoveTooltip'));
+  }
+  const dmModalRemoveBtn = document.getElementById('dmModalRemoveBtn');
+  if (dmModalRemoveBtn) {
+    dmModalRemoveBtn.classList.toggle('is-hidden', !hasDm);
+    dmModalRemoveBtn.innerText = t('dmModalRemoveBtn');
+  }
+
   const catDmSub = document.getElementById('catDmSub');
   if (catDmSub) {
     catDmSub.innerText = (dmId && dmData[dmId])
@@ -4395,7 +4696,7 @@ function handleDmSelectChange(dmKey) {
   const availableKeys = getAvailableDmKeysForDept(currentDept);
   if (availableKeys.length === 0) {
     previewBox.innerHTML = `
-      <div style="color: #b45309; background: #fffbeb; padding: 10px 12px; border-radius: 8px; border: 1px solid #fde68a;">
+      <div style="color: var(--badge-warn-text); background: var(--badge-warn-bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--badge-warn-border);">
         ℹ️ ${escapeHTML(t('dmNoAvailable'))}
       </div>
     `;
@@ -4463,7 +4764,7 @@ function handleDmSelectChange(dmKey) {
     <div class="minor-preview-title" style="color: #0f766e;">${escapeHTML(getDmLocalizedName(prog))}</div>
     <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">🏛️ ${escapeHTML(getDmLocalizedFaculty(prog))}</div>
     ${reqHtml ? `<div class="minor-preview-reqs">${reqHtml}</div>` : ''}
-    <div style="margin-top: 8px; font-size: 0.82rem; color: #334155;">
+    <div style="margin-top: 8px; font-size: 0.82rem; color: var(--text-color);">
       <strong>${escapeHTML(t('minorSampleDist'))} (${dmCourses.length} ${escapeHTML(t('courseUnit'))})</strong><br>
       <span style="font-size: 0.78rem; color: #475569;">${coursesPreview}</span>
     </div>
@@ -5002,6 +5303,20 @@ function renderPrereqTree() {
   const prereqsOf = {};
   const unlocksOf = {};
 
+  const assignedByCourseId = {};
+  (state.instances || []).forEach(inst => {
+    if (!inst || !inst.customText || !inst.customText.trim()) return;
+    const instCourse = getCourseForInstance(inst);
+    if (!instCourse || !instCourse.isElective) return;
+    if (!assignedByCourseId[instCourse.id]) {
+      assignedByCourseId[instCourse.id] = {
+        customText: inst.customText.trim(),
+        code: extractAssignedElectiveCode(inst.customText),
+        inst
+      };
+    }
+  });
+
   allCourses.forEach(c => {
     nodesById[c.id] = c;
     prereqsOf[c.id] = new Set();
@@ -5020,14 +5335,24 @@ function renderPrereqTree() {
         codeToCourses[pNorm].push(c);
       }
     });
+
+    const assigned = assignedByCourseId[c.id];
+    if (assigned && assigned.code && assigned.code !== norm) {
+      if (!codeToCourses[assigned.code]) codeToCourses[assigned.code] = [];
+      codeToCourses[assigned.code].push(c);
+    }
   });
 
   const edges = [];
   const edgeKeys = new Set();
 
   allCourses.forEach(course => {
-    if (!course.prereq) return;
-    const reqNormCodes = extractAllPrereqCodes(course.prereq);
+    const assigned = assignedByCourseId[course.id];
+    const effectivePrereq = assigned
+      ? resolveDynamicPrereqForInstance(assigned.inst, course)
+      : (course.prereq || getPrereqFromMaps(course.code));
+    if (!effectivePrereq) return;
+    const reqNormCodes = extractAllPrereqCodes(effectivePrereq);
     reqNormCodes.forEach(reqCode => {
       const matchedParents = codeToCourses[reqCode] || [];
       matchedParents.forEach(parent => {
@@ -5085,12 +5410,14 @@ function renderPrereqTree() {
       nodeEl.className = `pt-node ${statusClass}`;
       nodeEl.dataset.nodeId = course.id;
 
+      const assignedInfo = assignedByCourseId[course.id];
+      const displayNodeName = assignedInfo ? `${course.name} — ${assignedInfo.customText}` : course.name;
       nodeEl.innerHTML = `
         <div class="pt-node-top">
           <span class="pt-node-code">${escapeHTML(course.code)}</span>
           <span class="pt-node-crd">${course.crd} Cr</span>
         </div>
-        <div class="pt-node-name" title="${escapeHTML(course.name)}">${escapeHTML(course.name)}</div>
+        <div class="pt-node-name" title="${escapeHTML(displayNodeName)}">${escapeHTML(displayNodeName)}</div>
         ${(course.isMinor || course.isDoubleMajor) ? `
           <div class="pt-node-badges">
             ${course.isMinor ? `<span class="pt-badge minor">${escapeHTML(t('minorBadge'))}</span>` : ''}
@@ -5172,13 +5499,13 @@ function drawPrereqTreeArrows() {
   let pathsHtml = `
     <defs>
       <marker id="pt-arrow-default" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#94a3b8"></path>
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--pt-edge-default, #94a3b8)"></path>
       </marker>
       <marker id="pt-arrow-prereq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#f97316"></path>
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--pt-edge-prereq, #f97316)"></path>
       </marker>
       <marker id="pt-arrow-unlock" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#8b5cf6"></path>
+        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--pt-edge-unlock, #8b5cf6)"></path>
       </marker>
     </defs>
   `;
