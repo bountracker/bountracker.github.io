@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bountracker.github.io/sitemap.xml
+Sitemap: https://bountracker.github.io/sitemap.txt
