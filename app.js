@@ -273,7 +273,6 @@ const translations = {
     shareLoadConfirm: "Paylaşılan ders planı yüklensin mi? Mevcut planınızın üzerine yazılacaktır.",
     shareCancelBtn: "Kapat",
     shareEmptyPlan: "Görsel oluşturmak için dönemlere en az bir ders eklemelisiniz.",
-    plannedStatus: "Plan",
     sandboxBannerText: "👀 Önizleme Modu — Paylaşılan planı inceliyorsunuz; yaptığınız değişiklikler kaydedilmez.",
     sandboxSaveBtn: "💾 Kendi Planıma Aktar",
     sandboxExitBtn: "↩️ Kendi Planıma Dön",

@@ -42,6 +42,9 @@ bountracker.github.io/
 ├── index.html          # Ana uygulama arayüzü ve SEO/Schema.org meta yapısı
 ├── style.css           # Masaüstü ve mobil (Bottom Sheet) responsive stiller
 ├── app.js              # Ders planlama, GPA motoru, PDF parser ve önkoşul mantığı
+├── favicon.svg         # Vektörel tarayıcı ikonu
+├── favicon-192.png     # Arama motorları ve PWA için PNG ikon
+├── og-image.png        # Sosyal medya paylaşım önizleme görseli (1200x630)
 ├── data/               # Bölüm, ÇAP ve Yandal müfredat ve önkoşul veri setleri
 ├── robots.txt          # Arama motoru tarama kuralları
 └── sitemap.xml         # Google Search Console site haritası
