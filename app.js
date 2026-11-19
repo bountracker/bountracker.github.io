@@ -385,7 +385,7 @@ const translations = {
     planBaseDesc: "Varsayılan ana ders planın",
     planActiveBadge: "✓ Aktif",
     planBaseBadge: "Ana",
-    planSwitchBtn: "Aç / Geç",
+    planSwitchBtn: "Aç",
     planEditBtn: "Düzenle",
     planDeleteBtn: "Sil",
     planNewBtn: "+ Yeni Plan Ekle",
@@ -749,7 +749,7 @@ const translations = {
     planBaseDesc: "Your default base course plan",
     planActiveBadge: "✓ Active",
     planBaseBadge: "Base",
-    planSwitchBtn: "Open / Switch",
+    planSwitchBtn: "Open",
     planEditBtn: "Edit",
     planDeleteBtn: "Delete",
     planNewBtn: "+ Add New Plan",
@@ -2193,6 +2193,10 @@ function switchScenario(scenarioId) {
   updateActivePlanSubtitle();
   initUI();
   applyLanguage();
+  const plansModalEl = document.getElementById('plansModal');
+  if (plansModalEl && plansModalEl.classList.contains('open')) {
+    renderPlansModal();
+  }
   showToast(t('toastScenarioSwitched')(getPlanDisplayName(targetPlan)));
 }
 
@@ -2284,7 +2288,10 @@ function openNewPlanForm() {
   if (descIn) descIn.value = '';
   if (cloneWrap) cloneWrap.classList.remove('is-hidden');
   if (cloneCb) cloneCb.checked = true;
-  if (box) box.classList.remove('is-hidden');
+  if (box) {
+    box.classList.remove('is-hidden');
+    requestAnimationFrame(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+  }
   if (nameIn) nameIn.focus();
 }
 
@@ -2372,12 +2379,14 @@ function deletePlanItem(planId) {
     scenariosState.activeId = fallbackId;
     const nextPlan = scenariosState.plans[fallbackId];
     currentDept = nextPlan.currentDept || 'math';
-    globalState = nextPlan.globalState || {};
+    globalState = JSON.parse(JSON.stringify(nextPlan.globalState || {}));
+    lastAutoFillBackup = null;
     const deptSelect = document.getElementById('deptSelect');
     if (deptSelect && departmentsData && departmentsData[currentDept]) {
       deptSelect.value = currentDept;
     }
     initUI();
+    applyLanguage();
   }
 
   saveGlobalState();
@@ -6509,15 +6518,19 @@ const mobileBreakpointMq = window.matchMedia('(max-width: 900px)');
 function resetMobileLayoutState(isMobileView) {
   const sidebar = document.getElementById('sidebarContainer');
   const main = document.getElementById('years-grid');
+  const appMain = document.querySelector('.app-main');
   const btnPool = document.getElementById('tabBtnPool');
   const btnSem = document.getElementById('tabBtnSemesters');
 
-  [sidebar, main, document.body, document.documentElement].forEach(el => {
+  [sidebar, main, appMain, document.body, document.documentElement].forEach(el => {
     if (!el) return;
     el.style.transform = '';
     el.style.overflow = '';
-    if (el === sidebar || el === main) {
+    if (el === sidebar || el === main || el === appMain) {
       el.style.display = '';
+      el.style.width = '';
+      el.style.height = '';
+      el.style.maxHeight = '';
     }
   });
 
@@ -6527,6 +6540,12 @@ function resetMobileLayoutState(isMobileView) {
     if (mobileCatalogModal) mobileCatalogModal.classList.remove('open');
     const termPickerModal = document.getElementById('termPickerModal');
     if (termPickerModal) termPickerModal.classList.remove('open');
+    if ((window.innerWidth || document.documentElement.clientWidth) > 768) {
+      if (sidebar) sidebar.classList.remove('active-tab');
+      if (main) main.classList.remove('active-tab');
+      if (btnPool) btnPool.classList.remove('active');
+      if (btnSem) btnSem.classList.remove('active');
+    }
   } else if (sidebar && main) {
     const hasActive = sidebar.classList.contains('active-tab') || main.classList.contains('active-tab');
     if (!hasActive) {
@@ -6536,6 +6555,35 @@ function resetMobileLayoutState(isMobileView) {
     }
   }
 }
+
+function updateLayout() {
+  const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const isMobileView = mobileBreakpointMq.matches;
+  const crossedToDesktop = lastLayoutWidth <= 900 && currentWidth > 900;
+  const crossedToMobile = lastLayoutWidth > 900 && currentWidth <= 900;
+
+  resetMobileLayoutState(isMobileView);
+  lastLayoutWidth = currentWidth;
+
+  if ((crossedToDesktop || crossedToMobile) && typeof initUI === 'function' && departmentsData) {
+    initUI();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateLayout();
+  requestAnimationFrame(() => updateLayout());
+});
+
+window.addEventListener('load', () => {
+  updateLayout();
+  requestAnimationFrame(() => updateLayout());
+});
+
+window.addEventListener('pageshow', () => {
+  updateLayout();
+  requestAnimationFrame(() => updateLayout());
+});
 
 function handleBreakpointChange(e) {
   lastLayoutWidth = window.innerWidth;
