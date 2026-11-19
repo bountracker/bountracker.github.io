@@ -1,5 +1,5 @@
 // Created by Enes Furkan Gözüdik
-const isMobileDevice = () => window.innerWidth <= 900;
+const isMobileDevice = () => window.innerWidth <= 767;
 
 const FALL_TERM = "2026/2027-1";
 const SPRING_TERM = "2025/2026-2";
@@ -2191,8 +2191,8 @@ function switchScenario(scenarioId) {
 
   saveGlobalState();
   updateActivePlanSubtitle();
+  applyStaticTranslations();
   initUI();
-  applyLanguage();
   const plansModalEl = document.getElementById('plansModal');
   if (plansModalEl && plansModalEl.classList.contains('open')) {
     renderPlansModal();
@@ -2385,8 +2385,8 @@ function deletePlanItem(planId) {
     if (deptSelect && departmentsData && departmentsData[currentDept]) {
       deptSelect.value = currentDept;
     }
+    applyStaticTranslations();
     initUI();
-    applyLanguage();
   }
 
   saveGlobalState();
@@ -6478,7 +6478,7 @@ function selectTermFromPicker(semId) {
   };
 
   appMain.addEventListener('touchstart', (e) => {
-    if (window.innerWidth > 900 || e.touches.length !== 1) {
+    if (window.innerWidth > 767 || e.touches.length !== 1) {
       swipeValid = false;
       return;
     }
@@ -6493,7 +6493,7 @@ function selectTermFromPicker(semId) {
   }, { passive: true });
 
   appMain.addEventListener('touchend', (e) => {
-    if (!swipeValid || window.innerWidth > 900 || !e.changedTouches || e.changedTouches.length === 0) {
+    if (!swipeValid || window.innerWidth > 767 || !e.changedTouches || e.changedTouches.length === 0) {
       swipeValid = false;
       return;
     }
@@ -6513,7 +6513,7 @@ function selectTermFromPicker(semId) {
 })();
 
 let lastLayoutWidth = window.innerWidth;
-const mobileBreakpointMq = window.matchMedia('(max-width: 900px)');
+const mobileBreakpointMq = window.matchMedia('(max-width: 767px)');
 
 function resetMobileLayoutState(isMobileView) {
   const sidebar = document.getElementById('sidebarContainer');
@@ -6534,18 +6534,16 @@ function resetMobileLayoutState(isMobileView) {
     }
   });
 
-  if (!isMobileView) {
+  if (!isMobileView || (window.innerWidth || document.documentElement.clientWidth) >= 768) {
     closeToolsDropdown();
     const mobileCatalogModal = document.getElementById('mobileCatalogModal');
     if (mobileCatalogModal) mobileCatalogModal.classList.remove('open');
     const termPickerModal = document.getElementById('termPickerModal');
     if (termPickerModal) termPickerModal.classList.remove('open');
-    if ((window.innerWidth || document.documentElement.clientWidth) > 768) {
-      if (sidebar) sidebar.classList.remove('active-tab');
-      if (main) main.classList.remove('active-tab');
-      if (btnPool) btnPool.classList.remove('active');
-      if (btnSem) btnSem.classList.remove('active');
-    }
+    if (sidebar) sidebar.classList.remove('active-tab');
+    if (main) main.classList.remove('active-tab');
+    if (btnPool) btnPool.classList.remove('active');
+    if (btnSem) btnSem.classList.remove('active');
   } else if (sidebar && main) {
     const hasActive = sidebar.classList.contains('active-tab') || main.classList.contains('active-tab');
     if (!hasActive) {
@@ -6558,9 +6556,9 @@ function resetMobileLayoutState(isMobileView) {
 
 function updateLayout() {
   const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
-  const isMobileView = mobileBreakpointMq.matches;
-  const crossedToDesktop = lastLayoutWidth <= 900 && currentWidth > 900;
-  const crossedToMobile = lastLayoutWidth > 900 && currentWidth <= 900;
+  const isMobileView = currentWidth <= 767 && mobileBreakpointMq.matches;
+  const crossedToDesktop = lastLayoutWidth <= 767 && currentWidth >= 768;
+  const crossedToMobile = lastLayoutWidth >= 768 && currentWidth <= 767;
 
   resetMobileLayoutState(isMobileView);
   lastLayoutWidth = currentWidth;
@@ -6581,6 +6579,18 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('pageshow', () => {
+  updateLayout();
+  requestAnimationFrame(() => updateLayout());
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    updateLayout();
+    requestAnimationFrame(() => updateLayout());
+  }
+});
+
+window.addEventListener('focus', () => {
   updateLayout();
   requestAnimationFrame(() => updateLayout());
 });
@@ -6620,7 +6630,7 @@ window.addEventListener('resize', () => {
   lastLayoutWidth = currentWidth;
   if (isEditingField) return;
 
-  if (currentWidth > 900) {
+  if (currentWidth >= 768) {
     resetMobileLayoutState(false);
   }
   initUI();

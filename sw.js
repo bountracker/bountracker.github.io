@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bountracker-cache-v2';
+const CACHE_NAME = 'bountracker-cache-v5';
 const CORE_SHELL = [
   '/',
   '/index.html',

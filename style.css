@@ -1655,7 +1655,7 @@ textarea.form-control {
   color: var(--text-color);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .pool-action-bar {
     display: none !important;
   }
@@ -3352,7 +3352,7 @@ textarea.form-control {
   max-width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .catalog-sheet {
     position: fixed;
     bottom: 0;
@@ -3741,7 +3741,7 @@ textarea.form-control {
   color: var(--badge-warn-text);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .mobile-support-btn {
     display: inline-flex;
     align-items: center;
@@ -5735,8 +5735,8 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* iPadOS / touch WebKit keyboard animation stability: disable heavy backdrop blur on touch/tablet */
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+/* iPadOS / touch WebKit keyboard animation stability: disable heavy backdrop blur on tablet/mobile */
+@media (max-width: 1024px) {
   .modal-overlay,
   .modal-backdrop,
   .catalog-backdrop,
@@ -5763,8 +5763,8 @@ body {
   }
 }
 
-/* iPad Yatay & Dar Masaüstü (901px - 1240px): Header sığdırma ve taşma önleme */
-@media (min-width: 901px) and (max-width: 1240px) {
+/* iPad Yatay & Dar Masaüstü (768px - 1240px): Header sığdırma ve taşma önleme */
+@media (min-width: 768px) and (max-width: 1240px) {
   .top-bar {
     height: auto;
     min-height: 56px;
@@ -5784,14 +5784,14 @@ body {
   }
 }
 
-/* iPad Yatay (Landscape 901px - 1180px): Yan panel ve 2 sütunlu dönem gridi */
-@media (min-width: 901px) and (max-width: 1180px) {
+/* iPad Dikey/Yatay (768px - 1180px): Yan panel ve 2 sütunlu dönem gridi */
+@media (min-width: 768px) and (max-width: 1180px) {
   .app-main {
     gap: 14px;
     padding: 12px 14px;
   }
   .sidebar {
-    flex: 0 0 300px;
+    flex: 0 0 285px;
   }
   .pool-action-bar {
     display: grid;
@@ -5812,7 +5812,7 @@ body {
 }
 
 /* iPad Dikey & Mobil (max-width: 900px): Taşma / zoom-out önleme ve sheet uyumu */
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .semesters-container {
     grid-template-columns: 1fr;
     gap: 10px;
