@@ -2198,8 +2198,9 @@ function updateSidebarPool() {
   const pool = document.getElementById('course-pool');
   const poolActionBar = document.getElementById('poolActionBar');
   const customBtnRow = document.getElementById('customCourseBtnRow');
-  if (poolActionBar && poolActionBar.parentNode === pool) {
-    poolActionBar.remove();
+  const fixedTop = document.getElementById('sidebarFixedTop');
+  if (poolActionBar && fixedTop && poolActionBar.parentNode !== fixedTop) {
+    fixedTop.appendChild(poolActionBar);
   }
   if (customBtnRow && customBtnRow.parentNode === pool) {
     customBtnRow.remove();
@@ -2208,9 +2209,6 @@ function updateSidebarPool() {
     dashCardWrapper.remove();
   }
   pool.innerHTML = '';
-  if (poolActionBar) {
-    pool.appendChild(poolActionBar);
-  }
   if (customBtnRow) {
     pool.appendChild(customBtnRow);
   }

@@ -623,7 +623,11 @@ select.dept-select:disabled {
 }
 
 .sidebar-fixed-top {
+  position: relative;
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   padding: 10px 14px;
   border-bottom: 1px solid var(--border-faint);
   background: var(--bg-surface);
@@ -2761,12 +2765,15 @@ textarea.form-control {
 .sidebar-segmented-bar,
 .pool-action-bar {
   position: static;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  align-items: stretch;
   gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin-top: 0;
-  margin-bottom: 4px;
+  margin-bottom: 0;
   min-height: 34px;
   height: auto;
   flex-shrink: 0;
@@ -2774,17 +2781,21 @@ textarea.form-control {
 
 .sidebar-autofill-group {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: stretch;
   gap: 5px;
-  flex: 1 1 0;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
   min-height: 34px;
   height: auto;
+  box-sizing: border-box;
 }
 
 .sidebar-seg-btn {
-  flex: 1 1 120px;
+  flex: 1 1 0;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
   min-height: 34px;
   height: auto;
@@ -2792,18 +2803,19 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 6px 10px;
-  font-size: 0.78rem;
+  padding: 6px 8px;
+  font-size: 0.76rem;
   font-weight: 700;
+  line-height: 1.2;
   border-radius: 9999px;
   border: 1px solid var(--border-subtle);
   background: var(--bg-surface);
   color: var(--text-color);
   cursor: pointer;
   transition: all 0.15s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .sidebar-seg-btn:hover:not(:disabled) {
@@ -5709,13 +5721,17 @@ body {
     flex: 0 0 300px;
   }
   .pool-action-bar {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    width: 100%;
+    max-width: 100%;
     height: auto;
+    box-sizing: border-box;
   }
   .pool-action-bar .sidebar-seg-btn {
-    flex: 1 1 120px;
     padding: 6px 8px;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
+    white-space: normal;
   }
   .semesters-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
