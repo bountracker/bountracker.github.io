@@ -6519,16 +6519,19 @@ function resetMobileLayoutState(isMobileView) {
   const sidebar = document.getElementById('sidebarContainer');
   const main = document.getElementById('years-grid');
   const appMain = document.querySelector('.app-main');
+  const topBar = document.querySelector('.top-bar');
   const btnPool = document.getElementById('tabBtnPool');
   const btnSem = document.getElementById('tabBtnSemesters');
 
-  [sidebar, main, appMain, document.body, document.documentElement].forEach(el => {
+  [sidebar, main, appMain, topBar, document.body, document.documentElement].forEach(el => {
     if (!el) return;
     el.style.transform = '';
     el.style.overflow = '';
+    el.style.width = '';
+    el.style.minWidth = '';
+    el.style.maxWidth = '';
     if (el === sidebar || el === main || el === appMain) {
       el.style.display = '';
-      el.style.width = '';
       el.style.height = '';
       el.style.maxHeight = '';
     }
@@ -6593,6 +6596,12 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('focus', () => {
   updateLayout();
   requestAnimationFrame(() => updateLayout());
+});
+
+window.addEventListener('orientationchange', () => {
+  updateLayout();
+  requestAnimationFrame(() => updateLayout());
+  setTimeout(updateLayout, 150);
 });
 
 function handleBreakpointChange(e) {

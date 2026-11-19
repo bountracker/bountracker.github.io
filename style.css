@@ -156,6 +156,8 @@ input, textarea, select, option {
 html {
   height: 100%;
   width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -167,6 +169,8 @@ body {
   min-height: 100dvh;
   height: 100%;
   width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -189,6 +193,9 @@ label,
 .top-bar {
   position: relative;
   flex: 0 0 auto;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   height: auto;
   min-height: 56px;
   overflow: visible;
@@ -197,17 +204,17 @@ label,
   justify-content: space-between;
   align-items: center;
   padding: calc(10px + env(safe-area-inset-top, 0px)) calc(20px + env(safe-area-inset-right, 0px)) 10px calc(20px + env(safe-area-inset-left, 0px));
-  background: var(--bg-surface);
+  background: #ffffff;
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
   z-index: 50;
   gap: 8px;
   flex-wrap: wrap;
   opacity: 1;
-  -webkit-mask-image: none;
-  mask-image: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+}
+
+[data-theme="dark"] .top-bar {
+  background: #111827;
 }
 
 .top-bar-brand-row {
@@ -659,8 +666,12 @@ select.dept-select:disabled {
   gap: 8px;
   padding: 10px 14px;
   border-bottom: 1px solid var(--border-faint);
-  background: var(--bg-surface);
+  background: #ffffff;
   z-index: 5;
+}
+
+[data-theme="dark"] .sidebar-fixed-top {
+  background: #111827;
 }
 
 .dashboard-card-wrapper {
@@ -1230,7 +1241,6 @@ select.dept-select:disabled {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.48);
-  backdrop-filter: blur(2px);
   z-index: 10000;
   display: none;
   align-items: flex-end;
@@ -1416,8 +1426,6 @@ select.dept-select:disabled {
   position: fixed;
   inset: 0;
   background: var(--backdrop-bg);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -1656,6 +1664,11 @@ textarea.form-control {
 }
 
 @media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
   .pool-action-bar {
     display: none !important;
   }
@@ -3427,8 +3440,6 @@ textarea.form-control {
   inset: 0;
   z-index: 20000 !important;
   background: var(--backdrop-bg);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   align-items: center;
   justify-content: center;
   padding: 16px;
@@ -5113,11 +5124,6 @@ textarea.form-control {
   white-space: nowrap;
 }
 
-.desktop-tools-backdrop {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
 .desktop-tools-dialog {
   max-width: 720px;
   width: 92%;
@@ -5628,6 +5634,7 @@ textarea.form-control {
    ========================================================= */
 html {
   width: 100%;
+  min-width: 100%;
   max-width: 100%;
   height: 100%;
   overflow: hidden;
@@ -5636,6 +5643,7 @@ html {
 
 body {
   width: 100%;
+  min-width: 100%;
   max-width: 100%;
   min-height: 100%;
   min-height: 100dvh;
@@ -5645,9 +5653,10 @@ body {
 }
 
 .app-main {
-  min-width: 0;
   width: 100%;
+  min-width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebar,
@@ -5735,31 +5744,14 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* iPadOS / touch WebKit keyboard animation stability: disable heavy backdrop blur on tablet/mobile */
+/* iPadOS / tablet opacity stability */
 @media (max-width: 1024px) {
-  .modal-overlay,
-  .modal-backdrop,
-  .catalog-backdrop,
-  .catalog-sheet-backdrop,
-  .bottom-sheet-backdrop,
-  .tools-catalog-overlay,
-  .ec-modal-overlay,
-  .welcome-backdrop,
-  .mobile-tools-drawer {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
   .top-bar,
   .sidebar,
   .sidebar-fixed-top,
   .pool-action-bar,
   .sidebar-seg-btn {
     opacity: 1 !important;
-    -webkit-mask-image: none !important;
-    mask-image: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
 }
 
