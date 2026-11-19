@@ -1,0 +1,25 @@
+{
+  "name": "Boğaziçi Tracker",
+  "short_name": "Boun Tracker",
+  "description": "Boğaziçi Üniversitesi öğrencileri için 4 yıllık ders planlayıcı, GPA hesaplama, transkript PDF aktarma, önkoşul ağacı ve ÇAP/Yandal takibi.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0f172a",
+  "background_color": "#f8fafc",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

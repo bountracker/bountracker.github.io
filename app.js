@@ -737,6 +737,10 @@ function applyStaticTranslations() {
   setText('dtSupportDesc', isEn ? 'Support the development of Boğaziçi Tracker' : 'Boğaziçi Tracker\'ın gelişimine katkıda bulun');
   setText('dtResetLabel', isEn ? 'Reset Plan' : 'Planı Sıfırla');
   setText('dtResetDesc', isEn ? 'Restore all selections and semesters to initial state' : 'Tüm seçimleri ve dönemleri başlangıç haline döndür');
+  setText('dtInstallAppLabel', isEn ? 'Install App' : 'Uygulamayı Yükle');
+  setText('dtInstallAppDesc', isEn ? 'Add to your desktop or home screen as an app' : 'Masaüstüne veya ana ekrana uygulama olarak ekle');
+  setText('catInstallAppTitle', isEn ? 'Install App' : 'Uygulamayı Yükle');
+  setText('catInstallAppSub', isEn ? 'Add to home screen' : 'Ana ekrana ekle');
   setAttr('feedbackBtn', 'title', t('feedbackBtnTitle'));
   setAttr('shareBtn', 'title', t('shareBtnTitle'));
   setAttr('supportBtn', 'title', t('supportBtnTitle'));
@@ -5615,7 +5619,7 @@ function closeMobileCatalog() {
       startTime = Date.now();
       startHeight = sheet.getBoundingClientRect().height;
       sheet.style.transition = 'none';
-      sheet.style.maxHeight = '88vh';
+      sheet.style.maxHeight = '100dvh';
     };
 
     const onTouchMove = (e) => {
@@ -5625,7 +5629,7 @@ function closeMobileCatalog() {
       const deltaY = clientY - startY;
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const minH = Math.round(vh * 0.14);
-      const maxH = Math.round(vh * 0.88);
+      const maxH = vh;
       const nextH = Math.max(minH, Math.min(maxH, Math.round(startHeight - deltaY)));
 
       sheet.style.height = `${nextH}px`;
@@ -8358,4 +8362,113 @@ function selectElectiveFromCatalog(courseCode) {
   closeElectiveCatalogModal();
   initUI();
   showToast(`${item1.code} + ${item2.code}`);
+}
+
+// =========================================================
+// PWA: Service Worker (Network-First) & Install Prompt
+// =========================================================
+let deferredPwaPrompt = null;
+
+function isPwaStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function isIosDeviceForPwa() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function updatePwaInstallButtons() {
+  const hide = isPwaStandalone();
+  const dtBtn = document.getElementById('dtInstallAppBtn');
+  const catBtn = document.getElementById('catalogInstallAppCard');
+  if (dtBtn) dtBtn.style.display = hide ? 'none' : '';
+  if (catBtn) catBtn.style.display = hide ? 'none' : '';
+}
+
+function openIosInstallModal() {
+  const modal = document.getElementById('iosInstallModal');
+  if (!modal) return;
+  const isEn = currentLang === 'en';
+  const titleEl = document.getElementById('iosInstallTitle');
+  const bodyEl = document.getElementById('iosInstallBody');
+  const okBtn = document.getElementById('iosInstallOkBtn');
+  if (titleEl) titleEl.textContent = isEn ? '📲 Add to Home Screen' : '📲 Ana Ekrana Ekle';
+  if (okBtn) okBtn.textContent = isEn ? 'Got it' : 'Anladım';
+  if (bodyEl) {
+    bodyEl.innerHTML = isEn
+      ? `<p style="margin-top: 0;">To install Boğaziçi Tracker as an app on your iPhone/iPad:</p>
+         <ol style="padding-left: 20px; margin-bottom: 0;">
+           <li>Tap the <strong>Share (⎋)</strong> button in Safari's toolbar.</li>
+           <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+           <li>Tap <strong>"Add"</strong> in the top-right corner.</li>
+         </ol>`
+      : `<p style="margin-top: 0;">Boğaziçi Tracker'ı iPhone/iPad cihazına uygulama olarak eklemek için:</p>
+         <ol style="padding-left: 20px; margin-bottom: 0;">
+           <li>Safari alt/üst çubuğundaki <strong>Paylaş (⎋)</strong> simgesine dokun.</li>
+           <li>Açılan menüde <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.</li>
+           <li>Sağ üstten <strong>"Ekle"</strong> butonuna bas.</li>
+         </ol>`;
+  }
+  modal.classList.add('open');
+}
+
+function closeIosInstallModal() {
+  const modal = document.getElementById('iosInstallModal');
+  if (modal) modal.classList.remove('open');
+}
+
+async function triggerPwaInstall() {
+  if (isPwaStandalone()) {
+    updatePwaInstallButtons();
+    return;
+  }
+
+  if (deferredPwaPrompt) {
+    try {
+      deferredPwaPrompt.prompt();
+      const choice = await deferredPwaPrompt.userChoice;
+      if (choice && choice.outcome === 'accepted') {
+        deferredPwaPrompt = null;
+        updatePwaInstallButtons();
+      }
+    } catch (err) {
+      console.warn('PWA install prompt error:', err);
+    }
+    return;
+  }
+
+  if (isIosDeviceForPwa()) {
+    openIosInstallModal();
+    return;
+  }
+
+  showToast(
+    currentLang === 'en'
+      ? 'Use your browser menu ("Install App" / "Add to Home Screen") to install.'
+      : 'Tarayıcı menüsünden "Uygulamayı Yükle / Ana Ekrana Ekle" seçeneğini kullanabilirsin.'
+  );
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPwaPrompt = e;
+  updatePwaInstallButtons();
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredPwaPrompt = null;
+  updatePwaInstallButtons();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  updatePwaInstallButtons();
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.warn('Service worker registration failed:', err);
+    });
+  });
 }

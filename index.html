@@ -3,7 +3,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <title>Boğaziçi Tracker | BÜ Ders, GPA &amp; ÇAP Planlayıcı</title>
   <meta name="description" content="Boğaziçi Üniversitesi öğrencileri için 4 yıllık ders planlayıcı, GPA hesaplama, transkript PDF aktarma, önkoşul ağacı ve ÇAP/Yandal takibi.">
   <meta name="keywords" content="Boğaziçi Üniversitesi, BOUN, BÜ ders planlayıcı, GPA hesaplama, GNO hesaplama, DNO, ÇAP, Yandal, önkoşul ağacı, transkript PDF, Boğaziçi Tracker, BÜ müfredat, boun tracker">
@@ -77,6 +77,10 @@
   ]
   </script>
 
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Boun Tracker">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -538,6 +542,13 @@
                 <span id="dtSupportDesc">Boğaziçi Tracker'ın gelişimine katkıda bulun</span>
               </span>
             </a>
+            <button type="button" id="dtInstallAppBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); triggerPwaInstall()">
+              <span class="dt-card-icon">📲</span>
+              <span class="dt-card-text">
+                <strong id="dtInstallAppLabel">Uygulamayı Yükle</strong>
+                <span id="dtInstallAppDesc">Masaüstüne veya ana ekrana uygulama olarak ekle</span>
+              </span>
+            </button>
             <button type="button" id="resetBtn" class="dt-tool-card dt-tool-danger" onclick="closeDesktopToolsModal(); resetCurrentDept()">
               <span class="dt-card-icon">🗑️</span>
               <span class="dt-card-text">
@@ -861,6 +872,11 @@
         <div class="catalog-section">
           <div id="catSecSystem" class="catalog-section-title">Sistem</div>
           <div class="catalog-grid">
+            <button type="button" id="catalogInstallAppCard" class="catalog-card cat-card-blue" onclick="closeMobileCatalog(); triggerPwaInstall()">
+              <span class="cat-icon">📲</span>
+              <span class="cat-title" id="catInstallAppTitle">Uygulamayı Yükle</span>
+              <span class="cat-sub" id="catInstallAppSub">Ana ekrana ekle</span>
+            </button>
             <button type="button" id="catalogGuideCard" class="catalog-card" onclick="closeMobileCatalog(); openWelcomeModal()">
               <span class="cat-icon">❓</span>
               <span class="cat-title" id="catGuideTitle">Rehber</span>
@@ -938,6 +954,26 @@
     </div>
   </div>
 
+
+  <div id="iosInstallModal" class="modal-overlay" onclick="if (event.target === this) closeIosInstallModal()">
+    <div class="modal-dialog" style="max-width: 420px;" role="dialog" aria-modal="true" aria-labelledby="iosInstallTitle">
+      <div class="modal-header">
+        <h3 id="iosInstallTitle">📲 Ana Ekrana Ekle</h3>
+        <button type="button" class="modal-close-btn" onclick="closeIosInstallModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body" id="iosInstallBody" style="line-height: 1.55; font-size: 0.92rem;">
+        <p style="margin-top: 0;">Boğaziçi Tracker'ı iPhone/iPad cihazına uygulama olarak eklemek için:</p>
+        <ol style="padding-left: 20px; margin-bottom: 0;">
+          <li>Safari alt/üst çubuğundaki <strong>Paylaş (⎋)</strong> simgesine dokun.</li>
+          <li>Açılan menüde <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.</li>
+          <li>Sağ üstten <strong>"Ekle"</strong> butonuna bas.</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" id="iosInstallOkBtn" onclick="closeIosInstallModal()">Anladım</button>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
