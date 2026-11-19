@@ -1114,6 +1114,11 @@ select.dept-select:disabled {
   cursor: pointer;
 }
 
+.course-card.status-failed .grade-select {
+  border-color: var(--failed-color);
+  color: var(--failed-color);
+}
+
 .course-controls {
   display: flex;
   align-items: center;
@@ -5718,5 +5723,42 @@ html, body {
     max-height: 86vh;
     max-height: 86dvh;
     box-sizing: border-box;
+  }
+}
+
+/* Mobil & tablet (iOS/iPadOS Safari) otomatik zoom-in önleme: odaklanan form elemanlarında >= 16px font-size */
+@media (max-width: 1024px), (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  .grade-select {
+    padding: 4px 6px;
+    line-height: 1.2;
+    max-width: 100%;
+  }
+
+  .custom-input,
+  .custom-course-input {
+    padding: 6px 8px;
+    line-height: 1.25;
+  }
+
+  .custom-course-crd-input {
+    width: 60px;
+    padding: 5px 6px;
+    line-height: 1.25;
+  }
+
+  select.dept-select {
+    padding: 8px 10px;
+    min-height: 40px;
+  }
+
+  .tr-select {
+    padding: 6px 8px;
+    line-height: 1.25;
   }
 }

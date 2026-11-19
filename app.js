@@ -35,6 +35,10 @@ function isPassFailCourse(inst, course) {
   return false;
 }
 
+function isInstancePassed(inst) {
+  return !!(inst && inst.passed === true && inst.grade !== 'F');
+}
+
 const savedLang = localStorage.getItem('boun_lang');
 let currentLang = (savedLang === 'tr' || savedLang === 'en')
   ? savedLang
@@ -1193,7 +1197,7 @@ function refreshAllPrereqWarnings() {
     if (!course) return;
 
     const effectivePrereq = resolveDynamicPrereqForInstance(inst, course);
-    const missing = !inst.passed ? getMissingPrereqsForInstance(inst, effectivePrereq, instances) : [];
+    const missing = !isInstancePassed(inst) ? getMissingPrereqsForInstance(inst, effectivePrereq, instances) : [];
 
     card.classList.toggle('prereq-missing', missing.length > 0);
     let badgeEl = card.querySelector('.course-prereq-missing-badge');
@@ -2023,10 +2027,14 @@ function calculateAverages() {
       }
     }
 
-    if (inst.passed && semesterStats[inst.semId]) {
+    const isFailed = (inst.grade === 'F');
+    const isPassed = isInstancePassed(inst);
+    if ((isPassed || isFailed) && semesterStats[inst.semId]) {
       if (course) {
         const crd = Number(course.crd) || 0;
-        semesterStats[inst.semId].earnedCredits += crd;
+        if (isPassed) {
+          semesterStats[inst.semId].earnedCredits += crd;
+        }
 
         const isErasmusTerm = erasmusSet.has(inst.semId);
         const isExGrade = (inst.grade === 'EX' || isErasmusTerm);
@@ -2057,7 +2065,7 @@ function calculateAverages() {
     }
 
     if (badge && stat) {
-      if (stat.earnedCredits > 0) {
+      if (stat.earnedCredits > 0 || stat.totalCredits > 0) {
         const spaStr = stat.totalCredits > 0
           ? (stat.totalPoints / stat.totalCredits).toFixed(2)
           : (erasmusSet.has(s) ? 'EX' : 'P');
@@ -2071,7 +2079,7 @@ function calculateAverages() {
   });
 
   const sortedInstances = [...state.instances].sort((a, b) => compareSemesters(a.semId, b.semId));
-  const latestPassedByCourse = {};
+  const latestGradedByCourse = {};
   const passedCourseIds = new Set();
   const passedCourseCodes = new Set();
   let completedCreditsTotal = 0;
@@ -2085,28 +2093,24 @@ function calculateAverages() {
   });
 
   sortedInstances.forEach(inst => {
-    if (inst.passed) {
-      if (inst.splitSlotCourseId) {
-        const siblings = splitGroupsStatus[inst.splitSlotCourseId] || [];
-        const allSiblingsPassed = siblings.length >= 2 && siblings.every(s => s.passed === true && s.grade !== 'F');
-        if (allSiblingsPassed) {
-          passedCourseIds.add(inst.splitSlotCourseId);
-        }
-      } else {
-        passedCourseIds.add(inst.courseId);
-      }
+    const isFailed = (inst.grade === 'F');
+    const isPassed = isInstancePassed(inst);
+    if (isPassed || isFailed) {
       const course = getCourseForInstance(inst);
       if (course) {
-        if (course.code) passedCourseCodes.add(course.code.replace(/\s+/g, '').toUpperCase());
         const isErasmusTerm = erasmusSet.has(inst.semId);
         const isPF = isPassFailCourse(inst, course);
         const rawGrade = inst.grade || (isPF ? 'P' : 'AA');
         const resolvedGrade = (isErasmusTerm || rawGrade === 'EX')
           ? 'EX'
           : (isPF && !['P', 'F'].includes(rawGrade) ? 'P' : rawGrade);
-        latestPassedByCourse[inst.courseId] = {
+        const effectivelyPassed = isPassed && resolvedGrade !== 'F';
+        latestGradedByCourse[inst.courseId] = {
           grade: resolvedGrade,
-          crd: Number(course.crd) || 0
+          crd: Number(course.crd) || 0,
+          passed: effectivelyPassed,
+          splitSlotCourseId: inst.splitSlotCourseId || null,
+          code: course.code || ''
         };
       }
     }
@@ -2115,9 +2119,23 @@ function calculateAverages() {
   let cumPoints = 0;
   let cumCredits = 0;
 
-  Object.keys(latestPassedByCourse).forEach(cId => {
-    const item = latestPassedByCourse[cId];
-    completedCreditsTotal += item.crd;
+  Object.keys(latestGradedByCourse).forEach(cId => {
+    const item = latestGradedByCourse[cId];
+    if (item.passed && item.grade !== 'F') {
+      completedCreditsTotal += item.crd;
+      if (item.splitSlotCourseId) {
+        const siblings = splitGroupsStatus[item.splitSlotCourseId] || [];
+        const allSiblingsPassed = siblings.length >= 2 && siblings.every(s => isInstancePassed(s));
+        if (allSiblingsPassed) {
+          passedCourseIds.add(item.splitSlotCourseId);
+        }
+      } else {
+        passedCourseIds.add(cId);
+      }
+      if (item.code) {
+        passedCourseCodes.add(item.code.replace(/\s+/g, '').toUpperCase());
+      }
+    }
 
     if (item.grade !== 'P' && item.grade !== 'EX' && GRADE_POINTS[item.grade] !== null && GRADE_POINTS[item.grade] !== undefined) {
       cumPoints += (GRADE_POINTS[item.grade] * item.crd);
@@ -2209,7 +2227,8 @@ function updateSidebarPool() {
     customCourses.forEach(course => {
       const placedInst = state.instances.find(inst => inst.courseId === course.id);
       const isPlaced = !!placedInst;
-      const isPassed = !!(placedInst && placedInst.passed);
+      const isFailedGrade = !!(placedInst && placedInst.grade === 'F');
+      const isPassed = isInstancePassed(placedInst);
 
       const poolCard = document.createElement('div');
       const stateClass = isPlaced ? (isPassed ? 'status-passed' : 'status-failed') : '';
@@ -2224,6 +2243,8 @@ function updateSidebarPool() {
         if (isPassed) {
           const gradeStr = placedInst.grade ? ` (${escapeHTML(placedInst.grade)})` : '';
           badgeHtml = `<span class="status-badge locked">${escapeHTML(currentLang === 'en' ? '✓ Passed' : '✓ Verildi')}${gradeStr}</span>`;
+        } else if (isFailedGrade) {
+          badgeHtml = `<span class="status-badge failed">${escapeHTML(t('failedStatus'))} (F)</span>`;
         } else {
           badgeHtml = `<span class="status-badge failed">${escapeHTML(currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi')}</span>`;
         }
@@ -2361,12 +2382,15 @@ function updateSidebarPool() {
               </div>
             `;
           }
-          const stCls = ch.passed ? 'status-passed' : 'status-failed';
-          const stTxt = ch.passed ? `✓ ${escapeHTML(ch.grade || (isPassFailCourse(ch, ch.catalogCourse) ? 'P' : 'AA'))}` : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi');
+          const chPassed = isInstancePassed(ch);
+          const stCls = chPassed ? 'status-passed' : 'status-failed';
+          const stTxt = chPassed
+            ? `✓ ${escapeHTML(ch.grade || (isPassFailCourse(ch, ch.catalogCourse) ? 'P' : 'AA'))}`
+            : (ch.grade === 'F' ? '✕ F' : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi'));
           const displayCode = (ch.customText && ch.customText.trim()) ? ch.customText.trim() : (ch.catalogCourse.code || '');
           return `
             <div class="split-half ${stCls}"
-                 onclick="toggleInstancePassed('${escapeHTML(ch.instanceId)}', ${!ch.passed}); event.stopPropagation();"
+                 onclick="toggleInstancePassed('${escapeHTML(ch.instanceId)}', ${!chPassed}); event.stopPropagation();"
                  title="${escapeHTML(displayCode)} — ${escapeHTML(ch.catalogCourse.name)}">
               <div class="split-half-code" data-split-code-inst-id="${escapeHTML(ch.instanceId)}">${escapeHTML(displayCode)}</div>
               <div class="split-half-meta">${ch.catalogCourse.crd} Cr • ${escapeHTML(stTxt)}</div>
@@ -2672,7 +2696,9 @@ function initUI() {
 
 function createSemesterCourseCard(inst, course) {
   const card = document.createElement('div');
-  const isPassed = !!inst.passed;
+  const isFailedGrade = inst.grade === 'F';
+  const isPassed = isInstancePassed(inst);
+  const showGradeSelector = isPassed || isFailedGrade;
   const isMobile = isMobileDevice();
   const isMinor = !!inst.isMinor || !!course.isMinor;
   const isDm = !!inst.isDoubleMajor || !!course.isDoubleMajor;
@@ -2725,7 +2751,7 @@ function createSemesterCourseCard(inst, course) {
         ${isRepeat ? `<span class="repeat-badge">${escapeHTML(t('repeatBadge'))}</span>` : ''}
       </div>
       <div style="display:flex; align-items:center; gap:6px;">
-        ${isPassed ? `
+        ${showGradeSelector ? `
           <div class="grade-selector-wrap" title="${escapeHTML(t('gradeTooltip'))}">
             <select class="grade-select" onchange="handleGradeChange('${inst.instanceId}', this.value)">
               ${gradeOptions}
@@ -2778,7 +2804,9 @@ function createSemesterCourseCard(inst, course) {
       </label>
       <span class="status-badge ${isPassed ? 'locked' : 'failed'}">
         ${escapeHTML(course.isCustom
-          ? (isPassed ? (currentLang === 'en' ? '✓ Passed' : '✓ Verildi') : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi'))
+          ? (isPassed
+            ? (currentLang === 'en' ? '✓ Passed' : '✓ Verildi')
+            : (isFailedGrade ? t('failedStatus') : (currentLang === 'en' ? '✕ Not Taken' : '✕ Verilmedi')))
           : (isPassed ? t('completedBadge') : t('failedStatus')))}
       </span>
     </div>
@@ -3011,6 +3039,8 @@ function toggleInstancePassed(instanceId, isChecked) {
       } else if (!inst.grade || inst.grade === 'F') {
         inst.grade = 'AA';
       }
+    } else if (inst.grade === 'F') {
+      inst.grade = '';
     }
     saveGlobalState();
 
@@ -3029,7 +3059,16 @@ function handleGradeChange(instanceId, newGrade) {
   const inst = state.instances.find(i => i.instanceId === instanceId);
   if (inst) {
     inst.grade = newGrade;
+    inst.passed = (newGrade !== 'F');
     saveGlobalState();
+
+    const oldCard = document.getElementById(`inst-${instanceId}`);
+    const course = getCourseForInstance(inst);
+    if (oldCard && oldCard.parentElement && course) {
+      const newCard = createSemesterCourseCard(inst, course);
+      oldCard.parentElement.replaceChild(newCard, oldCard);
+    }
+
     refreshRepeatBadges();
     updateSidebarPool();
   }
@@ -3186,7 +3225,7 @@ function exportDataAsJSON() {
       selectedDmId: currentDeptState.selectedDmId || null,
       summary: {
         plannedCoursesCount: currentDeptState.instances.length,
-        passedCoursesCount: currentDeptState.instances.filter(i => i.passed).length,
+        passedCoursesCount: currentDeptState.instances.filter(i => isInstancePassed(i)).length,
         selectedMinorId: currentDeptState.selectedMinorId || null,
         selectedDmId: currentDeptState.selectedDmId || null
       },
@@ -3537,8 +3576,12 @@ function createShareExportBoard(options = {}) {
     if (course) {
       const crd = Number(course.crd) || 0;
       semesterStats[inst.semId].scheduledCredits += crd;
-      if (inst.passed) {
-        semesterStats[inst.semId].earnedCredits += crd;
+      const isFailed = (inst.grade === 'F');
+      const isPassed = isInstancePassed(inst);
+      if (isPassed || isFailed) {
+        if (isPassed) {
+          semesterStats[inst.semId].earnedCredits += crd;
+        }
         const isErasmusTerm = erasmusSet.has(inst.semId);
         const isExGrade = (inst.grade === 'EX' || isErasmusTerm);
         if (!isExGrade && inst.grade && GRADE_POINTS[inst.grade] !== null && GRADE_POINTS[inst.grade] !== undefined) {
@@ -3558,7 +3601,7 @@ function createShareExportBoard(options = {}) {
   nonEmptys.forEach(semId => {
     const semStat = semesterStats[semId];
     const isErasmus = erasmusSet.has(semId);
-    const spaStr = semStat.earnedCredits > 0
+    const spaStr = (semStat.earnedCredits > 0 || semStat.totalCredits > 0)
       ? (semStat.totalCredits > 0 ? (semStat.totalPoints / semStat.totalCredits).toFixed(2) : (isErasmus ? 'EX' : 'P'))
       : '-';
 
@@ -3569,7 +3612,8 @@ function createShareExportBoard(options = {}) {
       const course = getCourseForInstance(inst);
       if (!course) return;
 
-      const isPassed = !!inst.passed;
+      const isFailed = (inst.grade === 'F');
+      const isPassed = isInstancePassed(inst);
       const isMinor = !!inst.isMinor;
       const isDm = !!inst.isDoubleMajor;
       const crd = Number(course.crd) || 0;
@@ -3586,7 +3630,9 @@ function createShareExportBoard(options = {}) {
         ? (showGrades
           ? `<span class="export-course-grade">${escapeHTML(effectiveGrade)}</span>`
           : `<span class="export-course-grade">✓</span>`)
-        : `<span class="export-course-status">⏳ ${escapeHTML(t('plannedStatus'))}</span>`;
+        : (isFailed
+          ? `<span class="export-course-status">✕ ${showGrades ? 'F' : escapeHTML(t('failedStatus'))}</span>`
+          : `<span class="export-course-status">⏳ ${escapeHTML(t('plannedStatus'))}</span>`);
 
       coursesHtml += `
         <div class="export-course-item ${isPassed ? 'passed' : 'planned'}">
@@ -6859,8 +6905,10 @@ function computeWhatIfBaseline() {
   const sortedInstances = [...(state.instances || [])].sort((a, b) => compareSemesters(a.semId, b.semId));
 
   const latestPassedByCourse = {};
+  const latestGradedByCourse = {};
   const latestInstanceByCourse = {};
   const passedCourseCodes = new Set();
+  const gradedCourseCodes = new Set();
   const latestInstanceByCode = {};
 
   sortedInstances.forEach(inst => {
@@ -6868,6 +6916,8 @@ function computeWhatIfBaseline() {
     if (!course) return;
     const isErasmusTerm = erasmusSet.has(inst.semId);
     const effectiveGrade = (isErasmusTerm || inst.grade === 'EX') ? 'EX' : (inst.grade || '');
+    const isPassed = isInstancePassed(inst);
+    const isFailed = (effectiveGrade === 'F');
     const displayCode = (inst.customText && inst.customText.trim()) ? inst.customText.trim() : (course.code || '');
     const normCode = normalizeCourseCodeStr(displayCode);
     const entry = {
@@ -6876,14 +6926,28 @@ function computeWhatIfBaseline() {
       normCode,
       name: course.name || '',
       crd: Number(course.crd) || 0,
-      passed: !!inst.passed,
+      passed: isPassed,
       grade: effectiveGrade
     };
     latestInstanceByCourse[inst.courseId] = entry;
     if (normCode) {
       latestInstanceByCode[normCode] = entry;
     }
-    if (inst.passed && effectiveGrade !== 'F') {
+    if (isPassed || isFailed) {
+      const resolvedGrade = isPassed ? (effectiveGrade || 'AA') : 'F';
+      latestGradedByCourse[inst.courseId] = {
+        grade: resolvedGrade,
+        crd: Number(course.crd) || 0,
+        code: displayCode,
+        normCode,
+        name: course.name || '',
+        passed: isPassed
+      };
+      if (normCode) {
+        gradedCourseCodes.add(normCode);
+      }
+    }
+    if (isPassed) {
       latestPassedByCourse[inst.courseId] = {
         grade: effectiveGrade || 'AA',
         crd: Number(course.crd) || 0,
@@ -6899,23 +6963,24 @@ function computeWhatIfBaseline() {
 
   let cumPoints = 0;
   let cumCredits = 0;
-  Object.keys(latestPassedByCourse).forEach(cId => {
-    const item = latestPassedByCourse[cId];
+  Object.keys(latestGradedByCourse).forEach(cId => {
+    const item = latestGradedByCourse[cId];
     if (item.grade !== 'P' && item.grade !== 'EX' && GRADE_POINTS[item.grade] !== null && GRADE_POINTS[item.grade] !== undefined) {
       cumPoints += GRADE_POINTS[item.grade] * item.crd;
       cumCredits += item.crd;
     }
   });
 
-  // Plandaki henüz geçilmemiş / not girilmemiş kalan dersler (repeat ile tamamlananları hariç tut)
+  // Plandaki henüz geçilmemiş / not girilmemiş kalan dersler (repeat ile tamamlananları ve GPA'da zaten F olarak bulunanları hariç tut)
   const remainingCourses = [];
   const seenRemainingIds = new Set();
   const seenRemainingCodes = new Set();
   Object.values(latestInstanceByCourse).forEach(item => {
     const isPassedByCode = item.normCode && passedCourseCodes.has(item.normCode);
+    const isGradedByCode = item.normCode && gradedCourseCodes.has(item.normCode);
     const latestForCode = item.normCode ? latestInstanceByCode[item.normCode] : null;
     const supersededByLaterAttempt = latestForCode && latestForCode.courseId !== item.courseId && latestForCode.passed && latestForCode.grade !== 'F';
-    if (!item.passed && !latestPassedByCourse[item.courseId] && !isPassedByCode && !supersededByLaterAttempt && item.crd > 0) {
+    if (!item.passed && !latestGradedByCourse[item.courseId] && !latestPassedByCourse[item.courseId] && !isPassedByCode && !isGradedByCode && !supersededByLaterAttempt && item.crd > 0) {
       if (item.normCode && seenRemainingCodes.has(item.normCode)) return;
       remainingCourses.push({ courseId: item.courseId, code: item.code, name: item.name, crd: item.crd });
       seenRemainingIds.add(item.courseId);
@@ -6929,7 +6994,8 @@ function computeWhatIfBaseline() {
       const crd = Number(c.crd) || 0;
       const normCode = normalizeCourseCodeStr(c.code || '');
       const isPassedByCode = normCode && passedCourseCodes.has(normCode);
-      if (crd > 0 && !latestPassedByCourse[c.id] && !isPassedByCode && !seenRemainingIds.has(c.id) && !(normCode && seenRemainingCodes.has(normCode))) {
+      const isGradedByCode = normCode && gradedCourseCodes.has(normCode);
+      if (crd > 0 && !latestGradedByCourse[c.id] && !latestPassedByCourse[c.id] && !isPassedByCode && !isGradedByCode && !seenRemainingIds.has(c.id) && !(normCode && seenRemainingCodes.has(normCode))) {
         remainingCourses.push({ courseId: c.id, code: c.code || '', name: c.name || '', crd });
         seenRemainingIds.add(c.id);
         if (normCode) seenRemainingCodes.add(normCode);
@@ -6945,7 +7011,7 @@ function computeWhatIfBaseline() {
     const latestForCode = item.normCode ? latestInstanceByCode[item.normCode] : null;
     if (latestForCode && latestForCode.courseId !== item.courseId) return;
     if (item.normCode && seenRepeatCodes.has(item.normCode)) return;
-    const g = item.passed ? (latestPassedByCourse[item.courseId]?.grade || item.grade) : item.grade;
+    const g = latestGradedByCourse[item.courseId]?.grade || item.grade;
     if (item.crd > 0 && repeatGrades.has(g)) {
       repeatableCourses.push({
         courseId: item.courseId,
@@ -6953,7 +7019,7 @@ function computeWhatIfBaseline() {
         name: item.name,
         crd: item.crd,
         oldGrade: g,
-        inCurrentGpa: !!latestPassedByCourse[item.courseId] && GRADE_POINTS[g] !== null && GRADE_POINTS[g] !== undefined
+        inCurrentGpa: !!latestGradedByCourse[item.courseId] && GRADE_POINTS[g] !== null && GRADE_POINTS[g] !== undefined
       });
       if (item.normCode) seenRepeatCodes.add(item.normCode);
     }
