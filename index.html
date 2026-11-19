@@ -95,7 +95,7 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="./style.css?v=2">
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 <body>
 
@@ -111,10 +111,10 @@
           🌐 <span id="mobileLangToggleLabel">TR | EN</span>
         </button>
         <button type="button" id="mobileMenuBtn" class="topbar-btn mobile-menu-btn" onclick="openMobileCatalog()" aria-expanded="false" aria-controls="mobileCatalogModal" aria-label="Uygulama Kataloğu" title="Uygulama Kataloğu / App Catalog">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <circle cx="4" cy="4" r="1.8"/><circle cx="10" cy="4" r="1.8"/><circle cx="16" cy="4" r="1.8"/>
-            <circle cx="4" cy="10" r="1.8"/><circle cx="10" cy="10" r="1.8"/><circle cx="16" cy="10" r="1.8"/>
-            <circle cx="4" cy="16" r="1.8"/><circle cx="10" cy="16" r="1.8"/><circle cx="16" cy="16" r="1.8"/>
+          <svg width="19" height="19" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <circle cx="4" cy="4" r="2"/><circle cx="10" cy="4" r="2"/><circle cx="16" cy="4" r="2"/>
+            <circle cx="4" cy="10" r="2"/><circle cx="10" cy="10" r="2"/><circle cx="16" cy="10" r="2"/>
+            <circle cx="4" cy="16" r="2"/><circle cx="10" cy="16" r="2"/><circle cx="16" cy="16" r="2"/>
           </svg>
         </button>
       </div>
@@ -192,6 +192,15 @@
             </button>
           </div>
         </div>
+        <div id="poolFilterBar" class="pool-filter-bar">
+          <div class="pool-search-wrap">
+            <input type="text" id="poolSearchInput" class="pool-search-input" placeholder="Ders kodu veya adı ara..." aria-label="Ders havuzunda ara" oninput="handlePoolSearchInput(this.value)">
+            <button type="button" id="poolSearchClearBtn" class="pool-search-clear is-hidden" onclick="clearPoolSearch()" aria-label="Aramayı temizle">✕</button>
+          </div>
+          <button type="button" id="poolAvailableBtn" class="pool-available-btn" onclick="togglePoolAvailableFilter()" aria-pressed="false">
+            ✓ Şu An Alabileceklerim
+          </button>
+        </div>
       </div>
 
       <div id="course-pool" class="sidebar-scroll-pool">
@@ -206,6 +215,7 @@
                 <span class="dash-label">GPA</span>
                 <div class="dash-gpa-line">
                   <span id="gpa-display" class="dash-val">0.00</span>
+                  <span id="gpaWarningBadge" class="gpa-warn-badge is-hidden" title="GNO 2.00 altında (Sınamalı / Probation uyarısı)">⚠️ &lt; 2.00</span>
                   <button type="button" id="whatIfBtn" class="whatif-trigger-btn" onclick="openWhatIfModal()" title="Hedef GNO &amp; Repeat Simülatörü">🎯 Hedef GNO</button>
                 </div>
               </div>
@@ -235,6 +245,14 @@
                 <span id="labelTargetCredits" class="dash-label">Hedef Kredi</span>
                 <span id="total-credits" class="dash-subval">0 Cr</span>
               </div>
+            </div>
+
+            <div class="dash-audit-row">
+              <button type="button" id="dashAuditToggleBtn" class="dash-audit-toggle" onclick="toggleDashAudit()" aria-expanded="false">
+                <span id="dashAuditToggleLabel">📊 Müfredat Durumu</span>
+                <span id="dashAuditArrow">▸</span>
+              </button>
+              <div id="dashAuditPanel" class="dash-audit-panel is-hidden"></div>
             </div>
           </div>
         </div>
@@ -453,6 +471,13 @@
         <div class="dt-cat-section">
           <div id="dtSecAnalysis" class="dt-cat-title">📊 Akademik Analiz &amp; Planlama</div>
           <div class="dt-cards-grid">
+            <button type="button" id="dtPlansBtn" class="dt-tool-card" onclick="closeDesktopToolsModal(); openPlansModal()">
+              <span class="dt-card-icon">🗂️</span>
+              <span class="dt-card-text">
+                <strong id="dtPlansLabel">Alternatif Planlarım</strong>
+                <span id="dtPlansDesc">Aktif: Ana Plan</span>
+              </span>
+            </button>
             <button type="button" class="dt-tool-card" onclick="closeDesktopToolsModal(); openWhatIfModal()">
               <span class="dt-card-icon">🎯</span>
               <span class="dt-card-text">
@@ -815,6 +840,11 @@
         <div class="catalog-section">
           <div id="catSecSmart" class="catalog-section-title">Akıllı Araçlar</div>
           <div class="catalog-grid">
+            <button type="button" id="catalogPlansCard" class="catalog-card cat-card-indigo" onclick="closeMobileCatalog(); openPlansModal()">
+              <span class="cat-icon">🗂️</span>
+              <span class="cat-title" id="catPlansTitle">Alternatif Planlarım</span>
+              <span class="cat-sub" id="catPlansSub">Aktif: Ana Plan</span>
+            </button>
             <button type="button" id="catalogPrereqCard" class="catalog-card cat-card-purple" onclick="closeMobileCatalog(); openPrereqTreeModal()">
               <span class="cat-icon">🕸️</span>
               <span class="cat-title" id="catPrereqTitle">Önkoşul Ağacı</span>
@@ -955,6 +985,42 @@
   </div>
 
 
+  <div id="plansModal" class="modal-backdrop" onclick="if (event.target === this) closePlansModal()">
+    <div class="modal-dialog plans-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="plansModalTitle">
+      <div class="modal-header">
+        <h3 id="plansModalTitle">🗂️ Alternatif Planlarım</h3>
+        <button type="button" class="modal-close-btn" onclick="closePlansModal()" aria-label="Kapat">✕</button>
+      </div>
+      <div class="modal-body plans-modal-body">
+        <div id="plansModalDesc" class="plans-modal-desc"></div>
+        <div id="plansListContainer" class="plans-list-container"></div>
+        <div id="planFormBox" class="plan-form-box is-hidden">
+          <div id="planFormTitle" class="plan-form-title">Yeni Plan Oluştur</div>
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label id="planNameLabel" for="planNameInput">Plan Adı</label>
+            <input type="text" id="planNameInput" class="form-control" maxlength="40" placeholder="Örn: Erasmus Planı">
+          </div>
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label id="planDescLabel" for="planDescInput">Açıklama</label>
+            <input type="text" id="planDescInput" class="form-control" maxlength="100" placeholder="Örn: 3.1 dönem yurtdışı senaryosu">
+          </div>
+          <label id="planCloneWrap" class="form-checkbox-label" style="margin-bottom: 10px;">
+            <input type="checkbox" id="planCloneCheckbox" checked>
+            <span id="planCloneLabel">Mevcut aktif planı kopyalayarak başlat</span>
+          </label>
+          <div class="plan-form-actions">
+            <button type="button" id="planFormCancelBtn" class="btn-cancel-issue" onclick="cancelPlanForm()">İptal</button>
+            <button type="button" id="planFormSaveBtn" class="btn-primary" onclick="savePlanForm()">Kaydet</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+        <button type="button" id="openNewPlanFormBtn" class="btn-primary" onclick="openNewPlanForm()">+ Yeni Plan Ekle</button>
+        <button type="button" id="plansCloseBtn" class="btn-cancel-issue" onclick="closePlansModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
   <div id="iosInstallModal" class="modal-backdrop" onclick="if (event.target === this) closeIosInstallModal()">
     <div class="modal-dialog" style="max-width: 380px; width: calc(100vw - 32px);" role="dialog" aria-modal="true" aria-labelledby="iosInstallTitle">
       <div class="modal-header">
@@ -983,6 +1049,6 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
   </script>
-  <script src="./app.js?v=2"></script>
+  <script src="./app.js?v=3"></script>
 </body>
 </html>

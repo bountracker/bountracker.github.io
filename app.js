@@ -353,6 +353,56 @@ const translations = {
     autoFillMaxCreditsLabel: "Dönemlik Maksimum Kredi Hedefi:",
     autoFillConfirmBtn: "⚡ Otomatik Doldur",
     autoFillSuccess: (count) => `⚡ ${count} kalan ders önkoşul sırasına göre dönemlere yerleştirildi!`,
+    whatIfBtnText: "🎯 Hedef GNO",
+    whatIfBtnTitle: "Hedef GNO & Repeat Simülatörü",
+    discFilterAll: "Tümü",
+    discFilterDm: "ÇAP",
+    discFilterMinor: "Yandal",
+    pinDashTitle: "Kartı Üste Sabitle",
+    scenarioLabel: "Plan:",
+    scenarioPlan1: "Ana Plan",
+    scenarioPlan2: "Plan 2 (Alternatif)",
+    scenarioPlan3: "Plan 3",
+    toastScenarioSwitched: (name) => `📋 "${name}" senaryosuna geçildi`,
+    poolSearchPlaceholder: "Ders kodu veya adı ara...",
+    poolAvailableBtn: "✓ Şu An Alabileceklerim",
+    poolEmptyFilter: "Filtreye uyan ders bulunamadı.",
+    dashAuditTitle: "📊 Müfredat Durumu",
+    auditRequired: "Zorunlu",
+    auditHss: "HSS",
+    auditScience: "Science",
+    auditComplementary: "Complementary",
+    auditUnrestricted: "Unrest.",
+    auditTechElective: "Bölüm / Tek.",
+    gpaWarningText: "⚠️ < 2.00",
+    gpaWarningTooltip: "GNO 2.00 altında (Sınamalı / Probation uyarısı)",
+    highCreditWarningTooltip: "Yüksek dönem yükü (22+ kredi)",
+    plansTitle: "Alternatif Planlarım",
+    plansModalTitle: "🗂️ Alternatif Planlarım",
+    plansActivePrefix: "Aktif:",
+    plansModalDesc: "Ana planını koruyarak Erasmus, ÇAP veya farklı dönem senaryoları için alternatif planlar oluşturup tek tıkla geçiş yapabilirsin.",
+    planBaseName: "Ana Plan",
+    planBaseDesc: "Varsayılan ana ders planın",
+    planActiveBadge: "✓ Aktif",
+    planBaseBadge: "Ana",
+    planSwitchBtn: "Aç / Geç",
+    planEditBtn: "Düzenle",
+    planDeleteBtn: "Sil",
+    planNewBtn: "+ Yeni Plan Ekle",
+    planFormNewTitle: "Yeni Alternatif Plan Oluştur",
+    planFormEditTitle: "Planı Düzenle",
+    planNameLabel: "Plan Adı",
+    planNamePlaceholder: "Örn: Erasmus Planı",
+    planDescLabel: "Açıklama",
+    planDescPlaceholder: "Örn: 3.1 dönem yurtdışı senaryosu",
+    planCloneLabel: "Mevcut aktif planı kopyalayarak başlat",
+    planNameRequired: "Lütfen bir plan adı girin.",
+    planCreatedToast: (name) => `✓ "${name}" oluşturuldu ve açıldı`,
+    planUpdatedToast: (name) => `✓ "${name}" güncellendi`,
+    planDeletedToast: (name) => `🗑️ "${name}" silindi`,
+    planDeleteConfirm: (name) => `"${name}" planını silmek istediğine emin misin?`,
+    close: "Kapat",
+    save: "Kaydet",
     autoFillNoneLeft: "✓ Havuzda yerleştirilecek kalan ders bulunmuyor.",
     autoFillUndone: "↩️ Otomatik doldurma geri alındı; önceki planınız yüklendi."
   },
@@ -666,7 +716,57 @@ const translations = {
     autoFillConfirmBtn: "⚡ Auto-Fill",
     autoFillSuccess: (count) => `⚡ ${count} remaining course(s) automatically placed into semesters!`,
     autoFillNoneLeft: "✓ No remaining courses left in the pool to place.",
-    autoFillUndone: "↩️ Auto-fill undone; your previous plan has been restored."
+    autoFillUndone: "↩️ Auto-fill undone; your previous plan has been restored.",
+    whatIfBtnText: "🎯 Target GPA",
+    whatIfBtnTitle: "Target GPA & Repeat Simulator",
+    discFilterAll: "All",
+    discFilterDm: "Double Major",
+    discFilterMinor: "Minor",
+    pinDashTitle: "Pin Card to Top",
+    scenarioLabel: "Plan:",
+    scenarioPlan1: "Main Plan",
+    scenarioPlan2: "Plan 2 (Alternative)",
+    scenarioPlan3: "Plan 3",
+    toastScenarioSwitched: (name) => `📋 Switched to "${name}"`,
+    poolSearchPlaceholder: "Search course code or name...",
+    poolAvailableBtn: "✓ Available Now",
+    poolEmptyFilter: "No courses match the current filter.",
+    dashAuditTitle: "📊 Curriculum Progress",
+    auditRequired: "Required",
+    auditHss: "HSS",
+    auditScience: "Science",
+    auditComplementary: "Complementary",
+    auditUnrestricted: "Unrest.",
+    auditTechElective: "Tech / Dept",
+    gpaWarningText: "⚠️ < 2.00",
+    gpaWarningTooltip: "CGPA below 2.00 (Academic probation warning)",
+    highCreditWarningTooltip: "High semester credit load (22+ credits)",
+    plansTitle: "Alternative Plans",
+    plansModalTitle: "🗂️ Alternative Plans",
+    plansActivePrefix: "Active:",
+    plansModalDesc: "Create alternative plans for Erasmus, Double Major, or different course loads without touching your base plan, and switch in one click.",
+    planBaseName: "Main Plan",
+    planBaseDesc: "Your default base course plan",
+    planActiveBadge: "✓ Active",
+    planBaseBadge: "Base",
+    planSwitchBtn: "Open / Switch",
+    planEditBtn: "Edit",
+    planDeleteBtn: "Delete",
+    planNewBtn: "+ Add New Plan",
+    planFormNewTitle: "Create New Alternative Plan",
+    planFormEditTitle: "Edit Plan",
+    planNameLabel: "Plan Name",
+    planNamePlaceholder: "e.g. Erasmus Plan",
+    planDescLabel: "Description",
+    planDescPlaceholder: "e.g. Fall exchange scenario",
+    planCloneLabel: "Start by copying the current active plan",
+    planNameRequired: "Please enter a plan name.",
+    planCreatedToast: (name) => `✓ "${name}" created and opened`,
+    planUpdatedToast: (name) => `✓ "${name}" updated`,
+    planDeletedToast: (name) => `🗑️ "${name}" deleted`,
+    planDeleteConfirm: (name) => `Are you sure you want to delete "${name}"?`,
+    close: "Close",
+    save: "Save"
   }
 };
 
@@ -764,6 +864,26 @@ function applyStaticTranslations() {
   setText('labelCompleted', t('completed'));
   setText('labelTargetCredits', t('targetCredits'));
   setText('sidebarPoolSubtitle', t('termBlocks'));
+  setText('whatIfBtn', t('whatIfBtnText'));
+  setAttr('whatIfBtn', 'title', t('whatIfBtnTitle'));
+  setAttr('pinDashBtn', 'title', t('pinDashTitle'));
+  setAttr('pinDashBtn', 'aria-label', t('pinDashTitle'));
+  setText('dtPlansLabel', t('plansTitle'));
+  setText('catPlansTitle', t('plansTitle'));
+  if (typeof updateActivePlanSubtitle === 'function') {
+    updateActivePlanSubtitle();
+  }
+  setAttr('poolSearchInput', 'placeholder', t('poolSearchPlaceholder'));
+  setText('poolAvailableBtn', t('poolAvailableBtn'));
+  setText('dashAuditToggleLabel', t('dashAuditTitle'));
+  setText('gpaWarningBadge', t('gpaWarningText'));
+  setAttr('gpaWarningBadge', 'title', t('gpaWarningTooltip'));
+  const discAll = document.querySelector('#discoveryFilterRow [data-disc-filter="all"]');
+  const discDm = document.querySelector('#discoveryFilterRow [data-disc-filter="dm"]');
+  const discMinor = document.querySelector('#discoveryFilterRow [data-disc-filter="minor"]');
+  if (discAll) discAll.textContent = t('discFilterAll');
+  if (discDm) discDm.textContent = t('discFilterDm');
+  if (discMinor) discMinor.textContent = t('discFilterMinor');
 
   setText('feedbackModalTitle', t('feedbackModalTitle'));
   setText('feedbackTitleLabel', t('feedbackTitleLabel'));
@@ -1251,8 +1371,112 @@ function refreshRepeatBadges() {
 let departmentsData = {};
 let minorsData = {};
 let dmData = {};
-let currentDept = localStorage.getItem('boun_active_dept') || 'math';
-let globalState = JSON.parse(localStorage.getItem('boun_multi_dept_gpa_state')) || {};
+const SCENARIOS_STORAGE_KEY = 'boun_scenarios_v1';
+let scenariosState = null;
+
+function initScenariosState() {
+  let stored = null;
+  try {
+    stored = JSON.parse(localStorage.getItem(SCENARIOS_STORAGE_KEY));
+  } catch (e) {}
+
+  const legacyDept = localStorage.getItem('boun_active_dept') || 'math';
+  let legacyState = {};
+  try {
+    legacyState = JSON.parse(localStorage.getItem('boun_multi_dept_gpa_state')) || {};
+  } catch (e) {}
+
+  if (!stored || !stored.plans || !stored.activeId) {
+    stored = {
+      activeId: 'plan_1',
+      order: ['plan_1'],
+      plans: {
+        plan_1: {
+          id: 'plan_1',
+          name: '',
+          desc: '',
+          isBase: true,
+          currentDept: legacyDept,
+          globalState: legacyState
+        }
+      }
+    };
+    localStorage.setItem(SCENARIOS_STORAGE_KEY, JSON.stringify(stored));
+  } else {
+    if (!stored.plans.plan_1) {
+      stored.plans.plan_1 = {
+        id: 'plan_1',
+        name: '',
+        desc: '',
+        isBase: true,
+        currentDept: legacyDept,
+        globalState: legacyState
+      };
+    }
+    stored.plans.plan_1.isBase = true;
+    const validIds = Object.keys(stored.plans).filter(id => {
+      const p = stored.plans[id];
+      if (!p) return false;
+      if (id === 'plan_1' || p.isBase || p.name) return true;
+      const gs = p.globalState || {};
+      return Object.keys(gs).some(d => gs[d] && Array.isArray(gs[d].instances) && gs[d].instances.length > 0);
+    });
+    const nextPlans = {};
+    validIds.forEach(id => {
+      const p = stored.plans[id];
+      nextPlans[id] = {
+        id,
+        name: p.name || '',
+        desc: p.desc || '',
+        isBase: !!p.isBase,
+        currentDept: p.currentDept || legacyDept,
+        globalState: p.globalState || {}
+      };
+    });
+    stored.plans = nextPlans;
+    stored.order = Array.isArray(stored.order)
+      ? stored.order.filter(id => nextPlans[id])
+      : validIds;
+    validIds.forEach(id => {
+      if (!stored.order.includes(id)) stored.order.push(id);
+    });
+    if (!nextPlans[stored.activeId]) {
+      stored.activeId = stored.order[0] || 'plan_1';
+    }
+  }
+  scenariosState = stored;
+  const activePlan = scenariosState.plans[scenariosState.activeId] || scenariosState.plans.plan_1;
+  return {
+    currentDept: activePlan.currentDept || legacyDept,
+    globalState: activePlan.globalState || {}
+  };
+}
+
+function getPlanDisplayName(plan) {
+  if (!plan) return t('planBaseName');
+  if (plan.name && plan.name.trim()) return plan.name.trim();
+  return plan.isBase ? t('planBaseName') : plan.id;
+}
+
+function getPlanDisplayDesc(plan) {
+  if (!plan) return '';
+  if (plan.desc && plan.desc.trim()) return plan.desc.trim();
+  return plan.isBase ? t('planBaseDesc') : '';
+}
+
+function updateActivePlanSubtitle() {
+  if (!scenariosState || !scenariosState.plans) return;
+  const active = scenariosState.plans[scenariosState.activeId];
+  const label = `${t('plansActivePrefix')} ${getPlanDisplayName(active)}`;
+  const dtDesc = document.getElementById('dtPlansDesc');
+  const catSub = document.getElementById('catPlansSub');
+  if (dtDesc) dtDesc.textContent = label;
+  if (catSub) catSub.textContent = label;
+}
+
+const _initialScenario = initScenariosState();
+let currentDept = _initialScenario.currentDept;
+let globalState = _initialScenario.globalState;
 
 let isSandboxMode = false;
 let realUserGlobalStateBackup = null;
@@ -1930,8 +2154,234 @@ function saveGlobalState() {
     // RAM tabanlı Sandbox modu: Asla localStorage'a yazma!
     return;
   }
+  if (scenariosState && scenariosState.plans && scenariosState.activeId) {
+    const existing = scenariosState.plans[scenariosState.activeId] || { id: scenariosState.activeId };
+    scenariosState.plans[scenariosState.activeId] = {
+      ...existing,
+      currentDept,
+      globalState
+    };
+    localStorage.setItem(SCENARIOS_STORAGE_KEY, JSON.stringify(scenariosState));
+  }
   localStorage.setItem('boun_multi_dept_gpa_state', JSON.stringify(globalState));
   localStorage.setItem('boun_active_dept', currentDept);
+}
+
+function switchScenario(scenarioId) {
+  if (isSandboxMode || !scenariosState || !scenariosState.plans[scenarioId]) return;
+  if (scenariosState.activeId === scenarioId) return;
+
+  const prev = scenariosState.plans[scenariosState.activeId] || { id: scenariosState.activeId };
+  scenariosState.plans[scenariosState.activeId] = {
+    ...prev,
+    currentDept,
+    globalState
+  };
+
+  scenariosState.activeId = scenarioId;
+  const targetPlan = scenariosState.plans[scenarioId];
+  currentDept = targetPlan.currentDept || 'math';
+  globalState = targetPlan.globalState || {};
+
+  const deptSelect = document.getElementById('deptSelect');
+  if (deptSelect && departmentsData && departmentsData[currentDept]) {
+    deptSelect.value = currentDept;
+  }
+
+  saveGlobalState();
+  updateActivePlanSubtitle();
+  initUI();
+  showToast(t('toastScenarioSwitched')(getPlanDisplayName(targetPlan)));
+}
+
+let editingPlanId = null;
+
+function openPlansModal() {
+  const modal = document.getElementById('plansModal');
+  if (!modal) return;
+  editingPlanId = null;
+  cancelPlanForm();
+  renderPlansModal();
+  modal.classList.add('open');
+}
+
+function closePlansModal() {
+  const modal = document.getElementById('plansModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function renderPlansModal() {
+  if (!scenariosState || !scenariosState.plans) return;
+  const setPlanText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  };
+  const setPlanAttr = (id, attr, val) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute(attr, val);
+  };
+
+  setPlanText('plansModalTitle', t('plansModalTitle'));
+  setPlanText('plansModalDesc', t('plansModalDesc'));
+  setPlanText('openNewPlanFormBtn', t('planNewBtn'));
+  setPlanText('plansCloseBtn', t('close'));
+  setPlanText('planNameLabel', t('planNameLabel'));
+  setPlanAttr('planNameInput', 'placeholder', t('planNamePlaceholder'));
+  setPlanText('planDescLabel', t('planDescLabel'));
+  setPlanAttr('planDescInput', 'placeholder', t('planDescPlaceholder'));
+  setPlanText('planCloneLabel', t('planCloneLabel'));
+  setPlanText('planFormCancelBtn', t('cancel'));
+  setPlanText('planFormSaveBtn', t('save'));
+
+  const listEl = document.getElementById('plansListContainer');
+  if (!listEl) return;
+
+  const order = (scenariosState.order && scenariosState.order.length > 0)
+    ? scenariosState.order
+    : Object.keys(scenariosState.plans);
+
+  listEl.innerHTML = order.map(id => {
+    const plan = scenariosState.plans[id];
+    if (!plan) return '';
+    const isActive = scenariosState.activeId === id;
+    const canDelete = !plan.isBase && order.length > 1;
+    const deptTitle = (departmentsData && departmentsData[plan.currentDept]?.name) || plan.currentDept || '';
+    const desc = getPlanDisplayDesc(plan);
+
+    return `
+      <div class="plan-card ${isActive ? 'is-active' : ''}">
+        <div class="plan-card-info">
+          <div class="plan-card-title-row">
+            <strong>${escapeHTML(getPlanDisplayName(plan))}</strong>
+            ${plan.isBase ? `<span class="plan-badge base">${escapeHTML(t('planBaseBadge'))}</span>` : ''}
+            ${isActive ? `<span class="plan-badge active">${escapeHTML(t('planActiveBadge'))}</span>` : ''}
+          </div>
+          ${desc ? `<div class="plan-card-desc">${escapeHTML(desc)}</div>` : ''}
+          ${deptTitle ? `<div class="plan-card-meta">🎓 ${escapeHTML(deptTitle)}</div>` : ''}
+        </div>
+        <div class="plan-card-actions">
+          ${!isActive ? `<button type="button" class="plan-action-btn primary" onclick="switchScenario('${escapeHTML(id)}'); renderPlansModal();">${escapeHTML(t('planSwitchBtn'))}</button>` : ''}
+          <button type="button" class="plan-action-btn" onclick="editPlanItem('${escapeHTML(id)}')">${escapeHTML(t('planEditBtn'))}</button>
+          ${canDelete ? `<button type="button" class="plan-action-btn danger" onclick="deletePlanItem('${escapeHTML(id)}')">${escapeHTML(t('planDeleteBtn'))}</button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openNewPlanForm() {
+  editingPlanId = null;
+  const box = document.getElementById('planFormBox');
+  const titleEl = document.getElementById('planFormTitle');
+  const nameIn = document.getElementById('planNameInput');
+  const descIn = document.getElementById('planDescInput');
+  const cloneWrap = document.getElementById('planCloneWrap');
+  const cloneCb = document.getElementById('planCloneCheckbox');
+  if (titleEl) titleEl.textContent = t('planFormNewTitle');
+  if (nameIn) nameIn.value = '';
+  if (descIn) descIn.value = '';
+  if (cloneWrap) cloneWrap.classList.remove('is-hidden');
+  if (cloneCb) cloneCb.checked = true;
+  if (box) box.classList.remove('is-hidden');
+  if (nameIn) nameIn.focus();
+}
+
+function editPlanItem(planId) {
+  const plan = scenariosState && scenariosState.plans[planId];
+  if (!plan) return;
+  editingPlanId = planId;
+  const box = document.getElementById('planFormBox');
+  const titleEl = document.getElementById('planFormTitle');
+  const nameIn = document.getElementById('planNameInput');
+  const descIn = document.getElementById('planDescInput');
+  const cloneWrap = document.getElementById('planCloneWrap');
+  if (titleEl) titleEl.textContent = t('planFormEditTitle');
+  if (nameIn) nameIn.value = getPlanDisplayName(plan);
+  if (descIn) descIn.value = plan.desc || '';
+  if (cloneWrap) cloneWrap.classList.add('is-hidden');
+  if (box) box.classList.remove('is-hidden');
+  if (nameIn) nameIn.focus();
+}
+
+function cancelPlanForm() {
+  editingPlanId = null;
+  const box = document.getElementById('planFormBox');
+  if (box) box.classList.add('is-hidden');
+}
+
+function savePlanForm() {
+  const nameIn = document.getElementById('planNameInput');
+  const descIn = document.getElementById('planDescInput');
+  const cloneCb = document.getElementById('planCloneCheckbox');
+  const name = nameIn ? nameIn.value.trim() : '';
+  const desc = descIn ? descIn.value.trim() : '';
+
+  if (!name) {
+    showToast(t('planNameRequired'));
+    if (nameIn) nameIn.focus();
+    return;
+  }
+
+  if (editingPlanId && scenariosState.plans[editingPlanId]) {
+    scenariosState.plans[editingPlanId].name = name;
+    scenariosState.plans[editingPlanId].desc = desc;
+    saveGlobalState();
+    updateActivePlanSubtitle();
+    cancelPlanForm();
+    renderPlansModal();
+    showToast(t('planUpdatedToast')(name));
+    return;
+  }
+
+  const newId = 'plan_' + Date.now();
+  const shouldClone = cloneCb ? cloneCb.checked : true;
+  const clonedState = shouldClone ? JSON.parse(JSON.stringify(globalState || {})) : {};
+  scenariosState.plans[newId] = {
+    id: newId,
+    name,
+    desc,
+    isBase: false,
+    currentDept: currentDept || 'math',
+    globalState: clonedState
+  };
+  if (!Array.isArray(scenariosState.order)) scenariosState.order = Object.keys(scenariosState.plans);
+  scenariosState.order.push(newId);
+
+  cancelPlanForm();
+  switchScenario(newId);
+  renderPlansModal();
+  showToast(t('planCreatedToast')(name));
+}
+
+function deletePlanItem(planId) {
+  const plan = scenariosState && scenariosState.plans[planId];
+  if (!plan || plan.isBase) return;
+  const order = scenariosState.order || Object.keys(scenariosState.plans);
+  if (order.length <= 1) return;
+
+  const displayName = getPlanDisplayName(plan);
+  if (!confirm(t('planDeleteConfirm')(displayName))) return;
+
+  delete scenariosState.plans[planId];
+  scenariosState.order = order.filter(id => id !== planId);
+
+  if (scenariosState.activeId === planId) {
+    const fallbackId = scenariosState.order[0] || 'plan_1';
+    scenariosState.activeId = fallbackId;
+    const nextPlan = scenariosState.plans[fallbackId];
+    currentDept = nextPlan.currentDept || 'math';
+    globalState = nextPlan.globalState || {};
+    const deptSelect = document.getElementById('deptSelect');
+    if (deptSelect && departmentsData && departmentsData[currentDept]) {
+      deptSelect.value = currentDept;
+    }
+    initUI();
+  }
+
+  saveGlobalState();
+  updateActivePlanSubtitle();
+  renderPlansModal();
+  showToast(t('planDeletedToast')(displayName));
 }
 
 function changeDepartment(newDept) {
@@ -2059,12 +2509,18 @@ function calculateAverages() {
 
     const stat = semesterStats[s];
     if (crdBadge && stat) {
-      if (stat.scheduledCredits > 0) {
+      if (stat.scheduledCredits >= 22) {
+        crdBadge.innerText = `⚠️ ${stat.scheduledCredits} Cr`;
+        crdBadge.className = 'sem-crd-badge has-courses high-credit-warn';
+        crdBadge.title = t('highCreditWarningTooltip');
+      } else if (stat.scheduledCredits > 0) {
         crdBadge.innerText = `${stat.scheduledCredits} Cr`;
         crdBadge.className = 'sem-crd-badge has-courses';
+        crdBadge.title = '';
       } else {
         crdBadge.innerText = `0 Cr`;
         crdBadge.className = 'sem-crd-badge';
+        crdBadge.title = '';
       }
     }
 
@@ -2149,6 +2605,14 @@ function calculateAverages() {
 
   const gpa = cumCredits > 0 ? (cumPoints / cumCredits).toFixed(2) : "0.00";
   document.getElementById('gpa-display').innerText = gpa;
+  const gpaWarnEl = document.getElementById('gpaWarningBadge');
+  if (gpaWarnEl) {
+    const isProbation = cumCredits > 0 && Number(gpa) < 2.0;
+    gpaWarnEl.classList.toggle('is-hidden', !isProbation);
+    gpaWarnEl.hidden = !isProbation;
+    gpaWarnEl.textContent = t('gpaWarningText');
+    gpaWarnEl.title = t('gpaWarningTooltip');
+  }
 
   document.getElementById('selected-courses-count').innerText = `${selectedCourseIds.size} ${t('courseUnit')}`;
   document.getElementById('selected-credits').innerText = `${selectedCreditsTotal} Cr`;
@@ -2180,6 +2644,139 @@ function calculateAverages() {
     remainingEl.innerHTML = `${remaining} <span style="font-size: 0.72rem; font-weight: 600; opacity: 0.85;">/ ${allRequiredCourses.length}</span>`;
     remainingEl.title = t('remainingTooltip')(remaining, allRequiredCourses.length);
   }
+  renderDegreeAuditSummary(allRequiredCourses, passedCourseIds, passedCourseCodes);
+}
+
+let isDashAuditOpen = false;
+
+function toggleDashAudit() {
+  isDashAuditOpen = !isDashAuditOpen;
+  const panel = document.getElementById('dashAuditPanel');
+  const btn = document.getElementById('dashAuditToggleBtn');
+  const arrow = document.getElementById('dashAuditArrow');
+  if (panel) panel.classList.toggle('is-hidden', !isDashAuditOpen);
+  if (btn) btn.setAttribute('aria-expanded', isDashAuditOpen ? 'true' : 'false');
+  if (arrow) arrow.textContent = isDashAuditOpen ? '▾' : '▸';
+}
+
+function classifyAuditCategory(course) {
+  if (!course || !course.isElective) return 'required';
+  const txt = `${course.code || ''} ${course.name || ''}`.toLowerCase();
+  if (/unrestr|serbest\s*seçmeli|free\s*elective/i.test(txt)) return 'unrestricted';
+  if (/\bhss\b|\bmle\b|humanities\s+and\s+social/i.test(txt)) return 'hss';
+  if (/\bscience\b|temel\s*bilim/i.test(txt)) return 'science';
+  if (/\bcomplementary\b|tamamlayıcı/i.test(txt)) return 'complementary';
+  return 'tech';
+}
+
+function renderDegreeAuditSummary(allRequiredCourses, passedCourseIds, passedCourseCodes) {
+  const panel = document.getElementById('dashAuditPanel');
+  if (!panel) return;
+
+  const buckets = {
+    required: { labelKey: 'auditRequired', passed: 0, total: 0 },
+    hss: { labelKey: 'auditHss', passed: 0, total: 0 },
+    science: { labelKey: 'auditScience', passed: 0, total: 0 },
+    complementary: { labelKey: 'auditComplementary', passed: 0, total: 0 },
+    unrestricted: { labelKey: 'auditUnrestricted', passed: 0, total: 0 },
+    tech: { labelKey: 'auditTechElective', passed: 0, total: 0 }
+  };
+
+  (allRequiredCourses || []).forEach(c => {
+    const cat = classifyAuditCategory(c);
+    const b = buckets[cat];
+    if (!b) return;
+    b.total += 1;
+    const norm = c.code ? c.code.replace(/\s+/g, '').toUpperCase() : '';
+    const isDone = passedCourseIds.has(c.id) || (norm && passedCourseCodes.has(norm));
+    if (isDone) b.passed += 1;
+  });
+
+  const activeBuckets = Object.values(buckets).filter(b => b.total > 0);
+  panel.innerHTML = activeBuckets.map(b => {
+    const pct = Math.min(100, Math.round((b.passed / b.total) * 100));
+    const isComplete = b.passed >= b.total;
+    return `
+      <div class="dash-audit-item ${isComplete ? 'is-complete' : ''}">
+        <div class="dash-audit-item-top">
+          <span>${escapeHTML(t(b.labelKey))}</span>
+          <strong>${b.passed}/${b.total}</strong>
+        </div>
+        <div class="dash-audit-bar"><span style="width: ${pct}%;"></span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+let poolSearchQuery = '';
+let poolOnlyAvailable = false;
+
+function handlePoolSearchInput(val) {
+  poolSearchQuery = String(val || '').trim();
+  const clearBtn = document.getElementById('poolSearchClearBtn');
+  if (clearBtn) clearBtn.classList.toggle('is-hidden', poolSearchQuery.length === 0);
+  updateSidebarPool();
+}
+
+function clearPoolSearch() {
+  poolSearchQuery = '';
+  const input = document.getElementById('poolSearchInput');
+  const clearBtn = document.getElementById('poolSearchClearBtn');
+  if (input) input.value = '';
+  if (clearBtn) clearBtn.classList.add('is-hidden');
+  updateSidebarPool();
+}
+
+function togglePoolAvailableFilter() {
+  poolOnlyAvailable = !poolOnlyAvailable;
+  const btn = document.getElementById('poolAvailableBtn');
+  if (btn) {
+    btn.classList.toggle('active', poolOnlyAvailable);
+    btn.setAttribute('aria-pressed', poolOnlyAvailable ? 'true' : 'false');
+  }
+  updateSidebarPool();
+}
+
+function getPoolPassedCodesSet(state) {
+  const passedSet = new Set();
+  (state.instances || []).forEach(inst => {
+    if (!isInstancePassed(inst)) return;
+    const c = getCourseForInstance(inst);
+    if (c && c.code) {
+      const baseNorm = normalizeCourseCodeStr(c.code);
+      if (baseNorm) passedSet.add(baseNorm);
+      String(c.code).split(/[\/,]/).forEach(part => {
+        const p = normalizeCourseCodeStr(part);
+        if (p) passedSet.add(p);
+      });
+    }
+    const assigned = extractAssignedElectiveCode(inst.customText);
+    if (assigned) passedSet.add(assigned);
+  });
+  return passedSet;
+}
+
+function matchesPoolSearch(course, instances) {
+  if (!poolSearchQuery) return true;
+  const q = poolSearchQuery.toLowerCase();
+  const code = String(course.code || '').toLowerCase();
+  const name = String(course.name || '').toLowerCase();
+  if (code.includes(q) || name.includes(q)) return true;
+  if (Array.isArray(instances)) {
+    return instances.some(inst => String(inst.customText || '').toLowerCase().includes(q));
+  }
+  return false;
+}
+
+function isCourseAvailableNow(course, courseInstances, hasPassed, passedCodesSet) {
+  if (hasPassed) return false;
+  const hasActivePlacement = (courseInstances || []).some(inst => inst.grade !== 'F');
+  if (hasActivePlacement) return false;
+  const prereqStr = course.prereq || getPrereqFromMaps(course.code);
+  if (!prereqStr) return true;
+  const andGroups = parsePrereqAndOrGroups(prereqStr);
+  if (!andGroups || andGroups.length === 0) return true;
+  return andGroups.every(group => group.some(reqCode => passedCodesSet.has(reqCode)));
 }
 
 function updateSidebarPool() {
@@ -2213,8 +2810,19 @@ function updateSidebarPool() {
     pool.appendChild(customBtnRow);
   }
 
+  const passedCodesSetForFilter = poolOnlyAvailable ? getPoolPassedCodesSet(state) : null;
+  let visiblePoolCount = 0;
+
   const customCourses = state.customCourses || [];
-  if (customCourses.length > 0) {
+  const filteredCustomCourses = customCourses.filter(course => {
+    const placedInst = state.instances.find(inst => inst.courseId === course.id);
+    const isPassed = isInstancePassed(placedInst);
+    if (!matchesPoolSearch(course, placedInst ? [placedInst] : [])) return false;
+    if (poolOnlyAvailable && !isCourseAvailableNow(course, placedInst ? [placedInst] : [], isPassed, passedCodesSetForFilter)) return false;
+    return true;
+  });
+  if (filteredCustomCourses.length > 0) {
+    visiblePoolCount += filteredCustomCourses.length;
     const customGroup = document.createElement('div');
     customGroup.className = 'pool-sem-group pool-custom-group';
     const customHeader = document.createElement('div');
@@ -2222,11 +2830,11 @@ function updateSidebarPool() {
     const customGroupTitle = currentLang === 'en' ? '✨ Custom / Extra Courses' : '✨ Özel / Ekstra Dersler';
     customHeader.innerHTML = `
       <span>${escapeHTML(customGroupTitle)}</span>
-      <span>${customCourses.length} ${escapeHTML(t('courseUnit'))}</span>
+      <span>${filteredCustomCourses.length} ${escapeHTML(t('courseUnit'))}</span>
     `;
     customGroup.appendChild(customHeader);
 
-    customCourses.forEach(course => {
+    filteredCustomCourses.forEach(course => {
       const placedInst = state.instances.find(inst => inst.courseId === course.id);
       const isPlaced = !!placedInst;
       const isFailedGrade = !!(placedInst && placedInst.grade === 'F');
@@ -2369,6 +2977,9 @@ function updateSidebarPool() {
 
       if (splitChildren.length >= 1) {
         const allSplitPassed = splitChildren.length >= 2 && splitChildren.every(ch => ch.passed === true && ch.grade !== 'F');
+        if (!matchesPoolSearch(course, splitChildren)) return;
+        if (poolOnlyAvailable && (allSplitPassed || splitChildren.length >= 2)) return;
+        visiblePoolCount++;
         const splitCard = document.createElement('div');
         splitCard.className = `course-card pool-split-card ${allSplitPassed ? 'status-passed pool-locked' : 'status-failed'}`;
 
@@ -2428,6 +3039,9 @@ function updateSidebarPool() {
       });
 
       const hasPassed = courseInstances.some(inst => inst.passed === true && inst.grade !== 'F');
+      if (!matchesPoolSearch(course, courseInstances)) return;
+      if (poolOnlyAvailable && !isCourseAvailableNow(course, courseInstances, hasPassed, passedCodesSetForFilter)) return;
+      visiblePoolCount++;
       const hasFailedOnly = courseInstances.length > 0 && !hasPassed;
       const isPlaced = courseInstances.length > 0 && !hasPassed && !hasFailedOnly;
       const isMinor = !!course.isMinor;
@@ -2535,8 +3149,17 @@ function updateSidebarPool() {
       groupContainer.appendChild(poolCard);
     });
 
-    pool.appendChild(groupContainer);
+    if (groupContainer.querySelectorAll('.course-card').length > 0) {
+      pool.appendChild(groupContainer);
+    }
   });
+
+  if (visiblePoolCount === 0 && (poolSearchQuery || poolOnlyAvailable)) {
+    const emptyEl = document.createElement('div');
+    emptyEl.className = 'pool-empty-filter-msg';
+    emptyEl.textContent = t('poolEmptyFilter');
+    pool.appendChild(emptyEl);
+  }
 
   applyDashCardPosition();
   calculateAverages();
@@ -5560,15 +6183,24 @@ function openMobileCatalog() {
   const menuBtn = document.getElementById('mobileMenuBtn');
   if (!modal) return;
   const sheet = modal.querySelector('.catalog-sheet');
+  const body = modal.querySelector('.catalog-body');
   if (sheet) {
     sheet.style.transition = '';
     sheet.style.transform = '';
     sheet.style.height = '';
     sheet.style.maxHeight = '';
   }
+  if (body) {
+    body.scrollTop = 0;
+  }
   updateAutoFillButtonLabel();
   updateUndoAutoFillButtonState();
   modal.classList.add('open');
+  if (body) {
+    requestAnimationFrame(() => {
+      body.scrollTop = 0;
+    });
+  }
   if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
 }
@@ -7444,6 +8076,12 @@ function openDiscoveryModal() {
       : 'Mevcut planındaki dersler tüm ÇAP ve Yandal müfredatlarıyla eşleştirilerek tamamlanma oranına göre sıralandı.';
   }
   if (closeBtn) closeBtn.textContent = isEn ? 'Close' : 'Kapat';
+  const discAll = document.querySelector('#discoveryFilterRow [data-disc-filter="all"]');
+  const discDm = document.querySelector('#discoveryFilterRow [data-disc-filter="dm"]');
+  const discMinor = document.querySelector('#discoveryFilterRow [data-disc-filter="minor"]');
+  if (discAll) discAll.textContent = t('discFilterAll');
+  if (discDm) discDm.textContent = t('discFilterDm');
+  if (discMinor) discMinor.textContent = t('discFilterMinor');
 
   setDiscoveryFilter(discoveryFilter || 'all');
   modal.classList.add('open');
@@ -8441,6 +9079,7 @@ function closeIosInstallModal() {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeIosInstallModal();
+    closePlansModal();
   }
 });
 
