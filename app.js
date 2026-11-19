@@ -8374,8 +8374,13 @@ function isPwaStandalone() {
 }
 
 function isIosDeviceForPwa() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  const ua = navigator.userAgent || '';
+  return /iPad|iPhone|iPod/.test(ua) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function isIosChromeForPwa() {
+  return isIosDeviceForPwa() && /CriOS/i.test(navigator.userAgent || '');
 }
 
 function updatePwaInstallButtons() {
@@ -8390,25 +8395,42 @@ function openIosInstallModal() {
   const modal = document.getElementById('iosInstallModal');
   if (!modal) return;
   const isEn = currentLang === 'en';
+  const isCriOS = isIosChromeForPwa();
   const titleEl = document.getElementById('iosInstallTitle');
   const bodyEl = document.getElementById('iosInstallBody');
   const okBtn = document.getElementById('iosInstallOkBtn');
   if (titleEl) titleEl.textContent = isEn ? '📲 Add to Home Screen' : '📲 Ana Ekrana Ekle';
   if (okBtn) okBtn.textContent = isEn ? 'Got it' : 'Anladım';
   if (bodyEl) {
-    bodyEl.innerHTML = isEn
-      ? `<p style="margin-top: 0;">To install Boğaziçi Tracker as an app on your iPhone/iPad:</p>
-         <ol style="padding-left: 20px; margin-bottom: 0;">
-           <li>Tap the <strong>Share (⎋)</strong> button in Safari's toolbar.</li>
-           <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
-           <li>Tap <strong>"Add"</strong> in the top-right corner.</li>
-         </ol>`
-      : `<p style="margin-top: 0;">Boğaziçi Tracker'ı iPhone/iPad cihazına uygulama olarak eklemek için:</p>
-         <ol style="padding-left: 20px; margin-bottom: 0;">
-           <li>Safari alt/üst çubuğundaki <strong>Paylaş (⎋)</strong> simgesine dokun.</li>
-           <li>Açılan menüde <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.</li>
-           <li>Sağ üstten <strong>"Ekle"</strong> butonuna bas.</li>
-         </ol>`;
+    if (isCriOS) {
+      bodyEl.innerHTML = isEn
+        ? `<p style="margin-top: 0;">To install Boğaziçi Tracker on your iPhone/iPad (Chrome):</p>
+           <ol style="padding-left: 20px; margin-bottom: 0;">
+             <li>Tap the <strong>Share (⎋)</strong> icon on the right side of Chrome's address bar.</li>
+             <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+             <li>Tap <strong>"Add"</strong> to confirm.</li>
+           </ol>`
+        : `<p style="margin-top: 0;">Boğaziçi Tracker'ı iPhone/iPad cihazına (Chrome) eklemek için:</p>
+           <ol style="padding-left: 20px; margin-bottom: 0;">
+             <li>Chrome adres çubuğunun sağındaki <strong>Paylaş (⎋)</strong> simgesine dokun.</li>
+             <li>Açılan menüde <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.</li>
+             <li>Sağ üstten <strong>"Ekle"</strong> butonuna bas.</li>
+           </ol>`;
+    } else {
+      bodyEl.innerHTML = isEn
+        ? `<p style="margin-top: 0;">To install Boğaziçi Tracker as an app on your iPhone/iPad:</p>
+           <ol style="padding-left: 20px; margin-bottom: 0;">
+             <li>Tap the <strong>Share (⎋)</strong> button in Safari's toolbar.</li>
+             <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+             <li>Tap <strong>"Add"</strong> in the top-right corner.</li>
+           </ol>`
+        : `<p style="margin-top: 0;">Boğaziçi Tracker'ı iPhone/iPad cihazına uygulama olarak eklemek için:</p>
+           <ol style="padding-left: 20px; margin-bottom: 0;">
+             <li>Safari alt/üst çubuğundaki <strong>Paylaş (⎋)</strong> simgesine dokun.</li>
+             <li>Açılan menüde <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.</li>
+             <li>Sağ üstten <strong>"Ekle"</strong> butonuna bas.</li>
+           </ol>`;
+    }
   }
   modal.classList.add('open');
 }
@@ -8417,6 +8439,12 @@ function closeIosInstallModal() {
   const modal = document.getElementById('iosInstallModal');
   if (modal) modal.classList.remove('open');
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeIosInstallModal();
+  }
+});
 
 async function triggerPwaInstall() {
   if (isPwaStandalone()) {
@@ -8445,8 +8473,8 @@ async function triggerPwaInstall() {
 
   showToast(
     currentLang === 'en'
-      ? 'Use your browser menu ("Install App" / "Add to Home Screen") to install.'
-      : 'Tarayıcı menüsünden "Uygulamayı Yükle / Ana Ekrana Ekle" seçeneğini kullanabilirsin.'
+      ? 'Click the install icon in your address bar or choose "Install App" from the browser menu.'
+      : 'Adres çubuğundaki yükle simgesine tıklayabilir veya tarayıcı menüsünden "Uygulamayı Yükle"yi seçebilirsin.'
   );
 }
 
