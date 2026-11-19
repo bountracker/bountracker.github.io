@@ -1781,14 +1781,17 @@ textarea.form-control {
     padding: 6px calc(12px + env(safe-area-inset-right, 0px)) 6px calc(12px + env(safe-area-inset-left, 0px));
   }
   .app-main {
-    padding: 8px calc(10px + env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) calc(10px + env(safe-area-inset-left, 0px));
+    padding: 8px calc(10px + env(safe-area-inset-right, 0px)) 0 calc(10px + env(safe-area-inset-left, 0px));
     gap: 0;
   }
   .sidebar {
     flex: 1 1 100%;
     width: 100%;
+    height: 100%;
+    min-height: 0;
     display: none;
-    border-radius: 8px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
   }
   .sidebar.active-tab {
     display: flex;
@@ -1813,7 +1816,7 @@ textarea.form-control {
     display: inline-flex !important;
   }
   .sidebar-scroll-pool, .main-content {
-    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   }
   .course-card {
     cursor: default;
@@ -2759,34 +2762,37 @@ textarea.form-control {
 .pool-action-bar {
   position: static;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   margin-top: 0;
   margin-bottom: 4px;
-  height: 34px;
+  min-height: 34px;
+  height: auto;
   flex-shrink: 0;
 }
 
 .sidebar-autofill-group {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 5px;
   flex: 1 1 0;
   min-width: 0;
-  height: 34px;
+  min-height: 34px;
+  height: auto;
 }
 
 .sidebar-seg-btn {
-  flex: 1 1 0;
+  flex: 1 1 120px;
   min-width: 0;
-  height: 34px;
+  min-height: 34px;
+  height: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 0 10px;
+  padding: 6px 10px;
   font-size: 0.78rem;
   font-weight: 700;
   border-radius: 9999px;
@@ -5701,6 +5707,15 @@ body {
   }
   .sidebar {
     flex: 0 0 300px;
+  }
+  .pool-action-bar {
+    flex-wrap: wrap;
+    height: auto;
+  }
+  .pool-action-bar .sidebar-seg-btn {
+    flex: 1 1 120px;
+    padding: 6px 8px;
+    font-size: 0.75rem;
   }
   .semesters-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
