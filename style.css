@@ -3208,7 +3208,6 @@ textarea.form-control {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.52);
-  backdrop-filter: blur(4px);
   z-index: 10050;
   display: flex;
   align-items: flex-end;
@@ -3226,7 +3225,10 @@ textarea.form-control {
 .catalog-sheet {
   width: 100%;
   max-width: 540px;
-  max-height: 82vh;
+  height: 80vh;
+  height: 80dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   background: var(--bg-surface);
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -10px 35px rgba(15, 23, 42, 0.22);
@@ -3234,9 +3236,10 @@ textarea.form-control {
   flex-direction: column;
   overflow: hidden;
   transform: translateY(100%);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   padding-bottom: env(safe-area-inset-bottom, 10px);
   touch-action: pan-y;
+  will-change: transform;
 }
 
 .catalog-backdrop.open .catalog-sheet {
@@ -3629,6 +3632,7 @@ textarea.form-control {
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding: 8px 14px 20px;
     box-sizing: border-box;
@@ -5723,11 +5727,26 @@ body {
 /* iPadOS / touch WebKit keyboard animation stability: disable heavy backdrop blur on touch/tablet */
 @media (max-width: 1024px), (hover: none) and (pointer: coarse) {
   .modal-overlay,
+  .modal-backdrop,
+  .catalog-backdrop,
   .catalog-sheet-backdrop,
   .bottom-sheet-backdrop,
   .tools-catalog-overlay,
   .ec-modal-overlay,
+  .welcome-backdrop,
   .mobile-tools-drawer {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .top-bar,
+  .sidebar,
+  .sidebar-fixed-top,
+  .pool-action-bar,
+  .sidebar-seg-btn {
+    opacity: 1 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -5809,6 +5828,8 @@ body {
   #termPickerModal .bottom-sheet-dialog {
     width: 100%;
     max-width: 100%;
+    height: 80vh;
+    height: 80dvh;
     max-height: 100vh;
     max-height: 100dvh;
     padding-top: env(safe-area-inset-top, 0px);

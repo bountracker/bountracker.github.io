@@ -1448,7 +1448,7 @@ function initScenariosState() {
   const activePlan = scenariosState.plans[scenariosState.activeId] || scenariosState.plans.plan_1;
   return {
     currentDept: activePlan.currentDept || legacyDept,
-    globalState: activePlan.globalState || {}
+    globalState: JSON.parse(JSON.stringify(activePlan.globalState || {}))
   };
 }
 
@@ -2159,7 +2159,7 @@ function saveGlobalState() {
     scenariosState.plans[scenariosState.activeId] = {
       ...existing,
       currentDept,
-      globalState
+      globalState: JSON.parse(JSON.stringify(globalState || {}))
     };
     localStorage.setItem(SCENARIOS_STORAGE_KEY, JSON.stringify(scenariosState));
   }
@@ -2175,13 +2175,14 @@ function switchScenario(scenarioId) {
   scenariosState.plans[scenariosState.activeId] = {
     ...prev,
     currentDept,
-    globalState
+    globalState: JSON.parse(JSON.stringify(globalState || {}))
   };
 
   scenariosState.activeId = scenarioId;
   const targetPlan = scenariosState.plans[scenarioId];
   currentDept = targetPlan.currentDept || 'math';
-  globalState = targetPlan.globalState || {};
+  globalState = JSON.parse(JSON.stringify(targetPlan.globalState || {}));
+  lastAutoFillBackup = null;
 
   const deptSelect = document.getElementById('deptSelect');
   if (deptSelect && departmentsData && departmentsData[currentDept]) {
@@ -2191,6 +2192,7 @@ function switchScenario(scenarioId) {
   saveGlobalState();
   updateActivePlanSubtitle();
   initUI();
+  applyLanguage();
   showToast(t('toastScenarioSwitched')(getPlanDisplayName(targetPlan)));
 }
 
@@ -2260,7 +2262,7 @@ function renderPlansModal() {
           ${deptTitle ? `<div class="plan-card-meta">🎓 ${escapeHTML(deptTitle)}</div>` : ''}
         </div>
         <div class="plan-card-actions">
-          ${!isActive ? `<button type="button" class="plan-action-btn primary" onclick="switchScenario('${escapeHTML(id)}'); renderPlansModal();">${escapeHTML(t('planSwitchBtn'))}</button>` : ''}
+          ${!isActive ? `<button type="button" class="plan-action-btn primary" onclick="switchScenario('${escapeHTML(id)}'); closePlansModal();">${escapeHTML(t('planSwitchBtn'))}</button>` : ''}
           <button type="button" class="plan-action-btn" onclick="editPlanItem('${escapeHTML(id)}')">${escapeHTML(t('planEditBtn'))}</button>
           ${canDelete ? `<button type="button" class="plan-action-btn danger" onclick="deletePlanItem('${escapeHTML(id)}')">${escapeHTML(t('planDeleteBtn'))}</button>` : ''}
         </div>
@@ -6200,6 +6202,9 @@ function openMobileCatalog() {
     requestAnimationFrame(() => {
       body.scrollTop = 0;
     });
+    setTimeout(() => {
+      if (modal.classList.contains('open')) body.scrollTop = 0;
+    }, 60);
   }
   if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
@@ -6213,6 +6218,8 @@ function closeMobileCatalog() {
     if (sheet) {
       sheet.style.transition = '';
       sheet.style.transform = '';
+      sheet.style.height = '';
+      sheet.style.maxHeight = '';
     }
     if (modal.classList.contains('open')) {
       modal.classList.remove('open');
@@ -6223,17 +6230,19 @@ function closeMobileCatalog() {
 }
 
 (function initMobileDraggableBottomSheets() {
-  const bindDraggableSheet = (modalId, sheetSelector, handleSelector, headerSelector, closeFn) => {
+  const bindDraggableSheet = (modalId, sheetSelector, handleSelector, headerSelector, bodySelector, closeFn) => {
     const modal = document.getElementById(modalId);
     const sheet = modal ? modal.querySelector(sheetSelector) : null;
     if (!modal || !sheet) return;
 
     const handleEl = sheet.querySelector(handleSelector);
     const headerEl = sheet.querySelector(headerSelector);
-    const dragZones = [handleEl, headerEl].filter(Boolean);
+    const bodyEl = sheet.querySelector(bodySelector);
+    const dragZones = [handleEl, headerEl, bodyEl].filter(Boolean);
     if (dragZones.length === 0) return;
 
     let isDragging = false;
+    let startedInBody = false;
     let startY = 0;
     let lastY = 0;
     let startTime = 0;
@@ -6241,57 +6250,94 @@ function closeMobileCatalog() {
 
     const onTouchStart = (e) => {
       if (!modal.classList.contains('open') || e.touches.length !== 1) return;
-      if (e.target && e.target.closest('button, a, input, select')) return;
+      if (e.target && e.target.closest('button, a, input, select, textarea')) return;
 
-      isDragging = true;
+      startedInBody = !!(bodyEl && bodyEl.contains(e.target));
+      if (startedInBody && bodyEl.scrollTop > 0) return;
+
+      isDragging = !startedInBody;
       startY = e.touches[0].clientY;
       lastY = startY;
       startTime = Date.now();
       startHeight = sheet.getBoundingClientRect().height;
-      sheet.style.transition = 'none';
-      sheet.style.maxHeight = '100dvh';
+      if (isDragging) {
+        sheet.style.transition = 'none';
+        sheet.style.maxHeight = '100dvh';
+      }
     };
 
     const onTouchMove = (e) => {
-      if (!isDragging || e.touches.length !== 1) return;
+      if (e.touches.length !== 1) return;
       const clientY = e.touches[0].clientY;
-      lastY = clientY;
       const deltaY = clientY - startY;
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const minH = Math.round(vh * 0.14);
-      const maxH = vh;
-      const nextH = Math.max(minH, Math.min(maxH, Math.round(startHeight - deltaY)));
 
-      sheet.style.height = `${nextH}px`;
+      if (!isDragging) {
+        if (startedInBody && bodyEl && bodyEl.scrollTop <= 0 && deltaY > 6) {
+          isDragging = true;
+          startY = clientY;
+          lastY = clientY;
+          startTime = Date.now();
+          startHeight = sheet.getBoundingClientRect().height;
+          sheet.style.transition = 'none';
+          sheet.style.maxHeight = '100dvh';
+        } else {
+          return;
+        }
+      }
+
+      lastY = clientY;
+      const activeDelta = clientY - startY;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      if (activeDelta >= 0) {
+        sheet.style.transform = `translateY(${Math.round(activeDelta)}px)`;
+      } else {
+        sheet.style.transform = 'translateY(0)';
+        const nextH = Math.min(vh, Math.round(startHeight - activeDelta));
+        sheet.style.height = `${nextH}px`;
+      }
       if (e.cancelable) e.preventDefault();
     };
 
     const onTouchEnd = () => {
-      if (!isDragging) return;
+      if (!isDragging) {
+        startedInBody = false;
+        return;
+      }
       isDragging = false;
+      startedInBody = false;
 
       const vh = window.innerHeight || document.documentElement.clientHeight;
-      const currentH = sheet.getBoundingClientRect().height;
       const dy = lastY - startY;
       const dt = Date.now() - startTime;
       const isFastDown = dy > 55 && dt < 260;
 
-      sheet.style.transition = 'height 0.2s ease, transform 0.2s ease';
+      sheet.style.transition = 'transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), height 0.26s cubic-bezier(0.22, 1, 0.36, 1)';
 
-      if (currentH < vh * 0.22 || isFastDown) {
-        sheet.style.height = '0px';
+      if (dy > 110 || isFastDown) {
+        sheet.style.transform = 'translateY(100%)';
         setTimeout(() => {
           closeFn();
           sheet.style.height = '';
           sheet.style.maxHeight = '';
+          sheet.style.transform = '';
           sheet.style.transition = '';
-        }, 190);
-      } else {
+        }, 250);
+      } else if (dy < -50) {
+        sheet.style.transform = '';
+        sheet.style.height = '100dvh';
         setTimeout(() => {
           if (modal.classList.contains('open')) {
             sheet.style.transition = '';
           }
-        }, 210);
+        }, 270);
+      } else {
+        sheet.style.transform = '';
+        setTimeout(() => {
+          if (modal.classList.contains('open')) {
+            sheet.style.transition = '';
+          }
+        }, 270);
       }
     };
 
@@ -6304,8 +6350,8 @@ function closeMobileCatalog() {
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    bindDraggableSheet('mobileCatalogModal', '.catalog-sheet', '.bottom-sheet-handle', '.catalog-header', closeMobileCatalog);
-    bindDraggableSheet('termPickerModal', '.bottom-sheet-dialog', '.bottom-sheet-handle', '.bottom-sheet-header', closeTermPickerModal);
+    bindDraggableSheet('mobileCatalogModal', '.catalog-sheet', '.bottom-sheet-handle', '.catalog-header', '.catalog-body', closeMobileCatalog);
+    bindDraggableSheet('termPickerModal', '.bottom-sheet-dialog', '.bottom-sheet-handle', '.bottom-sheet-header', '.bottom-sheet-body', closeTermPickerModal);
   });
 })();
 
