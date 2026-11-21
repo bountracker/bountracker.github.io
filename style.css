@@ -6280,45 +6280,9 @@ body {
   gap: 8px;
 }
 
-@media (max-width: 1024px), (pointer: coarse) {
-  input:not([type="checkbox"]):not([type="radio"]),
-  textarea,
-  select,
-  .pool-search-input,
-  .form-control,
-  .custom-course-input,
-  .custom-course-crd-input,
-  .split-half-input,
-  .ec-search-input,
-  .whatif-target-input,
-  .tr-select,
-  #deptSelect,
-  #department-select {
-    font-size: 16px !important;
-    line-height: 1.25;
-  }
-  input:not([type="checkbox"]):not([type="radio"]),
-  select,
-  .pool-search-input,
-  .form-control,
-  .custom-course-crd-input,
-  .ec-search-input,
-  .whatif-target-input,
-  .tr-select,
-  #deptSelect,
-  #department-select {
-    height: 36px;
-    padding: 6px 10px;
-  }
-  .grade-select,
-  .dept-select-container select,
-  #deptSelect,
-  #department-select,
-  .custom-input,
-  .custom-course-input,
-  .split-half-input {
-    font-size: 16px !important;
-    transform: scale(0.875);
-    transform-origin: left center;
+@media (max-width: 1024px), all and (display-mode: standalone) {
+  .top-bar {
+    padding-top: calc(max(env(safe-area-inset-top, 0px), 24px) + 12px);
+    height: auto;
   }
 }
