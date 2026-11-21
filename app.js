@@ -1041,6 +1041,10 @@ const THEME_STORAGE_KEY = 'bountracker-theme';
 
 function updateThemeToggleButtons(theme) {
   const activeTheme = theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) {
+    themeMeta.setAttribute('content', activeTheme === 'dark' ? '#111827' : '#ffffff');
+  }
   const icon = activeTheme === 'dark' ? '☀️' : '🌙';
   const label = currentLang === 'en' ? 'Toggle Theme' : 'Temayı Değiştir';
   ['themeToggleBtn', 'mobileThemeToggleBtn'].forEach((id) => {

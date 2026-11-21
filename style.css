@@ -1741,24 +1741,6 @@ textarea.form-control {
 }
 
 @media (max-width: 767px) {
-  input:not([type="checkbox"]):not([type="radio"]),
-  textarea,
-  select {
-    font-size: 16px;
-    line-height: 1.25;
-  }
-  input:not([type="checkbox"]):not([type="radio"]),
-  select {
-    height: 36px;
-    padding: 6px 10px;
-  }
-  .grade-select,
-  .dept-select-container select,
-  .custom-input {
-    font-size: 16px;
-    transform: scale(0.875);
-    transform-origin: left center;
-  }
   .pool-action-bar {
     display: none !important;
   }
@@ -6291,4 +6273,39 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select,
+  .pool-search-input,
+  .form-control,
+  .custom-course-input,
+  .custom-course-crd-input,
+  .ec-search-input,
+  .whatif-target-input,
+  .tr-select {
+    font-size: 16px !important;
+    line-height: 1.25;
+  }
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  .pool-search-input,
+  .form-control,
+  .custom-course-crd-input,
+  .ec-search-input,
+  .whatif-target-input,
+  .tr-select {
+    height: 36px;
+    padding: 6px 10px;
+  }
+  .grade-select,
+  .dept-select-container select,
+  .custom-input,
+  .custom-course-input {
+    font-size: 16px !important;
+    transform: scale(0.875);
+    transform-origin: left center;
+  }
 }

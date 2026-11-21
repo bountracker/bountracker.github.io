@@ -10,7 +10,7 @@
   <meta name="author" content="Enes Furkan Gözüdik">
   <meta name="application-name" content="Boğaziçi Tracker">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://bountracker.github.io/">
 
   <meta property="og:type" content="website">
@@ -89,13 +89,18 @@
   <script>
     (function () {
       try {
-        if (localStorage.getItem('bountracker-theme') === 'dark') {
+        const isDark = localStorage.getItem('bountracker-theme') === 'dark';
+        if (isDark) {
           document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) {
+          themeMeta.setAttribute('content', isDark ? '#111827' : '#ffffff');
         }
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="./style.css?v=8">
+  <link rel="stylesheet" href="./style.css?v=9">
 </head>
 <body>
 
@@ -1076,6 +1081,6 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
   </script>
-  <script src="./app.js?v=8"></script>
+  <script src="./app.js?v=9"></script>
 </body>
 </html>
