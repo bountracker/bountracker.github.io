@@ -6627,7 +6627,26 @@ function resetMobileLayoutState(isMobileView) {
   }
 }
 
+function syncViewportMetaForDevice() {
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  if (!viewportMeta) return;
+  const isPhone = (window.innerWidth || document.documentElement.clientWidth || 0) <= 767;
+  const desired = isPhone
+    ? 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+    : 'width=device-width, initial-scale=1.0';
+  if (viewportMeta.getAttribute('content') !== desired) {
+    viewportMeta.setAttribute('content', desired);
+  }
+}
+
+document.addEventListener('gesturestart', (e) => {
+  if ((window.innerWidth || document.documentElement.clientWidth || 0) <= 767) {
+    e.preventDefault();
+  }
+});
+
 function updateLayout() {
+  syncViewportMetaForDevice();
   const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
   const isMobileView = currentWidth <= 767 && mobileBreakpointMq.matches;
   const crossedToDesktop = lastLayoutWidth <= 767 && currentWidth >= 768;

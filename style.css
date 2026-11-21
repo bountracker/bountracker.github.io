@@ -6275,7 +6275,7 @@ body {
   gap: 8px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px), (pointer: coarse) {
   input:not([type="checkbox"]):not([type="radio"]),
   textarea,
   select,
@@ -6283,6 +6283,7 @@ body {
   .form-control,
   .custom-course-input,
   .custom-course-crd-input,
+  .split-half-input,
   .ec-search-input,
   .whatif-target-input,
   .tr-select {
@@ -6303,7 +6304,8 @@ body {
   .grade-select,
   .dept-select-container select,
   .custom-input,
-  .custom-course-input {
+  .custom-course-input,
+  .split-half-input {
     font-size: 16px !important;
     transform: scale(0.875);
     transform-origin: left center;
