@@ -386,6 +386,8 @@ const translations = {
     planActiveBadge: "✓ Aktif",
     planBaseBadge: "Ana",
     planSwitchBtn: "Aç",
+    confirmDefaultTitle: "Onayı Gerekiyor",
+    confirmOk: "Onayla",
     planEditBtn: "Düzenle",
     planDeleteBtn: "Sil",
     planNewBtn: "+ Yeni Plan Ekle",
@@ -750,6 +752,8 @@ const translations = {
     planActiveBadge: "✓ Active",
     planBaseBadge: "Base",
     planSwitchBtn: "Open",
+    confirmDefaultTitle: "Confirmation Required",
+    confirmOk: "Confirm",
     planEditBtn: "Edit",
     planDeleteBtn: "Delete",
     planNewBtn: "+ Add New Plan",
@@ -2362,14 +2366,14 @@ function savePlanForm() {
   showToast(t('planCreatedToast')(name));
 }
 
-function deletePlanItem(planId) {
+async function deletePlanItem(planId) {
   const plan = scenariosState && scenariosState.plans[planId];
   if (!plan || plan.isBase) return;
   const order = scenariosState.order || Object.keys(scenariosState.plans);
   if (order.length <= 1) return;
 
   const displayName = getPlanDisplayName(plan);
-  if (!confirm(t('planDeleteConfirm')(displayName))) return;
+  if (!(await showConfirmModal(t('planDeleteConfirm')(displayName), { danger: true }))) return;
 
   delete scenariosState.plans[planId];
   scenariosState.order = order.filter(id => id !== planId);
@@ -2422,14 +2426,76 @@ function switchMobileTab(tab) {
 }
 
 let toastTimeout;
-function showToast(msg) {
+function hideToast() {
   const toast = document.getElementById('toast');
-  toast.innerText = msg;
-  toast.classList.add('show');
+  if (!toast) return;
+  clearTimeout(toastTimeout);
+  toast.classList.remove('show');
+}
+
+function showToast(msg, type = 'info', duration = 2600) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  const safeType = ['info', 'success', 'warning', 'error'].includes(type) ? type : 'info';
+  toast.className = `toast show toast-${safeType}`;
+  toast.innerHTML = `<span>${escapeHTML(msg)}</span><button type="button" class="toast-close-btn" onclick="hideToast()" aria-label="${escapeHTML(t('close') || 'Kapat')}">✕</button>`;
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => {
     toast.classList.remove('show');
-  }, 1800);
+  }, duration);
+}
+
+let activeConfirmResolver = null;
+function showConfirmModal(message, options = {}) {
+  const modal = document.getElementById('appConfirmModal');
+  const titleEl = document.getElementById('appConfirmTitle');
+  const msgEl = document.getElementById('appConfirmMessage');
+  const okBtn = document.getElementById('appConfirmOkBtn');
+  const cancelBtn = document.getElementById('appConfirmCancelBtn');
+  const closeBtn = document.getElementById('appConfirmCloseBtn');
+  if (!modal || !msgEl || !okBtn || !cancelBtn) {
+    return Promise.resolve(false);
+  }
+
+  if (activeConfirmResolver) {
+    activeConfirmResolver(false);
+    activeConfirmResolver = null;
+  }
+
+  if (titleEl) titleEl.textContent = options.title || t('confirmDefaultTitle');
+  msgEl.textContent = message || '';
+  okBtn.textContent = options.confirmText || t('confirmOk');
+  cancelBtn.textContent = options.cancelText || t('cancel');
+  okBtn.className = options.danger ? 'btn-danger-confirm' : 'btn-primary';
+
+  return new Promise((resolve) => {
+    activeConfirmResolver = resolve;
+    const cleanup = (result) => {
+      modal.classList.remove('open');
+      okBtn.onclick = null;
+      cancelBtn.onclick = null;
+      if (closeBtn) closeBtn.onclick = null;
+      modal.onclick = null;
+      document.removeEventListener('keydown', onKeyDown);
+      if (activeConfirmResolver) {
+        const res = activeConfirmResolver;
+        activeConfirmResolver = null;
+        res(result);
+      }
+    };
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') cleanup(false);
+    };
+    okBtn.onclick = () => cleanup(true);
+    cancelBtn.onclick = () => cleanup(false);
+    if (closeBtn) closeBtn.onclick = () => cleanup(false);
+    modal.onclick = (e) => {
+      if (e.target === modal) cleanup(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    modal.classList.add('open');
+    okBtn.focus();
+  });
 }
 
 function attachGlobalTooltip(el, htmlContent) {
@@ -3400,7 +3466,7 @@ function createSemesterCourseCard(inst, course) {
         ` : ''}
       </div>
     </div>
-    <div class="course-name">${safeName}</div>
+    <div class="course-name" title="${safeName}">${safeName}</div>
     ${safePrereq ? `<div class="course-prereq">${safePrereq}</div>` : ''}
     ${missingPrereqs.length > 0 ? `<div class="course-prereq-missing-badge">⚠️ ${escapeHTML(t('missingPrereqLabel'))}: ${escapeHTML(missingPrereqs.join(', '))}</div>` : ''}
 
@@ -3837,9 +3903,9 @@ function removeInstance(instanceId) {
   updateSidebarPool();
 }
 
-function resetCurrentDept() {
+async function resetCurrentDept() {
   const deptName = getLocalizedDeptName(currentDept);
-  if (confirm(t('confirmReset')(deptName))) {
+  if (await showConfirmModal(t('confirmReset')(deptName), { danger: true })) {
     globalState[currentDept] = { instances: [], selectedMinorId: null, selectedDmId: null };
     saveGlobalState();
     initUI();
@@ -3885,10 +3951,10 @@ function exportDataAsJSON() {
       URL.revokeObjectURL(url);
     }, 200);
 
-    showToast(t('toastExportSuccess'));
+    showToast(t('toastExportSuccess'), 'success');
   } catch (err) {
     console.error("Dışa aktarma hatası:", err);
-    alert(t('alertExportError') + err.message);
+    showToast(t('alertExportError') + err.message, 'error', 3600);
   }
 }
 
@@ -3897,7 +3963,7 @@ function importDataFromJSON(event) {
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = async function(e) {
     try {
       const rawText = e.target.result;
       let parsed;
@@ -3977,7 +4043,7 @@ function importDataFromJSON(event) {
 
       const activeCurrentInstances = (globalState[currentDept]?.instances || []).length;
       if (activeCurrentInstances > 0) {
-        const confirmOverwrite = confirm(t('confirmOverwriteImport'));
+        const confirmOverwrite = await showConfirmModal(t('confirmOverwriteImport'), { danger: true });
         if (!confirmOverwrite) {
           event.target.value = '';
           return;
@@ -3995,17 +4061,17 @@ function importDataFromJSON(event) {
       if (deptSelect) deptSelect.value = currentDept;
 
       initUI();
-      showToast(t('toastImportSuccess'));
+      showToast(t('toastImportSuccess'), 'success');
     } catch (err) {
       console.error("İçe aktarma hatası:", err);
-      alert(t('alertImportError') + err.message);
+      showToast(t('alertImportError') + err.message, 'error', 3600);
     } finally {
       event.target.value = '';
     }
   };
 
   reader.onerror = function() {
-    alert(t('alertFileReadError'));
+    showToast(t('alertFileReadError'), 'error', 3600);
     event.target.value = '';
   };
 
@@ -4046,9 +4112,9 @@ function fallbackCopyText(text) {
   textArea.select();
   try {
     document.execCommand('copy');
-    showToast(t('shareLinkCopied'));
+    showToast(t('shareLinkCopied'), 'success');
   } catch (err) {
-    prompt("Paylaşım linki:", text);
+    showToast(currentLang === 'en' ? 'Could not copy link automatically. Please copy from the share box.' : 'Bağlantı otomatik kopyalanamadı, lütfen paylaşım kutusundan kopyalayın.', 'warning', 3600);
   }
   document.body.removeChild(textArea);
 }
@@ -4067,7 +4133,7 @@ function copyShareLink() {
     };
 
     if (typeof LZString === 'undefined') {
-      alert("LZ-String kütüphanesi henüz yüklenemedi.");
+      showToast(currentLang === 'en' ? 'LZ-String library is not loaded yet.' : 'LZ-String kütüphanesi henüz yüklenemedi.', 'warning', 3200);
       return;
     }
 
@@ -4347,7 +4413,7 @@ function createShareExportBoard(options = {}) {
 
 async function exportPlanAsPng(options = {}) {
   if (typeof html2canvas === 'undefined') {
-    alert("html2canvas kütüphanesi henüz yüklenmedi.");
+    showToast(currentLang === 'en' ? 'html2canvas library is not loaded yet.' : 'html2canvas kütüphanesi henüz yüklenemedi.', 'warning', 3200);
     return;
   }
 
@@ -4473,9 +4539,9 @@ function loadSharedPlanFromHash() {
   }
 }
 
-function saveSandboxToMyPlan() {
+async function saveSandboxToMyPlan() {
   if (!isSandboxMode) return;
-  if (!confirm(t('sandboxSaveConfirm'))) {
+  if (!(await showConfirmModal(t('sandboxSaveConfirm')))) {
     return;
   }
 
@@ -4618,13 +4684,13 @@ async function handleTranscriptFileSelected(event) {
   const fileInput = document.getElementById('transcriptFileInput');
 
   if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-    alert(t('transcriptPdfError'));
+    showToast(t('transcriptPdfError'), 'error', 3600);
     if (fileInput) fileInput.value = '';
     return;
   }
 
   if (typeof pdfjsLib === 'undefined') {
-    alert('PDF okuyucu kütüphanesi yüklenemedi. Lütfen internet bağlantınızı kontrol edin veya metin olarak yapıştırın.');
+    showToast(currentLang === 'en' ? 'PDF reader library could not be loaded. Please check your connection or paste as text.' : 'PDF okuyucu kütüphanesi yüklenemedi. Lütfen internet bağlantınızı kontrol edin veya metin olarak yapıştırın.', 'error', 4000);
     return;
   }
 
@@ -4642,10 +4708,10 @@ async function handleTranscriptFileSelected(event) {
     }
 
     previewTranscript();
-    showToast('✓ PDF başarıyla okundu!');
+    showToast(currentLang === 'en' ? '✓ PDF read successfully!' : '✓ PDF başarıyla okundu!', 'success');
   } catch (err) {
     console.error("PDF okuma hatası:", err);
-    alert(t('transcriptPdfError'));
+    showToast(t('transcriptPdfError'), 'error', 3600);
   } finally {
     if (fileInput) fileInput.value = '';
   }
@@ -5318,14 +5384,14 @@ function shiftAllTranscriptTerms(direction) {
   renderTranscriptPreviewTable();
 }
 
-function applyParsedTranscript() {
+async function applyParsedTranscript() {
   if (!transcriptPreviewRows || transcriptPreviewRows.length === 0) return;
   const activeRows = transcriptPreviewRows.filter(r => !r.ignored);
   if (activeRows.length === 0) return;
 
   const state = getDeptState(currentDept);
   if (state.instances && state.instances.length > 0) {
-    if (!confirm(t('transcriptApplyConfirm'))) {
+    if (!(await showConfirmModal(t('transcriptApplyConfirm')))) {
       return;
     }
   }
@@ -5543,13 +5609,13 @@ function removeCurrentMinor(shouldSave = true) {
   }
 }
 
-function removeMinor(event) {
+async function removeMinor(event) {
   if (event) {
     event.stopPropagation();
     event.preventDefault();
   }
   closeToolsDropdown();
-  if (confirm(t('confirmRemoveMinor'))) {
+  if (await showConfirmModal(t('confirmRemoveMinor'), { danger: true })) {
     removeCurrentMinor(true);
   }
 }
@@ -5798,13 +5864,13 @@ function removeCurrentDm(shouldSave = true) {
   }
 }
 
-function removeDm(event) {
+async function removeDm(event) {
   if (event) {
     event.stopPropagation();
     event.preventDefault();
   }
   closeToolsDropdown();
-  if (confirm(t('dmRemoveConfirm'))) {
+  if (await showConfirmModal(t('dmRemoveConfirm'), { danger: true })) {
     removeCurrentDm(true);
   }
 }
@@ -6074,7 +6140,7 @@ async function handleFeedbackSubmit(event) {
   const description = (descInput ? descInput.value : "").trim();
 
   if (!title || !description) {
-    alert(t('alertFeedbackRequired'));
+    showToast(t('alertFeedbackRequired'), 'warning', 3200);
     return;
   }
 
@@ -6115,10 +6181,10 @@ async function handleFeedbackSubmit(event) {
     if (titleInput) titleInput.value = '';
     if (descInput) descInput.value = '';
     closeFeedbackModal();
-    showToast(t('toastFeedbackSuccess'));
+    showToast(t('toastFeedbackSuccess'), 'success');
   } catch (err) {
     console.error("Geri bildirim hatası:", err);
-    alert(`${t('alertFeedbackError')}${err.message || t('tryAgain')}`);
+    showToast(`${t('alertFeedbackError')}${err.message || t('tryAgain')}`, 'error', 3600);
   } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
@@ -6557,7 +6623,26 @@ function resetMobileLayoutState(isMobileView) {
   }
 }
 
+function syncViewportMetaForDevice() {
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  if (!viewportMeta) return;
+  const isPhone = (window.innerWidth || document.documentElement.clientWidth || 0) <= 767;
+  const desired = isPhone
+    ? 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
+    : 'width=device-width, initial-scale=1.0, viewport-fit=cover';
+  if (viewportMeta.getAttribute('content') !== desired) {
+    viewportMeta.setAttribute('content', desired);
+  }
+}
+
+document.addEventListener('gesturestart', (e) => {
+  if ((window.innerWidth || document.documentElement.clientWidth || 0) <= 767) {
+    e.preventDefault();
+  }
+});
+
 function updateLayout() {
+  syncViewportMetaForDevice();
   const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
   const isMobileView = currentWidth <= 767 && mobileBreakpointMq.matches;
   const crossedToDesktop = lastLayoutWidth <= 767 && currentWidth >= 768;

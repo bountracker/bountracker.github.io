@@ -1,12 +1,13 @@
-const CACHE_NAME = 'bountracker-cache-v6';
+const CACHE_NAME = 'bountracker-cache-v7';
 const CORE_SHELL = [
   '/',
   '/index.html',
   '/style.css',
   '/app.js',
   '/manifest.json',
-  '/favicon-192.png',
-  '/favicon-512.png'
+  '/favicon.ico',
+  '/assets/icons/favicon-192.png',
+  '/assets/icons/favicon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
