@@ -9,6 +9,7 @@
   --card-bg: var(--bg-surface);
   --accent-color: #003366;
   --accent-hover: #002244;
+  --primary-color: #2563eb;
   --text-primary: #0f172a;
   --text-color: #1e293b;
   --text-secondary: #475569;
@@ -79,6 +80,7 @@
   --card-bg: var(--bg-surface);
   --accent-color: #60a5fa;
   --accent-hover: #93c5fd;
+  --primary-color: #3b82f6;
   --text-primary: #f1f5f9;
   --text-color: #f1f5f9;
   --text-secondary: #94a3b8;
