@@ -172,9 +172,8 @@ html[data-theme="dark"] {
 }
 
 body {
-  min-height: 100%;
-  min-height: 100dvh;
-  height: 100%;
+  min-height: var(--app-height, 100dvh);
+  height: var(--app-height, 100dvh);
   width: 100%;
   min-width: 100%;
   max-width: 100%;
@@ -5722,9 +5721,8 @@ body {
   width: 100%;
   min-width: 100%;
   max-width: 100%;
-  min-height: 100%;
-  min-height: 100dvh;
-  height: 100%;
+  min-height: var(--app-height, 100dvh);
+  height: var(--app-height, 100dvh);
   overflow: hidden;
   overflow-x: hidden;
 }
@@ -6278,11 +6276,4 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-}
-
-@media (max-width: 1024px), all and (display-mode: standalone) {
-  .top-bar {
-    padding-top: calc(max(env(safe-area-inset-top, 0px), 24px) + 12px);
-    height: auto;
-  }
 }

@@ -6627,7 +6627,30 @@ function resetMobileLayoutState(isMobileView) {
   }
 }
 
+function syncVisualViewportHeight() {
+  const vv = window.visualViewport;
+  if (!vv) {
+    document.documentElement.style.setProperty('--app-height', '100dvh');
+    return;
+  }
+  const keyboardOpen = (window.innerHeight - vv.height) > 80;
+  if (keyboardOpen) {
+    document.documentElement.style.setProperty('--app-height', `${Math.round(vv.height)}px`);
+    if (window.scrollY !== 0 || window.scrollX !== 0) {
+      window.scrollTo(0, 0);
+    }
+  } else {
+    document.documentElement.style.setProperty('--app-height', '100dvh');
+  }
+}
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', syncVisualViewportHeight);
+  window.visualViewport.addEventListener('scroll', syncVisualViewportHeight);
+}
+
 function updateLayout() {
+  syncVisualViewportHeight();
   const currentWidth = window.innerWidth || document.documentElement.clientWidth || 0;
   const isMobileView = currentWidth <= 767 && mobileBreakpointMq.matches;
   const crossedToDesktop = lastLayoutWidth <= 767 && currentWidth >= 768;
